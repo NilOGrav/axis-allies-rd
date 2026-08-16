@@ -1,0 +1,215 @@
+ID;Cluster;Tier;Domain;Name;Description;Type;Unit;Category;Flavour text;Dependency1;Dependency2;Dependency3;Dependency4;Remarks
+A.1.01;A;1;Air;Improved Airframes;Fighters defend at +1 one round per battle.;Upgrade;Fighters;;Small durability increase.;;;;;
+A.1.02;A;1;Air;Air Transport Doctrine;Tactical Bombers may airlift 1 infantry unit per turn, in stead of bombing or attacking and drop it in friendly territory.;Upgrade;Tactical Bombers;;Operational reach.;;;;;
+A.1.03;A;1;Air;Zeppelin;Can perform normal Tactical Bombing without the possibility to defend against by AAA;Unit;Airship;; ;;;;;
+A.2.01;A;2;Air;Defensive Turrets;Bombers may fire defensively when intercepted.;Upgrade;Bombers;;Survivability;X.A.1;;;;
+A.2.02;A;2;Air;Improved scramble (ATC);Scramble +6 (up to 3 may be allied).;Upgrade;Fighters;;;;A.1.01;;;
+A.2.03;A;2;Air;Bombing Calibration;Strategic bombing ignores first 1 damage rolled.;Upgrade;Strategic Bombers;;Consistency;X.A.1;;;;
+A.2.04;A;2;Air;Zeppelin mk2;Can perform normal Strategic Bombing without the possibility to defend against by AAA;Upgrade;Airship;;;;A.1.03;;;
+A.3.01;A;3;Air;Air Research Center;Enables Research for Air Units;Facility;Research Center;;;X.A.2;;;;
+A.4.01;A;4;Air;KEYSTONE: Long-Range Aircraft;All aircraft gain +1 movement.;Upgrade;Aircraft;KEYSTONE;;A.3.01;A.2.01;A.2.03;;
+A.4.02;A;4;Air;KEYSTONE: Advanced Fighter Development;"During bombing raids your escorting or intercepting fighters now hit on a “1” or “2” instead of just a “1”.
+Optional OIL: if fighters are present in battle first battle costs no oil.";Upgrade;Fighters;KEYSTONE;;A.3.01;A.2.02;E.3.02;;
+A.4.03;A;4;Air;Paratroopers;Up to two infantry can be picked up by a Tactical bomber and dropped off to join combat even if the Tactical bomber is joining this or another combat (limited only by the legal move of the Tactical Bomber);Upgrade;Tactical Bombers;;;A.3.01;A.2.04;;;
+A.4.05;A;4;Air;Carpet Bombing;Strategic Bombing on troops: If the attacking army has AAA, they will defend. Every hit removes one troop from the battle;;;;;A.3.01;A.2.03;;;
+A.5.01;A;5;Air;Jet Engine Theory;Fighters attack at +1.;Upgrade;Fighters;;High-risk spike.;I.4.02;A.4.02;;;
+A.5.02;A;5;Air;Engine Optimization;Tactical bombers may perform bombing + combat in same turn if movement allows.;Upgrade;Tactical Bombers;;Operational flexibility.;;A.4.01;;;
+A.5.03;A;5;Air;Heavy Bomber Design;Your strategic bombers are now heavy bombers. When attacking, whether in a battle or a strategic bombing raid, roll two dice for each bomber and select the best result.;Upgrade;Strategic Bombers;;Controlled power.;F.4.03;A.4.01;;;
+A.5.04;A;5;Air;Heavy Strategic Bombing Doctrine;Strategic Bombing now hits on a +1;Upgrade;Strategic Bombers;;;;A.4.02;;;
+A.6.01;A;6;Air;Early Jet Fighters;The attack value of your fighters is now 4 instead of 3. ;Upgrade;Fighters;;;E.3.02;A.5.01;;;
+A.6.02;A;6;Air;Under the cover of the night;Strategic Bombing Raids now have two rolls for Strategic bombers and Tactical bomber may join;Upgrade;Bombers;;;;A.5.04;;;
+A.6.03;A;6;Air;Under the Radar;Tactical bombing raids now have two dice per plane.;Upgrade;Tactical Bombers;;;;A.5.02;;;
+A.6.04;A;6;Air;Flying Fortress Capability;Strategic bombers ignore first interceptor hit. Enables atomic delivery.A5/D2/M8/C15;Unit;Flying Fortress;;;E.3.03;A.5.03;E.5.03;;Cross-domain
+E.0.01;E;0;Energy And Physics;Basic Research Facility;Unlocks tier 1 & 2 tech;Facility;Research Center;;No inherent bonus — structural gate only.;;;;;Cross-domain
+E.1.01;E;1;Energy And Physics;Early Radar;AAA (both from facilities and units) hit on 1–2 instead of 1.;Upgrade;AAA;;Small air deterrent;;;;;
+E.1.02;E;1;Energy And Physics;Heavy Water Chemistry;Allows Heavy Water Facility construction, which produces 1 Heavy Water Resource per turn.;Facility;Heavy Water Facility;;;;;;;
+E.1.03;E;1;Energy And Physics;Improved AA Procedures;Each AAA may fire at +1 additional target.;Upgrade;AAA;;Not stronger — just broader coverage.;;;;;
+E.2.01;E;2;Energy And Physics;Integrated Air Defense Network;AA may reroll one miss per battle.;Upgrade;AAA;;;X.E.1;;;;
+E.2.02;E;2;Energy And Physics;Reactor Theory;Enables Nuclear Reactor research.;Tech;;;;;;;;Cross-domain
+E.2.03;E;2;Energy And Physics;Radar Wave Theory;All fighters intercept at +1.;Upgrade;Fighters;;;;;;;Cross-domain
+E.3.01;E;3;Energy And Physics;Energy & Physics Institute;Enables Research for Rockets and Atomic Bomb;Facility;Research Center;;;;;;;Cross-domain
+E.3.02;E;3;Energy And Physics;Advanced Metallurgy;Required for Jets, Rockets, Flying Fortress. It is now also possible to produce a aluminium factory.;Facility;Aluminium factory;KEYSTONE;;;;;;Cross-domain
+E.3.03;E;3;Energy And Physics;Heavy Armor Production;Required for Submarines, Capital ships and Tanks. It is now also possible to build a steel factory.;Facility;Steel Factory;KEYSTONE;;;;;;
+E.4.01;E;4;Energy And Physics;KEYSTONE: Reactor Engineering;Required for Atomic Program & Nuclear Subs.;Tech;;KEYSTONE;;E.3.01;E.2.02;;;
+E.4.02;E;4;Energy And Physics;KEYSTONE: Rocket Propulsion Theory;May build Rocket sites (counts as base), which is able to build rockets. ?? During the Strategic and Tactical Bombing Raids step of your Conduct Combat phase each turn, each of your operative air bases can make a single rocket attack against an enemy facility within 4 ?? spaces of it. This attack does one die roll of damage to that facility. Rockets may not be fired over neutral territories.;Base;Rocket Site;KEYSTONE;;E.3.01;E.3.02;;;
+E.5.01;E;5;Energy And Physics;Uranium Processing;Allows Nuclear Reactor construction.;Facility;Nuclear Reactor;KEYSTONE;;;E.4.01;;;
+E.5.02;E;5;Energy And Physics;Rocket Development Program;Your air bases can now launch rockets. ;Unit;Rockets;KEYSTONE;;F.4.03;E.4.02;;;
+E.5.03;E;5;Energy And Physics;Strategic Payload Integration;Enables delivery capabilities of Atomic bomb (prereq for Flying fortress, Nuclear Sub, Nukes);Tech;;KEYSTONE;Gateway tech;E.3.01;;;;
+E.6.01;E;6;Energy And Physics;Advanced Ballistics;Rockets hit on 1–2.;Upgrade;Rockets;;;;E.5.02;;;
+E.6.02;E;6;Energy And Physics;Cruise Missile Doctrine;Nukes have a range of 10 spaces (M10);Upgrade;Nukes;;;;E.5.02;;;
+E.6.03;E;6;Energy And Physics;Nuclear Delivery;Nuclear warheads capability on rockets. Buy unarmed Nukes for 15 IPC.;Unit;Nukes;;;E.5.02;E.5.03;;;
+F.1.01;F;1;Logistics And Industry;Rail Coordination;You may move newly mobilized land units from an Industrial Complex along rail-connected territories as if they where produced in the designated territory. One Railway section costs 2IPC and counts as base.;Base;Rail;;Mobility bump.;;;;;
+F.1.02;F;1;Logistics And Industry;War Bonds Campaign;During your Collect Income phase, roll a d6 and collect that many additional IPCs.;Bonus;;;Stable minor economy boost.;;;;;
+F.1.03;F;1;Logistics And Industry;Port Efficiency;New naval units may move 1 sea zone after being placed during mobilization (non-combat only).;Bonus;;;Faster deployment tempo.;;;;;
+F.1.04;F;1;Logistics And Industry;Lendlease;Can buy troops for allies during your own P&R phase (units will be your units in command of chosen ally).;Bonus;;;;;;;;
+F.1.05;F;1;Logistics And Industry;Supply Chain Optimization;Strategic bombing damage reduced by 1.;Upgrade;Strategic Bombers;;;;;;;
+F.2.01;F;2;Logistics And Industry;Standardized Parts;All newly produced units cost 1 IPC less.;Bonus;;;Small industrial efficiency boost.;;;;;
+F.2.02;F;2;Logistics And Industry;Seaplane base;An airfield and naval port at the same time and counts as both. Cost = 20 IPC.;Base;Seaplane base;;;;;;;
+F.2.03;F;2;Logistics And Industry;Increased Factory Production;Each of your industrial complexes can now produce additional units beyond their normal production ability. Major industrial complexes can mobilize up to 12 units, and minor one scan mobilize up to 4 units. Also, when repairing a damaged industrial complex, you can remove 2 damage markers for the cost of 1 IPC (in other words, half price). The maximum damage that can be applied to your industrial complexes is not increased.;Upgrade;Industrial Complex;;;F.1.05;;;;
+F.2.04;F;2;Logistics And Industry;Civil Defense Planning;Capital ignores first 2 SBR damage.;Bonus;;;;;;;;
+F.3.01;F;3;Logistics And Industry;Industrial & Logistics Bureau;Enables Research for Econimics and Infrastructure;Facility;;;;;;;;
+F.3.02;F;3;Logistics And Industry;Industrial Expansion;Capitol territories now have room for 5 facilities in stead of 4. Normal territories now have room for IPC-value + 1 facilities. Maximum for non-capitol territories stays 3.;Bonus;;KEYSTONE;;;;;;
+F.4.01;F;4;Logistics And Industry;Armoured Trains;Railway sections have AAA.;Upgrade;Rails;;;F.3.01;F.1.01;E.3.03;;
+F.4.02;F;4;Logistics And Industry;Industrial Relocation;Once per turn you may move a minor Industrial Complex 1 space.;Bonus;;;;F.3.01;F.1.01;;;
+F.4.03;F;4;Logistics And Industry;KEYSTONE: Mass Production;"Non-naval unit type costs 1 IPC less.
+Optional OIL: Oil derrick/platform cost reduced by 1 IPC";Bonus;;KEYSTONE;;F.2.03;F.3.01;;;KEYSTONE
+F.4.04;F;4;Logistics And Industry;War Economy Planning;May convert 1 captured Industrial Complex to operational next turn (also major Industrial Complexes).;Bonus;;;;F.3.01;;;;
+F.5.01;F;5;Logistics And Industry;Strategic Rail Network;Land Units moving in interconnected rail territories get a + 2 move bonus.;Upgrade;Rails;;;;F.4.01;;;
+F.5.02;F;5;Logistics And Industry;Industrial Mobilization;Industrial Complexes produce +1 unit.;Bonus;;KEYSTONE;;;F.4.03;;;
+F.5.03;F;5;Logistics And Industry;Improved Shipyards;"Your sea units are now cheaper to build. Use these revised costs:  Unit | IPC cost , Battleship | 17, Aircraft Carrier | 13, Cruiser | 9, Destroyer | 7, Transport | 6, Submarine | 5
+Optional OIL: first naval action costs no oil this turn.";Upgrade;Naval ports;;;;F.4.03;;;
+F.5.04;F;5;Logistics And Industry;Mobile factories;Minor Industrial Complexes can move 1 space during movement phase;Upgrade;Industrial Complex;;;;F.4.02;;;
+F.6.01;F;6;Logistics And Industry;Express Railway;Units may move over interconnected railways in friendly territory as if it is one move (also leading to attack).;Upgrade;Rails;;Railway may be bought during P&R Phase;;F.5.01;;;
+F.6.02;F;6;Logistics And Industry;Megafactories;You can buy mega-factories that have no limit on placing new units (when without damage) and produce 1 free unit per turn.;Facility;Mega-factory;;;F.3.02;F.5.02;;;
+F.6.03;F;6;Logistics And Industry;Advanced Assembly Lines;May build one extra free fighter per turn.;Bonus;;;;;F.5.02;;;
+I.1.01;I;1;Intelligence;Germany: Enigma;Germany: While enigma is active, every turn in every first battle with every different enemy it attacks Germany has a surprise first combat round i,e, the round cannot be defended and casualties are removed from the board without firing back, similar to Submarines’ Surprise Attack.;Tech;;;;;;;;
+I.1.02;I;1;Intelligence;Basic Espionage;Once per turn, peek at one opponent’s IPC total before purchases.;Bonus;;;Information edge.;;;;;
+I.1.03;I;1;Intelligence;Codebreaking;Once per turn force opponent to reroll one battle round.;Bonus;;;;;;;;
+I.1.04;I;1;Intelligence;Propaganda Campaign;At the end of the turn place influence marker in neutral territory (for 4 IPC or move 1 landunit in this territory and dissolve unit) and move alignment from neutral to your side on your next turn only if you have the most influence markers (enemy aligned = strict neutral => allied aligned) This will not turn Mongolian Neutrals in Russian army troops.;Bonus;;;;;;;;
+I.2.01;I;2;Intelligence;UK: Alan Turing;In order to use Enigma for every battle throw a d6 to determine if enigma is working by rolling a 1.;Tech;;;;;I.1.01;;;(*) by Germany
+I.2.02;I;2;Intelligence;Cryptographic Systems;Surprise attack on sea battle, one battle per turn in total. Same as submarine, but for whole fleet and not defendable by destroyers.;Bonus;;;;;;;;
+I.2.03;I;2;Intelligence;Propaganda Effect on Mobilization;+1 Infantry every Purchase & Repair Phase (or depending on the amount of territories OCCUPIED);Bonus;;;;;;;;
+I.2.04;I;2;Intelligence;Camouflage;In one battle this turn, when defending with Land Units, they may have one surprise attack at the beginning of combat. ;Tech;;;;;;;;
+I.3.01;I;3;Intelligence;Intelligence Directorate;Enables development of various intelligence activities;Facility;Research Center;;;;;;;
+I.4.01;I;4;Intelligence;KEYSTONE: Espionage Networks;Sabotage an Industrial Complex on 1–2 once per turn. Then roll d6 for damage.;Bonus;;KEYSTONE;;I.3.01;I.1.02;;;
+I.4.02;I;4;Intelligence;Signals Interception;Reduce one enemy’s air movement by 1 once per turn. Declare during your own mobilization phase.;Bonus;;;;I.3.01;;;;
+I.4.03;I;4;Intelligence;Stealth Techniques;Disables Enemy Radar capabilities this round for 1 enemy at cost of 2 IPC;Tech;Counter;;;I.3.01;E.1.01;E.2.03;;(**) by on of your enemies
+I.4.04;I;4;Intelligence;Resistance Coordination;Spawn 1 partisan in occupied original territory (once per turn). Join fight as infantry as soon as territory is attcked / fight on their own.;Upgrade;Infantry;;;;;;;
+I.5.01;I;5;Intelligence;Counterintelligence;Ignore one successful sabotage attempt.;Bonus;;;;;I.4.01;;;
+I.5.02;I;5;Intelligence;Scientific Espionage;Opponent of choice must reveal one research choice. On 1 for a d6 roll cancel this research. The party spying may or may not keep this information private.;Bonus;;;;;I.4.01;;;
+I.5.03;I;5;Intelligence;Political Influence Operations;Where applicable reduce Intelligence actions cost by 1 IPC;Bonus;;;;X.I.4;;;;
+I.5.04;I;5;Intelligence;Mustering locals;In every non-original territory that you occupy get 1 infantry during Mobilization Phase;Bonus;;;;X.I.4;I.2.03;;;
+I.6.01;I;6;Intelligence;Counter sabotage;Cancel one existing tech of your choice from an enemy for XX IPV and a 1 on a d6 roll.;Bonus;;;;F.2.04;I.5.01;;;
+I.6.02;I;6;Intelligence;Espionage;Steal tech from an enemy for 2  IPC and a 1 on a d6 roll (only tech that you are enabled for);Tech;;;;;I.5.02;;;
+I.6.03;I;6;Intelligence;Sabotage;Damage 1 facility or base for 2 IPC this turn. Then roll d6 for damage.;Bonus;;;;X.I.5;;;;
+I.6.04;I;6;Intelligence;Reduced Bombing effect;"Strategic bombing damage reduced by 50% (round down).
+Optional OIL: Oil facilities take no damage on rolls of 1–2";;;;;;;;;
+L.1.01;L;1;Land;Land mine (field);Cost 3 IPC, defend 2 times @ 2 before first round of battle against Land units but tanks, will be removed when it hits, changes owner in case territory is captured and survives battle. In case of multiple: roll all at once and distribute hits over land mines in any way: 2 hits on a 4 die roll can be appointed to one and the same land mine.;Unit;Land mines;;;;;;;
+L.1.02;L;1;Land;Barbed wire;Infantry movement penalty. Cost is 1 IPC.;Unit;Barbed wire;;;;;;;
+L.1.03;L;1;Land;Entrenchment Doctrine;Last infantry defending in original territories may absorb 1 extra hit before removal.;Upgrade;Infantry;;Makes homeland defense slightly stickier.;;;;;
+L.1.04;L;1;Land;Barracks;Produce regular infantry (not specialized units) at the cost of 3 IPP. ;Facility;Barracks;;;;;;;
+L.1.05;L;1;Land;Field hospital;By a 1 by D6 infantry casualty return to nearest field hospital and “respawn” there (but cannot participate in movement phase). If two Field hospitals are at the same distance: owner chooses.;Facility;Hospital;;;;;;;
+L.1.06;L;1;Land;Mechanized Logistics;Tanks may blitz through 1 additional territory if unoccupied.;Upgrade;Tanks;;;;;;;
+L.2.01;L;2;Land;Czech hedgehogs;Tanks movement penalty -1;Unit;Czech hedgehogs;;;;;;;
+L.2.02;L;2;Land;Improved Training;Infantry roll 1 die per round where one miss may be rerolled if attacking with artillery support.;Upgrade;Infantry;;Small reliability boost. No raw stat change.;;;;;
+L.2.03;L;2;Land;Morale Systems;Once per turn, one land battle may ignore the first casualty taken.;Bonus;;;Represents cohesion under fire.;;;;;
+L.2.04;L;2;Land;Tank Destroyers;Will attack @ 3 before first round of combat directed at tanks. Every tanks destroyed this way will de removed from battlefield. After that Tank destroyers count as default Mech. Inf.;Unit;Tank destroyers;;;X.L.1;;;;
+L.2.05;L;2;Land;Urban Warfare Training;Infantry defend at +1 in cities/VC territories.;Upgrade;Infantry;;;;;;;
+L.3.01;L;3;Land;Land Warfare Research Center;Enables Research for Land Units and Bunkers;Facility;Research Center;;;X.L.2;;;;
+L.4.01;L;4;Land;Bunkers;Absorbs 1 hit every round in battle as long as at least one land unit present. Can be destroyed by 5 damage from (tactical) bombing.;Base;Bunkers;;;L.3.01;;;;
+L.4.02;L;4;Land;KEYSTONE: Mechanized Warfare Doctrine;Mechanized Infantry and Infantry may move +1;Upgrade;Tanks;KEYSTONE;;L.3.01;X.L.2;;;
+L.4.03;L;4;Land;KEYSTONE: Advanced Artillery;Each of your artillery units can now provide greater support. One artillery unit can support up to 2 infantry and/or mechanized infantry units per attack. Up to 2 infantry and/or mechanized infantry units when coupled with 1 artillery unit have attack values of 2.;Upgrade;Artillery;KEYSTONE;;L.3.01;X.L.2;;;
+L.5.01;L;5;Land;Concrete bunkers;Every round attacker must sacrifice one land unit;Upgrade;Bunkers;;;;L.4.01;;;
+L.5.02;L;5;Land;Enforced bunkers;Bunkers get AAA;Upgrade;Bunkers;;;;L.4.01;;;
+L.5.03;L;5;Land;Self-Propelled Artillery;Artillery may Blitz and move +1 (like tanks) and support up to two Infantry;Upgrade;Artillery;;;;L.4.03;;;
+L.5.04;L;5;Land;Improved Artillery;Artillery may support 2 Mechanized infantry.;Upgrade;Artillery;;;F.4.03;L.4.03;;;
+L.5.05;L;5;Land;Improved Mechanized Infantry;Each of your mechanized infantry units that is paired up with a tank or an artillery now has an attack value of 2. Also, your mechanized infantry may now blitz.;Upgrade;Mechanized Infantry;;;;L.4.02;;;
+L.5.06;L;5;Land;Marines;Marines on transport “arm” the transport +1 attack and +2 defense for every marine aboard add 1 hitpoint to transport. Attack is same as Infantry + 1.;Unit;Marines;;;;L.4.02;;;
+L.5.07;L;5;Land;Breakthrough Doctrine;First round tank hits may not be assigned to tanks.;Upgrade;Tanks;;Encourages armored pushes;;L.4.02;;;
+L.6.01;L;6;Land;Nuclear bunkers;Infantry present will survive nuclear apocalypse.;Upgrade;Bunkers;;;;L.4.01;;;
+L.6.02;L;6;Land;Defensive Fortifications;Place 1 free bunker per turn in controlled territory.;Bonus;;;;L.4.01;L.5.01;L.5.02;;(***) One of the two
+L.6.03;L;6;Land;Artillery Fire Control;Artillery attack at 3 when paired.;Upgrade;Artillery;;;;L.5.03;;;
+L.6.04;L;6;Land;Mobile Mechanized infantry;Each mechanized infantry unit may pull an artillery unit up to 2 spaces during the combat movement phase, or non combat movement phase (both units must originate from the same territory).;Upgrade;Mechanized Infantry;;;;L.5.04;L.5.05;;(***) One of the two
+L.6.05;L;6;Land;Improved Tanks;All tanks now attack +1;Upgrade;Tanks;;;;L.5.07;;;
+L.6.06;L;6;Land;Commandos;Can be dropped in enemy territories behind enemy lines and occupy territory, need to be dropped by transport planes or tactical bombers capable of dropping paratroopers.;Unit;Commandos;;;A.4.03;L.5.06;A.1.02;;(***) One of the two
+N.1.01;N;1;Naval;Improved Transport Capacity;Transport may carry two land units of ANY choice;Upgrade;Transports;;;;;;;
+N.1.02;N;1;Naval;Extended Range Submarines;Submarines gain +1 movement.;Upgrade;Submarines;;;;;;;
+N.1.03;N;1;Naval;Sea mines;When entering a seazone with seamines roll a d6 on a 1 resolve a hit anywhere on the fleet entering the seazone.;Unit;Sea mines;;;;;;;
+N.1.04;N;1;Naval;Secret submarine harbour;Submarine secret harbours may be built in Neutral and enemy territories. To do so pay 10 IPC while at least one naval unit is present in the seazone during mobilization phase. If territory is or becomes occupied by one of your enemies, they roll one d6 every turn on a 1 remove the base. This base cannot be the target of bombardements.;Base;Submarine Port;;;;;;;
+N.1.05;N;1;Naval;Jet Propulsion;Cruisers may move +2;Upgrade;Cruisers;;;;;;;
+N.2.01;N;2;Naval;Advanced Submarine Hulls;Submarines defend at 2 instead of 1.;Upgrade;Submarines;;;;N.1.02;;;
+N.2.02;N;2;Naval;Advanced ASW;Destroyers hit submarines on 1–2.;Upgrade;Destroyers;;;;;;;
+N.2.03;N;2;Naval;Torpedos;Capital ships can defend against Suprise Strikes from submarines, the same way destroyers can.;Upgrade;Capital ships;;;X.N.1;;;;
+N.2.04;N;2;Naval;Gatekeeper systems;Transports and Capital ships now have AAA Guns similar to Industrial Complexes and other facilities;Upgrade;Transports;;;;;;;
+N.3.01;N;3;Naval;Naval Research Center;Enables Research for Sea Units and Ports;Facility;;;;X.N.2;;;;
+N.4.01;N;4;Naval;KEYSTONE: Submarine Fleet Coordination;Submarines may submerge if there is only one destroyer present.;Upgrade;Submarines;KEYSTONE;;N.3.01;N.2.02;;;
+N.4.02;N;4;Naval;KEYSTONE: Surface Fleet doctrine;All surface ships may move +1 (Transport, Destroyer, Cruiser, Carrier, Battleship);Upgrade;Surface ships;KEYSTONE;;N.3.01;F.3.02;;;
+N.4.03;N;4;Naval;Sonar;In seazones w/ enemy naval ports, submarines loose special abilities like there is a destroyer present.;Tech;;;;N.3.01;;;;
+N.4.04;N;4;Naval;Armed transports;Transports attack and defend at 1.;Upgrade;Transports;;;N.3.01;;;;
+N.4.05;N;4;Naval;Heavy Transport Capacity;Transports may carry up to three land units of which one is infantry;Upgrade;Transports;;;N.3.01;;;;
+N.5.01;N;5;Naval;Mobile submarines;Submarines can submerge after suprise attack;Upgrade;Submarines;;;;N.4.01;;;
+N.5.02;N;5;Naval;Silent Running;Submarines may ignore first destroyer cancellation per turn.;Upgrade;Submarines;;Limited stealth;;N.4.01;;;
+N.5.03;N;5;Naval;Super battleships;Battleships can attack with two dice;Upgrade;Battleships;;;;N.4.02;;;
+N.5.04;N;5;Naval;Fleet Screening Doctrine;Pairing with cruisers gives +1 attack and defense to Carrier.;Upgrade;Cruisers;;;;N.4.02;;;
+N.6.01;N;6;Naval;Nuclear Submarine Doctrine;Submarines may move 2 extra.;Upgrade;Submarines;;Strategic mobility.;;N.5.02;E.4.01;;
+N.6.02;N;6;Naval;Advanced Submarine Propulsion;Submarines may carry special weapons (Atomic Bomb) and launch them from an adjacent seazone onto a territory.;Unit;Supersubmarines;;;;N.5.01;E.5.03;;
+N.6.03;N;6;Naval;Heavy battleship;Battleships can stand 3 hits, where 1 hits has no functional impact;Upgrade;Battleships;;;E.3.03;N.5.03;;;
+N.6.04;N;6;Naval;Heavy carriers;Carriers can attack and defend +1.;Upgrade;Aircraft carriers;;;F.5.02;N.5.04;;;
+F.0.01;E;0;Energy And Physics;Oil Derrick;Build an Oil Derrick for 6 IPC in an oil producing territory to start producing the mentioned amount of oil each turn. Available from the start.;Facility;Oil Derrick;OIL;Every power has this capability.;;;;;
+E.1.05;E;1;Energy And Physics;Improved Refining;+1 Oil from one controlled oil territory per turn;Bonus;;OIL;Flexible boost, great for all nations;;;;;
+F.1.06;F;1;Logistics And Industry;Fuel Efficiency;Once per turn, ignore oil cost for: 1 land attack OR 1 air mission.;Bonus;;OIL;Reduces pressure without removing system;;;;;
+E.1.04;E;1;Energy And Physics;Basic Drilling;Oil Derricks cost -1, IPC Build time unaffected, Oil Platforms become available.;Bonus;;OIL;Encourages expansion gameplay;;;;;
+E.2.05;E;2;Energy And Physics;Advanced Drilling;All oil pumps produce +1 Oil (max +50% rounding down);Bonus;;OIL;Huge for Middle East / DEI;E.1.04;;;;
+E.2.04;E;2;Energy And Physics;Synthetic Fuel Production;Synthetic Oil Plant available to build. Use it to cnvert 3 IPC → 1 Oil. Max: 3 oil per turn.;Facility;Synthetic Oil Plant;OIL;Essential for Germany-type situations;;;;;
+F.2.05;F;2;Logistics And Industry;Fuel Logistics;Naval movement into hostile zones costs:  1 Oil for up to 2 sea zones;Bonus;;OIL;Big naval buff (especially Japan/UK/USA);;;;;
+F.2.06;F;2;Logistics And Industry;Protected Oil Infrastructure;Oil derricks/platforms: require 2 bombing hits to disable, repair cost reduced by 1 IPC.;Upgrade;Oil Derrick / Oil Platform;OIL;Counters bombing strategy;;;;;
+F.2.07;F;2;Logistics And Industry;Oil Platform;Build an Oil Platform for 8 IPC in an oil producing seazone to start producing the mentioned amount of oil each turn. The enemy can capture the Oil Platform by defeating you navy in this seazone and claim the platform. Available after research.;Facility;Oil Platform;OIL;;E.1.04;;;;
+E.4.04;E;4;Energy And Physics;Offshore Extraction;Advanced oil platforms produce 2 Oil instead of 1;Upgrade;Oil Platform;OIL;Turns sea control into economic power;E.1.04;;;;
+F.4.05;F;4;Logistics And Industry;Advanced Fuel Efficiency;Oil costs reduced by 50% (round up) for: Land OR air (choose each turn);Bonus;;OIL;Massive operational flexibility;F.1.06;;;;
+F.4.06;F;4;Logistics And Industry;Strategic Fuel Reserves;Oil storage cap = +10. Pay 2 IPC per needed oil: Ignore all oil penalties.;Bonus;;OIL;“Emergency war economy” button;;;;;
+E.4.03;E;4;Energy And Physics;Synthetic Oil Expansion;Convert 2 IPC → 1 Oil: No per-turn cap;Bonus;;OIL;Late-game industrial monster (USA/Germany);E.2.04;;;;
+P.3.GO;P;3;Programs;Germany: Occultism: The Ahnenerbe Institute;Research Institute for the Occult generates 1 Vril energy token per turn. Every use of researched items cost an amount of Vril.;;;OCCULTISM;German Occultism;;;;;
+P.4.GO;P;4;Programs;Germany: Occultism: Expedition to Tibet;Occupy Tibet to obtain the ability: for 1 Vril energy token ignore one research dependency OR reduce research cost by 1 IPC.;Bonus;;OCCULTISM;German Occultism;P.3.GO;;;;
+P.5.GO;P;5;Programs;Germany: Occultism: Thule Society;You now have developed the Hannebeau II Saucer. For 1 Vril token the UFO can move 1 infantry from one place to another OR you may move one enemy aircraft back to it’s place of origin.;Unit;UFO;OCCULTISM;German Occultism;P.4.GO;;;;
+P.6.GO;P;6;Programs;Germany: Occultism: Spear of Longinus;Using the Spear of Destiny: for 1 Vril token once per turn you may determine the outcome of one die roll yourself.;Bonus;;OCCULTISM;German Occultism;P.5.GO;;;;
+P.7.FI;P;7;Programs;Fighter Jets;Fighters defend at 5 and move +1;Unit;Jet fighter;;;F.6.03;A.6.01;;;
+P.7.GA;P;7;Programs;Germany: Atlantik Wall;When there are bunkers in Normandy, Netherlands, Danmark and Norway those territories cannot be the target of Amphibious Assault, although starting combat from sea is still possible.;Upgrade;Bunkers;;Add cross-domain dep;N.4.03;L.6.02;;;
+P.7.GL;P;7;Programs;Germany: Wunderwaffen: LandKreuzer P. 1500;Super Heavy Armor: Landkreuzer P. 1500 Monster: attacks at 5 A5D5M2C14;Unit;LandKreuzer;;;E.5.01;L.6.05;;;
+P.7.GO;P;7;Programs;Germany: Occultism: Die Glocke;Once per round you can reset the turn of a power (self, enemy or ally). That turn starts all over. ;Unit;Die Glocke;OCCULTISM;;P.6.GO;;;;
+P.7.JP;P;7;Programs;Japan: Kido Butai Doctrine;Production of one extra ship every turn (including Capital Ships).;Unit;Aircraft carriers;;;;N.6.04;F.6.03;;
+P.7.NU;P;7;Programs;Project Manhattan – Development;Develop and Test Atomic Bomb: Pick one of your original territories and place two radiation tokens on it. Remove one every consecutive turn, as long as there are tokens, the IPC count is 1 IPC and max unit count is limited to infantry. You may move them during movement phase to neighboring territories. Additional to the Research cost pay 1 uranium resource and 2 heavy water.;Tech;;;;R.6.01;E.5.01;E.1.02;R.6.02;
+P.7.RU;P;7;Programs;Russia: Deep Battle Doctrine;(Mechanized) Infantry may move +1 and may move after combat if territory cleared.;Upgrade;(Mechanized) Infantry;;;I.5.04;L.6.06;L.6.04;;(***) One of the two
+P.7.SG;P;7;Programs;Rail Super Gun -  Schwerer Gustav;The armoured train artillry. Can move to all rail connected sections in one move and participate in combat 2 territories away. Stays in combat until all friendly land units are out of combat.  Can only be targeted by bombings (like a facility without AAA) A3/Dx/M1/C?;Unit;Gustav;;;;F.6.01;E.3.03;;
+P.7.SU;P;7;Programs;The Wolfpack: Super Submarines;The attack value of your submarines is now 3 instead of 2.;Upgrade;Submarines;;;N.6.01;E.3.03;;;
+P.7.UK;P;7;Programs;UK: Global Intelligence Network;Spy spawns in capital (A0/D0/M2/C8) and is able to sabotage facilities, steal or cancel tech (while in enemy capital) or cancel one battle this round from the power it is currently residing (play as interrupt in enemy’s combat phase, while not having performed one of your earlier options this round.;Unit;Spy;;;X.I.6;F.5.04;;;
+P.7.US;P;7;Programs;US: Air Supremacy;Get 1 airplane for free every mobilization phase. Bombers attack at +1 and +1 movement.;Upgrade;Airplanes;;;F.6.02;A.6.02;A.6.03;;(***) One of the two
+P.8.FI;P;8;Programs;Fighter Jets;Fighters attack at 5 and move +1;Upgrade;Jet fighter;;;;P.7.FI;;;
+P.8.GA;P;8;Programs;Germany: Atlantic Wall Pt. 2;For all coastal territories with bunkers the enemy’s Amphibious Assault is disabled when attacking this territory.;Upgrade;Bunkers;;;;P.7.GA;;;
+P.8.GL;P;8;Programs;Germany: Wunderwaffen: LandKreuzer P. 1500;Super Heavy ArmorLandkreuzer P. 1500 Monster now can absord 2 hits;Upgrade;LandKreuzer;;;;P.7.GL;;;
+P.8.GO;P;8;Programs;Germany: Occultism: Die Glocke;Once per round you can reset the turn of a power (self, enemy or ally). That turn is cancelled.;Upgrade;Die Glocke;OCCULTISM;;;P.7.GO;;;
+P.8.JP;P;8;Programs;Japan: Kido Butai Doctrine;Carriers can stand 3 hits, where 1 hits has no functional impact, may carry +1 aircraft and can participate in Amphibious Assaults.;Unit;Aircraft carriers;;;;P.7.JP;;;
+P.8.NU;P;8;Programs;Project Manahattan – Production;Able to produce the Atomic Bomb (you need transportation to deliver this) Dropping the Bomb: Atomic attack on a 1-4 d6 roll permanently destroys  all units and maximizes damage on facilities in territory (one-use weapon) and reduces production value of territory to 1 IPC for the duration of 5 years. Place radiation markers (10) in territory accordingly, remove one every round.  Must need a delivery system (nuclear sub, flying fortres or rocket) to use.;Unit;Atomic bomb;;;;P.7.NU;;;
+P.8.RU;P;8;Programs;Russia: Deep Battle Doctrine;Every major Industrial Complex creates one (Mechanized) Infantry during mobilization phase. ;Upgrade;(Mechanized) Infantry;;;;P.7.RU;;;
+P.8.SG;P;8;Programs;Rail Super Gun – Langer Gustav;Can combat 4 spaces away, hits +1  and has AAA that hits on +1;Upgrade;Gustav;;;;P.7.SG;;;
+P.8.SU;P;8;Programs;The Wolfpack: Suprise Tactics;If the number of submarines in a seazone outnumbers the amount of destroyers, the ability to cancel submarine special features is canceled: submarines can perform Suprise Strike, Submerge and Can’t Be Hit By Air Units.;Upgrade;Submarines;;;;P.7.SU;;;
+P.8.UK;P;8;Programs;UK: Global Intelligence Network;If spy is present in enemy territory AND territory is attacked by self or an ally spawn 3 infantry to join the fight.;Upgrade;Spy;;;;P.7.UK;;;
+P.8.US;P;8;Programs;US: Industrial capacity;Land Units built in Industrial Complexes may be placed in adjacent territories and Airplanes may be placed in any naval port you own. Build limit per IC +2 AND Land units cost -1 IPC.;Bonus;;;;N.4.05;P.7.US;;;
+R.1.01;R;1;Resource;Oil;"Oil acts as a second currency (like IPCs) BUT: it is mainly used for operations (movement/combat), not required to be transported, stored and spent nationally. Oil can be derived from oil producing territories via Oil Derricks or seazones via Oil Platform or by developing a Synthetic Oil Plant. Japan starts with 1 oil in the bank.
+Oil costs: Land: 1 oil per major offensive Air: 1 oil per battle Naval: 1 oil per fleet per turn (+1 if combat).
+Penalties (when out of oil): Tanks/mech → no blitz Aircraft → -1 attack Navy → cannot enter hostile zones.
+Rules: Production From territories + infrastructure Collected during income phase Max storage: 15 (soft cap at 10, after 10 lose 1 oil each turn). )Convoys → lose IPC OR oil and Bombing → disables oil structures. Emergency Rule: Replace Oil cost by 3 times the amount in IPC.";Resource;Oil;OIL;;;;;;
+R.4.01;R;4;Resource;Aluminium;Aluminium is produced in an Aluminium Factory and when transported to an industrial complex you get a discount when building a Jet, Rocket or Flying Fortress.;Resource;Aluminium;;;;E.3.02;;;
+R.4.02;R;4;Resource;Steel;Steel is produced in a Steel Factory and when transported to an industrial compllex you get a discount when building a Super Submarine, Heavy Tank or Heavy Capital ship.;Resource;Steel;;;;E.3.03;;;
+R.4.03;R;4;Resource;Vril;Vril energy acts as currency for the use of German Occult Artifacts (GOA) and are produced by the Ahnenerbe Institute one each turn.;Resource;Vril;OCCULTISM;;P.4.GO;;;;
+R.6.01;R;6;Resource;Uranium;Resource mined from 1 of 5 fixed Uranium mines: Western United States, Slovakia, Belgian Congo, Yukon Territory. Cannot be build.;Resource;Uranium;;;;E.5.01;;;
+R.6.02;R;6;Resource;Heavy Water;Resource produced in a Heavy Water Plant: two exist at the start of the game: Norway, Ukraine. More can be build.;Resource;Heavy Water;;;;E.1.02;;;
+X.A.1;A;1;Air;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.A.2;A;2;Air;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.A.1;;;;
+X.A.4;A;4;Air;Cluster dependency item for DOT;;Dummy;;DUMMY;;A.3.01;;;;
+X.A.5;A;5;Air;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.A.4;;;;
+X.A.6;A;6;Air;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.A.5;;;;
+X.E.1;E;1;Energy And Physics;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.E.2;E;2;Energy And Physics;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.E.1;;;;
+X.E.4;E;4;Energy And Physics;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.3.01;;;;
+X.E.5;E;5;Energy And Physics;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.E.4;;;;
+X.E.6;E;6;Energy And Physics;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.E.5;;;;
+X.F.1;F;1;Logistics And Industry;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.F.2;F;2;Logistics And Industry;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.F.1;;;;
+X.F.4;F;4;Logistics And Industry;Cluster dependency item for DOT;;Dummy;;DUMMY;;F.3.01;;;;
+X.F.5;F;5;Logistics And Industry;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.F.4;;;;
+X.F.6;F;6;Logistics And Industry;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.F.5;;;;
+X.I.1;I;1;Intelligence;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.I.2;I;2;Intelligence;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.I.1;;;;
+X.I.4;I;4;Intelligence;Cluster dependency item for DOT;;Dummy;;DUMMY;;I.3.01;;;;
+X.I.5;I;5;Intelligence;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.I.4;;;;
+X.I.6;I;6;Intelligence;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.I.5;;;;
+X.L.1;L;1;Land;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.L.2;L;2;Land;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.L.1;;;;
+X.L.4;L;4;Land;Cluster dependency item for DOT;;Dummy;;DUMMY;;L.3.01;;;;
+X.L.5;L;5;Land;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.L.4;;;;
+X.L.6;L;6;Land;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.L.5;;;;
+X.N.1;N;1;Naval;Cluster dependency item for DOT;;Dummy;;DUMMY;;E.0.01;;;;
+X.N.2;N;2;Naval;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.N.1;;;;
+X.N.4;N;4;Naval;Cluster dependency item for DOT;;Dummy;;DUMMY;;N.3.01;;;;
+X.N.5;N;5;Naval;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.N.4;;;;
+X.N.6;N;6;Naval;Cluster dependency item for DOT;;Dummy;;DUMMY;;X.N.5;;;;

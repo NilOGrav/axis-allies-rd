@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# LibreOffice temporary / lock files
+.~lock.*
+*.bak
+*.tmp
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.vscode/
+.idea/
+
+# Python build artifacts
+*.egg-info/
+dist/
+build/

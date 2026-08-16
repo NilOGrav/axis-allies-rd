@@ -1,0 +1,821 @@
+digraph TechTree {
+rankdir=LR;
+splines=polyline;
+compound=true;
+clusterrank=local;
+newrank=true;
+
+            graph [
+                pad=0.5,
+                nodesep=0.6,
+                ranksep=3.5
+                ];
+            
+            node [
+                shape=box,
+                width=3.5,
+                height=1.0,
+                fixedsize=true,
+                fontsize=10
+                ];
+            subgraph cluster_A_1 {
+label="Air - Tier 1";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.1.01" [label="A.1.01\nImproved Airframes", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.1.02" [label="A.1.02\nAir Transport Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.1.03" [label="A.1.03\nZeppelin development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.A.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_A_2 {
+label="Air - Tier 2";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.2.01" [label="A.2.01\nDefensive Turrets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.2.02" [label="A.2.02\nImproved scramble (ATC)", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.2.03" [label="A.2.03\nBombing Calibration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.2.04" [label="A.2.04\nStrategic Airship Movement", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.A.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_A_3 {
+label="Air - Tier 3";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.3.01" [label="A.3.01\nAir Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_A_4 {
+label="Air - Tier 4";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.4.01" [label="A.4.01\nLong-Range Aircraft", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.4.02" [label="A.4.02\nAdvanced Fighter Development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.4.03" [label="A.4.03\nParatroopers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.4.05" [label="A.4.05\nCarpet Bombing", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.A.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_A_5 {
+label="Air - Tier 5";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.5.01" [label="A.5.01\nJet Engine Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.5.02" [label="A.5.02\nEngine Optimization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.5.03" [label="A.5.03\nHeavy Bomber Design", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.5.04" [label="A.5.04\nHeavy Strategic Bombing Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.A.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_A_6 {
+label="Air - Tier 6";
+fillcolor="#cfe8ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"A.6.01" [label="A.6.01\nEarly Jet Fighters", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.6.02" [label="A.6.02\nUnder the cover of the night", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.6.03" [label="A.6.03\nUnder the Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"A.6.04" [label="A.6.04\nFlying Fortress Capability", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.A.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_0 {
+label="Energy And Physics - Tier 0";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.0.01" [label="E.0.01\nBasic Research Facility", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+"F.0.01" [label="F.0.01\nOil Derrick", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_E_1 {
+label="Energy And Physics - Tier 1";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.1.01" [label="E.1.01\nEarly Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.1.02" [label="E.1.02\nHeavy Water Chemistry", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.1.03" [label="E.1.03\nImproved AA Procedures", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.1.04" [label="E.1.04\nBasic Drilling", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.1.05" [label="E.1.05\nImproved Refining", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.E.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_2 {
+label="Energy And Physics - Tier 2";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.2.01" [label="E.2.01\nIntegrated Air Defense Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.2.02" [label="E.2.02\nReactor Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.2.03" [label="E.2.03\nRadar Wave Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.2.04" [label="E.2.04\nSynthetic Fuel Production", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.2.05" [label="E.2.05\nAdvanced Drilling", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.E.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_3 {
+label="Energy And Physics - Tier 3";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.3.01" [label="E.3.01\nEnergy & Physics Institute", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+"E.3.02" [label="E.3.02\nAdvanced Metallurgy", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_E_4 {
+label="Energy And Physics - Tier 4";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.4.01" [label="E.4.01\nReactor Engineering", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.4.02" [label="E.4.02\nRocket Propulsion Theory", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.4.03" [label="E.4.03\nSynthetic Oil Expansion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.4.04" [label="E.4.04\nOffshore Extraction", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.4.05" [label="E.4.05\nHeavy Armor Production", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.E.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_5 {
+label="Energy And Physics - Tier 5";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.5.01" [label="E.5.01\nUranium Processing", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.5.02" [label="E.5.02\nRocket Development Program", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.5.03" [label="E.5.03\nStrategic Payload Integration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.E.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_6 {
+label="Energy And Physics - Tier 6";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.6.01" [label="E.6.01\nAdvanced Ballistics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.6.02" [label="E.6.02\nNuclear Delivery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.6.03" [label="E.6.03\nNuclear Reactor", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.E.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_E_7 {
+label="Energy And Physics - Tier 7";
+fillcolor="#f8d7da"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.7.01" [label="E.7.01\nCruise Missile Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_F_1 {
+label="Logistics And Industry - Tier 1";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"F.1.01" [label="F.1.01\nSeaplane base", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.1.02" [label="F.1.02\nWar Bonds Campaign", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.1.03" [label="F.1.03\nPort Efficiency", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.1.04" [label="F.1.04\nLendlease", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.1.05" [label="F.1.05\nSupply Chain Optimization", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.1.06" [label="F.1.06\nFuel Efficiency", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.F.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_F_2 {
+label="Logistics And Industry - Tier 2";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"F.2.01" [label="F.2.01\nStandardized Parts", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.02" [label="F.2.02\nRail Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.03" [label="F.2.03\nIncreased Factory Production", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.04" [label="F.2.04\nCivil Defense Planning", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.05" [label="F.2.05\nFuel Logistics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.06" [label="F.2.06\nProtected Oil Infrastructure", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.2.07" [label="F.2.07\nOil Platform", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.F.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_F_3 {
+label="Logistics And Industry - Tier 3";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"F.3.01" [label="F.3.01\nIndustrial & Logistics Bureau", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_F_4 {
+label="Logistics And Industry - Tier 4";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"F.4.01" [label="F.4.01\nStrategic Rail Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.4.02" [label="F.4.02\nIndustrial Relocation", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.4.03" [label="F.4.03\nMass Production", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.4.04" [label="F.4.04\nWar Economy Planning", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.4.05" [label="F.4.05\nAdvanced Fuel Efficiency", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.4.06" [label="F.4.06\nStrategic Fuel Reserves", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.F.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_F_5 {
+label="Logistics And Industry - Tier 5";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"E.5.04" [label="E.5.04\nRecycle Station", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.5.01" [label="F.5.01\nArmoured Trains", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.5.02" [label="F.5.02\nIndustrial Mobilization", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.5.03" [label="F.5.03\nImproved Shipyards", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.5.04" [label="F.5.04\nMobile factories", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.5.05" [label="F.5.05\nIndustrial Expansion", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.F.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_F_6 {
+label="Logistics And Industry - Tier 6";
+fillcolor="#c4a6ff"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"F.6.01" [label="F.6.01\nExpress Railway", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.6.02" [label="F.6.02\nMegafactories", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"F.6.03" [label="F.6.03\nAdvanced Assembly Lines", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.F.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_I_1 {
+label="Intelligence - Tier 1";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.1.01" [label="I.1.01\nGermany: Enigma", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.1.02" [label="I.1.02\nBasic Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.1.03" [label="I.1.03\nCodebreaking", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.1.04" [label="I.1.04\nPropaganda Campaign", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.I.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_I_2 {
+label="Intelligence - Tier 2";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.2.01" [label="I.2.01\nUK: Alan Turing", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.2.02" [label="I.2.02\nCryptographic Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.2.03" [label="I.2.03\nPropaganda Effect on Mobilization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.2.04" [label="I.2.04\nCamouflage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.I.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_I_3 {
+label="Intelligence - Tier 3";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.3.01" [label="I.3.01\nIntelligence Directorate", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_I_4 {
+label="Intelligence - Tier 4";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.4.01" [label="I.4.01\nEspionage Networks", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.4.02" [label="I.4.02\nSignals Interception", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.4.03" [label="I.4.03\nStealth Techniques", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.4.04" [label="I.4.04\nResistance Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.I.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_I_5 {
+label="Intelligence - Tier 5";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.5.01" [label="I.5.01\nCounterintelligence", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.5.02" [label="I.5.02\nScientific Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.5.03" [label="I.5.03\nPolitical Influence Operations", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.5.04" [label="I.5.04\nMustering locals", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.I.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_I_6 {
+label="Intelligence - Tier 6";
+fillcolor="#e0f7fa"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"I.6.01" [label="I.6.01\nCounter sabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.6.02" [label="I.6.02\nEspionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.6.03" [label="I.6.03\nSabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"I.6.04" [label="I.6.04\nReduced Bombing effect", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.I.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_L_1 {
+label="Land - Tier 1";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.1.01" [label="L.1.01\nMorale Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.1.02" [label="L.1.02\nBarbed wire", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.1.03" [label="L.1.03\nEntrenchment Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.1.04" [label="L.1.04\nBarracks", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.1.05" [label="L.1.05\nMechanized Logistics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.L.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_L_2 {
+label="Land - Tier 2";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.2.01" [label="L.2.01\nCzech hedgehogs", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.2.02" [label="L.2.02\nImproved Training", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.2.03" [label="L.2.03\nLand mine (field)", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.2.04" [label="L.2.04\nTank Destroyers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.2.05" [label="L.2.05\nUrban Warfare Training", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.2.06" [label="L.2.06\nField hospital", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.L.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_L_3 {
+label="Land - Tier 3";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.3.01" [label="L.3.01\nLand Warfare Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_L_4 {
+label="Land - Tier 4";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.4.01" [label="L.4.01\nBunkers", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.4.02" [label="L.4.02\nMechanized Warfare Doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.4.03" [label="L.4.03\nAdvanced Artillery", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.L.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_L_5 {
+label="Land - Tier 5";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.5.01" [label="L.5.01\nConcrete bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.02" [label="L.5.02\nEnforced bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.03" [label="L.5.03\nSelf-Propelled Artillery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.04" [label="L.5.04\nImproved Artillery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.05" [label="L.5.05\nImproved Mechanized Infantry", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.06" [label="L.5.06\nMarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.5.07" [label="L.5.07\nBreakthrough Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.L.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_L_6 {
+label="Land - Tier 6";
+fillcolor="#d9f2d9"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"L.6.01" [label="L.6.01\nNuclear bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.6.02" [label="L.6.02\nDefensive Fortifications", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.6.03" [label="L.6.03\nArtillery Fire Control", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.6.04" [label="L.6.04\nMobile Mechanized infantry", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.6.05" [label="L.6.05\nImproved Tanks", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"L.6.06" [label="L.6.06\nCommandos", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.L.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_N_1 {
+label="Naval - Tier 1";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.1.01" [label="N.1.01\nImproved Transport Capacity", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.1.02" [label="N.1.02\nExtended Range Submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.1.03" [label="N.1.03\nSea mines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.1.04" [label="N.1.04\nSecret submarine harbour", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.1.05" [label="N.1.05\nJet Propulsion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.N.01" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_N_2 {
+label="Naval - Tier 2";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.2.01" [label="N.2.01\nAdvanced Submarine Hulls", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.2.02" [label="N.2.02\nAdvanced ASW", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.2.03" [label="N.2.03\nTorpedos", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.2.04" [label="N.2.04\nGatekeeper systems", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.N.02" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_N_3 {
+label="Naval - Tier 3";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.3.01" [label="N.3.01\nNaval Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_N_4 {
+label="Naval - Tier 4";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.4.01" [label="N.4.01\nSubmarine Fleet Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.4.02" [label="N.4.02\nSurface Fleet doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.4.03" [label="N.4.03\nSonar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.4.04" [label="N.4.04\nArmed transports", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.N.04" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_N_5 {
+label="Naval - Tier 5";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.5.01" [label="N.5.01\nMobile submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.5.02" [label="N.5.02\nSilent Running", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.5.03" [label="N.5.03\nSuper battleships", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.5.04" [label="N.5.04\nFleet Screening Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.5.05" [label="N.5.05\nHeavy Transport Capacity", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.N.05" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_N_6 {
+label="Naval - Tier 6";
+fillcolor="#fff2cc"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"N.6.01" [label="N.6.01\nNuclear Propulsion Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.6.02" [label="N.6.02\nAdvanced Submarine Propulsion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.6.03" [label="N.6.03\nHeavy battleship", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"N.6.04" [label="N.6.04\nHeavy carriers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"X.N.06" [label="", style="invis", width=0, height=0];
+}
+subgraph cluster_P_3 {
+label="Programs - Tier 3";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.3.GO" [label="P.3.GO\nGermany: Occultism: The Ahnenerbe Institute", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_4 {
+label="Programs - Tier 4";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.4.GO" [label="P.4.GO\nGermany: Occultism: Expedition to Tibet", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_5 {
+label="Programs - Tier 5";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.5.GO" [label="P.5.GO\nGermany: Occultism: Thule Society", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_6 {
+label="Programs - Tier 6";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.6.GO" [label="P.6.GO\nGermany: Occultism: Spear of Longinus", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_7 {
+label="Programs - Tier 7";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.7.FI" [label="P.7.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.GA" [label="P.7.GA\nGermany: Atlantik Wall", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.GL" [label="P.7.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.GO" [label="P.7.GO\nGermany: Occultism: Die Glocke", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.JP" [label="P.7.JP\nJapan: Kido Butai Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.NU" [label="P.7.NU\nProject Manhattan – Development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.RU" [label="P.7.RU\nRussia: Deep Battle Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.SG" [label="P.7.SG\nRail Super Gun -  Schwerer Gustav", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.SU" [label="P.7.SU\nThe Wolfpack: Super Submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.UK" [label="P.7.UK\nUK: Global Intelligence Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.7.US" [label="P.7.US\nUS: Industrial capacity", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_8 {
+label="Programs - Tier 8";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.8.FI" [label="P.8.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.GA" [label="P.8.GA\nGermany: Atlantic Wall Pt. 2", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.GL" [label="P.8.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.GO" [label="P.8.GO\nGermany: Occultism: Die Glocke", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.JP" [label="P.8.JP\nJapan: Kido Butai Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.NU" [label="P.8.NU\nProject Manhattan – Production", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.RU" [label="P.8.RU\nRussia: Deep Battle Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.SG" [label="P.8.SG\nRail Super Gun – Langer Gustav", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.SU" [label="P.8.SU\nThe Wolfpack: Suprise Tactics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.UK" [label="P.8.UK\nUK: Global Intelligence Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+"P.8.US" [label="P.8.US\nUS: Industrial powerhouse", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_P_9 {
+label="Programs - Tier 9";
+fillcolor="#ffd9b3"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"P.9.NU" [label="P.9.NU\nProject Manhattan – Dropping The Bomb", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
+}
+subgraph cluster_R_1 {
+label="Resource - Tier 1";
+fillcolor="#eeeeee"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"R.1.01" [label="R.1.01\nOil", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+}
+subgraph cluster_R_4 {
+label="Resource - Tier 4";
+fillcolor="#eeeeee"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"R.4.01" [label="R.4.01\nAluminium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+"R.4.02" [label="R.4.02\nSteel", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+"R.4.03" [label="R.4.03\nVril", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+}
+subgraph cluster_R_6 {
+label="Resource - Tier 6";
+fillcolor="#eeeeee"; style="rounded,filled,dashed";
+color="blue";
+penwidth=1.5;
+margin=30;
+"R.6.01" [label="R.6.01\nUranium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+"R.6.02" [label="R.6.02\nHeavy Water", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+}
+{ rank=same; "A.1.01" "A.1.02" "A.1.03" "E.1.01" "E.1.02" "E.1.03" "E.1.04" "E.1.05" "F.1.01" "F.1.02" "F.1.03" "F.1.04" "F.1.05" "F.1.06" "I.1.01" "I.1.02" "I.1.03" "I.1.04" "L.1.01" "L.1.02" "L.1.03" "L.1.04" "L.1.05" "N.1.01" "N.1.02" "N.1.03" "N.1.04" "N.1.05" "R.1.01" "X.A.01" "X.E.01" "X.F.01" "X.I.01" "X.L.01" "X.N.01"; }
+{ rank=same; "A.2.01" "A.2.02" "A.2.03" "A.2.04" "E.2.01" "E.2.02" "E.2.03" "E.2.04" "E.2.05" "F.2.01" "F.2.02" "F.2.03" "F.2.04" "F.2.05" "F.2.06" "F.2.07" "I.2.01" "I.2.02" "I.2.03" "I.2.04" "L.2.01" "L.2.02" "L.2.03" "L.2.04" "L.2.05" "L.2.06" "N.2.01" "N.2.02" "N.2.03" "N.2.04" "X.A.02" "X.E.02" "X.F.02" "X.I.02" "X.L.02" "X.N.02"; }
+{ rank=same; "A.3.01" "E.3.01" "E.3.02" "F.3.01" "I.3.01" "L.3.01" "N.3.01" "P.3.GO"; }
+{ rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "L.4.01" "L.4.02" "L.4.03" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "P.4.GO" "R.4.01" "R.4.02" "R.4.03" "X.A.04" "X.E.04" "X.F.04" "X.I.04" "X.L.04" "X.N.04"; }
+{ rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "P.5.GO" "X.A.05" "X.E.05" "X.F.05" "X.I.05" "X.L.05" "X.N.05"; }
+{ rank=same; "A.6.01" "A.6.02" "A.6.03" "A.6.04" "E.6.01" "E.6.02" "E.6.03" "F.6.01" "F.6.02" "F.6.03" "I.6.01" "I.6.02" "I.6.03" "I.6.04" "L.6.01" "L.6.02" "L.6.03" "L.6.04" "L.6.05" "L.6.06" "N.6.01" "N.6.02" "N.6.03" "N.6.04" "P.6.GO" "R.6.01" "R.6.02" "X.A.06" "X.E.06" "X.F.06" "X.I.06" "X.L.06" "X.N.06"; }
+{ rank=same; "E.0.01" "F.0.01"; }
+{ rank=same; "E.7.01" "P.7.FI" "P.7.GA" "P.7.GL" "P.7.GO" "P.7.JP" "P.7.NU" "P.7.RU" "P.7.SG" "P.7.SU" "P.7.UK" "P.7.US"; }
+{ rank=same; "P.8.FI" "P.8.GA" "P.8.GL" "P.8.GO" "P.8.JP" "P.8.NU" "P.8.RU" "P.8.SG" "P.8.SU" "P.8.UK" "P.8.US"; }
+{ rank=same; "P.9.NU"; }
+"A.1.01" -> "A.2.02" [style=solid, color="black", weight=2];
+"A.1.03" -> "A.2.04" [style=solid, color="black", weight=2];
+"X.A.02" -> "A.3.01" [style=solid, color="black", weight=2, ltail=cluster_A_2];
+"A.2.01" -> "A.4.01" [style=solid, color="black", weight=2];
+"A.2.03" -> "A.4.01" [style=solid, color="black", weight=2];
+"A.2.02" -> "A.4.02" [style=solid, color="black", weight=2];
+"E.3.02" -> "A.4.02" [style=solid, color="black", weight=2];
+"A.1.02" -> "A.4.03" [style=solid, color="black", weight=2];
+"A.2.03" -> "A.4.05" [style=solid, color="black", weight=2];
+"I.4.02" -> "A.5.01" [style=solid, color="black", weight=2];
+"A.4.02" -> "A.5.01" [style=solid, color="black", weight=2];
+"A.4.01" -> "A.5.02" [style=dashed, color="#e41a1c", weight=2];
+"A.4.05" -> "A.5.02" [style=dashed, color="#e41a1c", weight=2];
+"F.4.03" -> "A.5.03" [style=solid, color="black", weight=2];
+"A.4.01" -> "A.5.03" [style=solid, color="black", weight=2];
+"A.4.01" -> "A.5.04" [style=dashed, color="#377eb8", weight=2];
+"A.4.05" -> "A.5.04" [style=dashed, color="#377eb8", weight=2];
+"A.5.01" -> "A.6.01" [style=solid, color="black", weight=2];
+"F.5.02" -> "A.6.01" [style=solid, color="black", weight=2];
+"A.5.04" -> "A.6.02" [style=solid, color="black", weight=2];
+"A.5.02" -> "A.6.03" [style=solid, color="black", weight=2];
+"E.4.05" -> "A.6.04" [style=solid, color="black", weight=2];
+"A.5.03" -> "A.6.04" [style=solid, color="black", weight=2];
+"E.5.03" -> "A.6.04" [style=solid, color="black", weight=2];
+"E.1.01" -> "E.2.01" [style=dashed, color="#4daf4a", weight=2];
+"E.1.03" -> "E.2.01" [style=dashed, color="#4daf4a", weight=2];
+"E.1.01" -> "E.2.03" [style=solid, color="black", weight=2];
+"E.1.04" -> "E.2.05" [style=solid, color="black", weight=2];
+"E.3.01" -> "E.4.01" [style=solid, color="black", weight=2];
+"E.2.02" -> "E.4.01" [style=solid, color="black", weight=2];
+"E.3.01" -> "E.4.02" [style=solid, color="black", weight=2];
+"E.3.02" -> "E.4.02" [style=solid, color="black", weight=2];
+"E.2.04" -> "E.4.03" [style=solid, color="black", weight=2];
+"E.1.04" -> "E.4.04" [style=solid, color="black", weight=2];
+"E.4.01" -> "E.5.01" [style=solid, color="black", weight=2];
+"F.4.03" -> "E.5.02" [style=solid, color="black", weight=2];
+"E.4.02" -> "E.5.02" [style=solid, color="black", weight=2];
+"E.4.01" -> "E.5.03" [style=dashed, color="#984ea3", weight=2];
+"E.4.02" -> "E.5.03" [style=dashed, color="#984ea3", weight=2];
+"E.3.02" -> "E.5.04" [style=dashed, color="#ff7f00", weight=2];
+"E.4.05" -> "E.5.04" [style=dashed, color="#ff7f00", weight=2];
+"E.5.02" -> "E.6.01" [style=solid, color="black", weight=2];
+"E.5.02" -> "E.6.02" [style=dashed, color="#ffff33", weight=2];
+"E.5.03" -> "E.6.02" [style=dashed, color="#ffff33", weight=2];
+"E.5.01" -> "E.6.03" [style=solid, color="black", weight=2];
+"E.6.02" -> "E.7.01" [style=solid, color="black", weight=2];
+"F.1.05" -> "F.2.01" [style=solid, color="black", weight=2];
+"F.1.04" -> "F.2.02" [style=dashed, color="#a65628", weight=2];
+"F.1.05" -> "F.2.02" [style=dashed, color="#a65628", weight=2];
+"F.1.02" -> "F.2.03" [style=dashed, color="#f781bf", weight=2];
+"F.1.05" -> "F.2.03" [style=dashed, color="#f781bf", weight=2];
+"F.1.01" -> "F.2.04" [style=dashed, color="#e41a1c", weight=2];
+"F.1.02" -> "F.2.04" [style=dashed, color="#e41a1c", weight=2];
+"F.1.03" -> "F.2.04" [style=dashed, color="#e41a1c", weight=2];
+"E.1.04" -> "F.2.07" [style=solid, color="black", weight=2];
+"F.3.01" -> "F.4.01" [style=solid, color="black", weight=2];
+"F.2.02" -> "F.4.01" [style=solid, color="black", weight=2];
+"F.3.01" -> "F.4.02" [style=solid, color="black", weight=2];
+"F.2.02" -> "F.4.02" [style=dashed, color="#377eb8", weight=2];
+"F.2.04" -> "F.4.02" [style=dashed, color="#377eb8", weight=2];
+"F.2.01" -> "F.4.03" [style=dashed, color="#4daf4a", weight=2];
+"F.2.03" -> "F.4.03" [style=dashed, color="#4daf4a", weight=2];
+"F.3.01" -> "F.4.03" [style=solid, color="black", weight=2];
+"F.3.01" -> "F.4.04" [style=solid, color="black", weight=2];
+"F.1.06" -> "F.4.05" [style=solid, color="black", weight=2];
+"F.4.01" -> "F.5.01" [style=solid, color="black", weight=2];
+"E.4.05" -> "F.5.01" [style=solid, color="black", weight=2];
+"F.4.03" -> "F.5.02" [style=solid, color="black", weight=2];
+"F.4.03" -> "F.5.03" [style=solid, color="black", weight=2];
+"F.4.02" -> "F.5.04" [style=solid, color="black", weight=2];
+"F.4.04" -> "F.5.05" [style=solid, color="black", weight=2];
+"F.5.01" -> "F.6.01" [style=solid, color="black", weight=2];
+"L.5.04" -> "F.6.01" [style=solid, color="black", weight=2];
+"F.5.02" -> "F.6.02" [style=dashed, color="#984ea3", weight=2];
+"F.5.04" -> "F.6.02" [style=dashed, color="#984ea3", weight=2];
+"F.5.05" -> "F.6.02" [style=dashed, color="#984ea3", weight=2];
+"F.5.02" -> "F.6.02" [style=solid, color="black", weight=2];
+"F.5.02" -> "F.6.03" [style=solid, color="black", weight=2];
+"I.1.01" -> "I.2.01" [style=solid, color="black", weight=2];
+"I.1.02" -> "I.2.02" [style=dashed, color="#ff7f00", weight=2];
+"I.1.03" -> "I.2.02" [style=dashed, color="#ff7f00", weight=2];
+"I.1.03" -> "I.2.03" [style=dashed, color="#ffff33", weight=2];
+"I.1.04" -> "I.2.03" [style=dashed, color="#ffff33", weight=2];
+"I.1.02" -> "I.2.04" [style=dashed, color="#a65628", weight=2];
+"I.1.04" -> "I.2.04" [style=dashed, color="#a65628", weight=2];
+"I.2.02" -> "I.4.01" [style=dashed, color="#f781bf", weight=2];
+"I.2.04" -> "I.4.01" [style=dashed, color="#f781bf", weight=2];
+"I.2.01" -> "I.4.02" [style=dashed, color="#e41a1c", weight=2];
+"I.2.02" -> "I.4.02" [style=dashed, color="#e41a1c", weight=2];
+"E.2.01" -> "I.4.02" [style=dashed, color="#377eb8", weight=2];
+"E.2.03" -> "I.4.02" [style=dashed, color="#377eb8", weight=2];
+"E.2.03" -> "I.4.03" [style=dashed, color="#4daf4a", weight=2];
+"I.2.04" -> "I.4.03" [style=dashed, color="#4daf4a", weight=2];
+"I.2.04" -> "I.4.04" [style=dashed, color="#984ea3", weight=2];
+"I.2.03" -> "I.4.04" [style=dashed, color="#984ea3", weight=2];
+"I.4.01" -> "I.5.01" [style=dashed, color="#ff7f00", weight=2];
+"I.4.02" -> "I.5.01" [style=dashed, color="#ff7f00", weight=2];
+"I.4.01" -> "I.5.02" [style=dashed, color="#ffff33", weight=2];
+"I.4.03" -> "I.5.02" [style=dashed, color="#ffff33", weight=2];
+"I.4.04" -> "I.5.03" [style=solid, color="black", weight=2];
+"I.4.03" -> "I.5.04" [style=dashed, color="#a65628", weight=2];
+"I.4.04" -> "I.5.04" [style=dashed, color="#a65628", weight=2];
+"F.2.04" -> "I.6.01" [style=solid, color="black", weight=2];
+"I.5.01" -> "I.6.01" [style=solid, color="black", weight=2];
+"I.5.03" -> "I.6.02" [style=solid, color="black", weight=2];
+"I.5.02" -> "I.6.03" [style=dashed, color="#f781bf", weight=2];
+"I.5.04" -> "I.6.03" [style=dashed, color="#f781bf", weight=2];
+"I.5.01" -> "I.6.04" [style=dashed, color="#e41a1c", weight=2];
+"I.5.02" -> "I.6.04" [style=dashed, color="#e41a1c", weight=2];
+"L.1.02" -> "L.2.01" [style=dashed, color="#377eb8", weight=2];
+"L.1.03" -> "L.2.01" [style=dashed, color="#377eb8", weight=2];
+"L.1.04" -> "L.2.01" [style=dashed, color="#377eb8", weight=2];
+"L.1.01" -> "L.2.02" [style=dashed, color="#4daf4a", weight=2];
+"L.1.03" -> "L.2.02" [style=dashed, color="#4daf4a", weight=2];
+"L.1.04" -> "L.2.02" [style=dashed, color="#4daf4a", weight=2];
+"L.1.02" -> "L.2.03" [style=dashed, color="#984ea3", weight=2];
+"L.1.03" -> "L.2.03" [style=dashed, color="#984ea3", weight=2];
+"L.1.05" -> "L.2.03" [style=dashed, color="#984ea3", weight=2];
+"L.1.02" -> "L.2.04" [style=dashed, color="#ff7f00", weight=2];
+"L.1.03" -> "L.2.04" [style=dashed, color="#ff7f00", weight=2];
+"L.1.05" -> "L.2.04" [style=dashed, color="#ff7f00", weight=2];
+"L.1.01" -> "L.2.05" [style=dashed, color="#ffff33", weight=2];
+"L.1.05" -> "L.2.05" [style=dashed, color="#ffff33", weight=2];
+"L.1.02" -> "L.2.06" [style=dashed, color="#a65628", weight=2];
+"L.1.03" -> "L.2.06" [style=dashed, color="#a65628", weight=2];
+"L.1.04" -> "L.2.06" [style=dashed, color="#a65628", weight=2];
+"X.L.02" -> "L.3.01" [style=solid, color="black", weight=2, ltail=cluster_L_2];
+"L.2.01" -> "L.4.01" [style=dashed, color="#f781bf", weight=2];
+"L.2.03" -> "L.4.01" [style=dashed, color="#f781bf", weight=2];
+"L.2.06" -> "L.4.01" [style=dashed, color="#f781bf", weight=2];
+"L.2.01" -> "L.4.02" [style=dashed, color="#e41a1c", weight=2];
+"L.2.02" -> "L.4.02" [style=dashed, color="#e41a1c", weight=2];
+"L.2.05" -> "L.4.02" [style=dashed, color="#e41a1c", weight=2];
+"L.2.01" -> "L.4.03" [style=dashed, color="#377eb8", weight=2];
+"L.2.03" -> "L.4.03" [style=dashed, color="#377eb8", weight=2];
+"L.2.04" -> "L.4.03" [style=dashed, color="#377eb8", weight=2];
+"L.4.01" -> "L.5.01" [style=solid, color="black", weight=2];
+"L.4.01" -> "L.5.02" [style=solid, color="black", weight=2];
+"L.4.03" -> "L.5.03" [style=solid, color="black", weight=2];
+"F.4.03" -> "L.5.04" [style=solid, color="black", weight=2];
+"L.4.03" -> "L.5.04" [style=solid, color="black", weight=2];
+"L.4.02" -> "L.5.05" [style=solid, color="black", weight=2];
+"L.4.02" -> "L.5.06" [style=dashed, color="#4daf4a", weight=2];
+"L.4.03" -> "L.5.06" [style=dashed, color="#4daf4a", weight=2];
+"L.4.02" -> "L.5.07" [style=dashed, color="#984ea3", weight=2];
+"L.4.03" -> "L.5.07" [style=dashed, color="#984ea3", weight=2];
+"L.5.01" -> "L.6.01" [style=dashed, color="#ff7f00", weight=2];
+"L.5.02" -> "L.6.01" [style=dashed, color="#ff7f00", weight=2];
+"L.5.01" -> "L.6.02" [style=dashed, color="#ffff33", weight=2];
+"L.5.02" -> "L.6.02" [style=dashed, color="#ffff33", weight=2];
+"L.5.03" -> "L.6.03" [style=solid, color="black", weight=2];
+"L.5.04" -> "L.6.04" [style=dashed, color="#a65628", weight=2];
+"L.5.05" -> "L.6.04" [style=dashed, color="#a65628", weight=2];
+"L.5.07" -> "L.6.05" [style=solid, color="black", weight=2];
+"L.5.06" -> "L.6.06" [style=dashed, color="#f781bf", weight=2];
+"A.4.03" -> "L.6.06" [style=dashed, color="#f781bf", weight=2];
+"N.1.02" -> "N.2.01" [style=dashed, color="#e41a1c", weight=2];
+"N.1.04" -> "N.2.01" [style=dashed, color="#e41a1c", weight=2];
+"N.1.01" -> "N.2.04" [style=solid, color="black", weight=2];
+"X.N.02" -> "N.3.01" [style=solid, color="black", weight=2, ltail=cluster_N_2];
+"N.2.01" -> "N.4.01" [style=solid, color="black", weight=2];
+"N.2.02" -> "N.4.02" [style=dashed, color="#377eb8", weight=2];
+"N.2.03" -> "N.4.02" [style=dashed, color="#377eb8", weight=2];
+"N.2.04" -> "N.4.02" [style=dashed, color="#377eb8", weight=2];
+"N.2.03" -> "N.4.04" [style=dashed, color="#4daf4a", weight=2];
+"N.2.04" -> "N.4.04" [style=dashed, color="#4daf4a", weight=2];
+"N.4.01" -> "N.5.01" [style=solid, color="black", weight=2];
+"N.4.01" -> "N.5.02" [style=solid, color="black", weight=2];
+"N.4.02" -> "N.5.03" [style=solid, color="black", weight=2];
+"N.4.02" -> "N.5.04" [style=solid, color="black", weight=2];
+"N.4.04" -> "N.5.05" [style=solid, color="black", weight=2];
+"N.5.02" -> "N.6.01" [style=solid, color="black", weight=2];
+"E.4.01" -> "N.6.01" [style=solid, color="black", weight=2];
+"N.5.01" -> "N.6.02" [style=solid, color="black", weight=2];
+"E.5.03" -> "N.6.02" [style=solid, color="black", weight=2];
+"E.4.05" -> "N.6.03" [style=solid, color="black", weight=2];
+"N.5.03" -> "N.6.03" [style=solid, color="black", weight=2];
+"F.5.03" -> "N.6.03" [style=solid, color="black", weight=2];
+"F.5.02" -> "N.6.04" [style=dashed, color="#984ea3", weight=2];
+"F.5.05" -> "N.6.04" [style=dashed, color="#984ea3", weight=2];
+"N.5.04" -> "N.6.04" [style=solid, color="black", weight=2];
+"X.E.02" -> "P.3.GO" [style=solid, color="black", weight=2, ltail=cluster_E_2];
+"P.3.GO" -> "P.4.GO" [style=solid, color="black", weight=2];
+"P.4.GO" -> "P.5.GO" [style=solid, color="black", weight=2];
+"P.5.GO" -> "P.6.GO" [style=solid, color="black", weight=2];
+"F.6.03" -> "P.7.FI" [style=solid, color="black", weight=2];
+"A.6.01" -> "P.7.FI" [style=solid, color="black", weight=2];
+"N.4.03" -> "P.7.GA" [style=solid, color="black", weight=2];
+"L.6.02" -> "P.7.GA" [style=solid, color="black", weight=2];
+"E.5.01" -> "P.7.GL" [style=solid, color="black", weight=2];
+"L.6.05" -> "P.7.GL" [style=solid, color="black", weight=2];
+"P.6.GO" -> "P.7.GO" [style=solid, color="black", weight=2];
+"N.6.04" -> "P.7.JP" [style=solid, color="black", weight=2];
+"F.6.03" -> "P.7.JP" [style=solid, color="black", weight=2];
+"R.6.01" -> "P.7.NU" [style=solid, color="black", weight=2];
+"E.6.03" -> "P.7.NU" [style=solid, color="black", weight=2];
+"R.6.02" -> "P.7.NU" [style=solid, color="black", weight=2];
+"I.5.04" -> "P.7.RU" [style=solid, color="black", weight=2];
+"L.6.06" -> "P.7.RU" [style=dashed, color="#ff7f00", weight=2];
+"L.6.04" -> "P.7.RU" [style=dashed, color="#ff7f00", weight=2];
+"L.6.03" -> "P.7.SG" [style=solid, color="black", weight=2];
+"F.6.01" -> "P.7.SG" [style=solid, color="black", weight=2];
+"N.6.01" -> "P.7.SU" [style=solid, color="black", weight=2];
+"E.4.05" -> "P.7.SU" [style=solid, color="black", weight=2];
+"I.6.01" -> "P.7.UK" [style=dashed, color="#ffff33", weight=2];
+"I.6.02" -> "P.7.UK" [style=dashed, color="#ffff33", weight=2];
+"I.6.03" -> "P.7.UK" [style=dashed, color="#ffff33", weight=2];
+"I.6.04" -> "P.7.UK" [style=dashed, color="#ffff33", weight=2];
+"F.5.04" -> "P.7.UK" [style=solid, color="black", weight=2];
+"F.6.02" -> "P.7.US" [style=solid, color="black", weight=2];
+"X.A.06" -> "P.7.US" [style=dashed, color="#a65628", weight=2, ltail=cluster_A_6];
+"X.L.06" -> "P.7.US" [style=dashed, color="#a65628", weight=2, ltail=cluster_L_6];
+"X.N.06" -> "P.7.US" [style=dashed, color="#a65628", weight=2, ltail=cluster_N_6];
+"P.7.FI" -> "P.8.FI" [style=solid, color="black", weight=2];
+"P.7.GA" -> "P.8.GA" [style=solid, color="black", weight=2];
+"P.7.GL" -> "P.8.GL" [style=solid, color="black", weight=2];
+"P.7.GO" -> "P.8.GO" [style=solid, color="black", weight=2];
+"P.7.JP" -> "P.8.JP" [style=solid, color="black", weight=2];
+"P.7.NU" -> "P.8.NU" [style=solid, color="black", weight=2];
+"P.7.RU" -> "P.8.RU" [style=solid, color="black", weight=2];
+"P.7.SG" -> "P.8.SG" [style=solid, color="black", weight=2];
+"P.7.SU" -> "P.8.SU" [style=solid, color="black", weight=2];
+"P.7.UK" -> "P.8.UK" [style=solid, color="black", weight=2];
+"N.5.05" -> "P.8.US" [style=solid, color="black", weight=2];
+"P.7.US" -> "P.8.US" [style=solid, color="black", weight=2];
+"P.8.NU" -> "P.9.NU" [style=solid, color="black", weight=2];
+"N.6.02" -> "P.9.NU" [style=dashed, color="#f781bf", weight=2];
+"E.6.02" -> "P.9.NU" [style=dashed, color="#f781bf", weight=2];
+"A.6.04" -> "P.9.NU" [style=dashed, color="#f781bf", weight=2];
+"E.3.02" -> "R.4.01" [style=solid, color="black", weight=2];
+"E.4.05" -> "R.4.02" [style=solid, color="black", weight=2];
+"P.3.GO" -> "R.4.03" [style=solid, color="black", weight=2];
+"E.0.01" -> "X.A.01" [style=solid, color="black", weight=2, lhead=cluster_A_1];
+"X.A.01" -> "X.A.02" [style=solid, color="black", weight=2, ltail=cluster_A_1, lhead=cluster_A_2];
+"A.3.01" -> "X.A.04" [style=solid, color="black", weight=2, lhead=cluster_A_4];
+"E.0.01" -> "X.E.01" [style=solid, color="black", weight=2, lhead=cluster_E_1];
+"E.0.01" -> "X.F.01" [style=solid, color="black", weight=2, lhead=cluster_F_1];
+"E.0.01" -> "X.I.01" [style=solid, color="black", weight=2, lhead=cluster_I_1];
+"I.3.01" -> "X.I.04" [style=solid, color="black", weight=2, lhead=cluster_I_4];
+"E.0.01" -> "X.L.01" [style=solid, color="black", weight=2, lhead=cluster_L_1];
+"L.3.01" -> "X.L.04" [style=solid, color="black", weight=2, lhead=cluster_L_4];
+"E.0.01" -> "X.N.01" [style=solid, color="black", weight=2, lhead=cluster_N_1];
+"X.N.01" -> "X.N.02" [style=solid, color="black", weight=2, ltail=cluster_N_1, lhead=cluster_N_2];
+"N.3.01" -> "X.N.04" [style=solid, color="black", weight=2, lhead=cluster_N_4];
+}
