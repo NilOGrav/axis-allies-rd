@@ -70,12 +70,10 @@ def process_path(path, tech_id, graph):
 
 
 def build_graph(rows):
-    # create tiers, domains, domain_tier_map, edges, etc.
+    # create tiers, domains, edges, etc.
     graph = {
         "tiers": defaultdict(list),
         "domains": {},
-#        "clusters": {},
-#        "domain_tier_map": defaultdict(list),
         "node_to_cluster": {},
         "modules": defaultdict(list),
         "path_items": defaultdict(list),
@@ -112,7 +110,8 @@ def build_graph(rows):
             graph["domains"][domain]["clusters"][cluster] = {
                 "tier": tier,
                 "label": f"{domain} - Tier {tier}",
-                "nodes": []
+                "nodes": [],
+                "view": {}
             }
 
         if category == "DUMMY":
@@ -139,13 +138,6 @@ def build_graph(rows):
         graph["modules"][module].append(tech_id)
 
         graph["domains"][domain]["clusters"][cluster]["nodes"].append(tech_id)
-
-#        graph["domain_tier_map"][(domain, tier)].append((tech_id, label, category))
-
-#        if domain not in graph["domains"]:
-#            graph["domains"][domain] = []
-
-#        graph["domains"][domain].append((tech_id, label))
 
         process_path(path, tech_id, graph)
 
@@ -202,6 +194,19 @@ def apply_view(graph):
                 "penwidth": 2
             }
 
+    for domain, domain_data in graph["domains"].items():
+
+        for cluster, cluster_data in domain_data["clusters"].items():
+
+            # Setting the colors of the clusters
+            cluster_data["view"] = {
+                "fillcolor": domain_colors.get(domain, "black"),
+                "style": "rounded,filled,dashed",
+                "color": "blue",
+                "penwidth": 1.5,
+                "margin": 30
+            }
+
     return graph
 
 
@@ -210,7 +215,6 @@ def write_dot(graph, output_file):
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("digraph TechTree {\n")
         f.write("rankdir=LR;\n")
-#        f.write("splines=ortho;\n")
         f.write("splines=polyline;\n")
         f.write("compound=true;\n")
         f.write("clusterrank=local;\n")
@@ -220,7 +224,7 @@ def write_dot(graph, output_file):
             graph [
                 pad=0.5,
                 nodesep=0.6,
-                ranksep=3.5
+                ranksep=7.0
                 ];
             """)
 
@@ -235,69 +239,39 @@ def write_dot(graph, output_file):
             """)
 
         # Domain together with tiers combined to clusters and place node within
-        for cluster, cluster_data in graph["clusters"].items():
+        for domain, domain_data in graph["domains"].items():
 
-            cluster_name = f'cluster_{cluster}'
+            for cluster, cluster_data in domain_data["clusters"].items():
 
-            f.write(f'subgraph {cluster_name} {{\n')
-            f.write(f'label="{cluster_data["label"]}";\n')
+                cluster_name = f'cluster_{cluster}'
 
-            # Setting the colors of the nodes
-            domain = cluster_data["domain"]
-            color = domain_colors.get(domain, "black")
-            f.write(f'fillcolor="{color}"; style="rounded,filled,dashed";\n')
-            f.write(f'color="blue";\n')
-            f.write(f'penwidth=1.5;\n')
-            f.write('margin=30;\n')
+                f.write(f'subgraph {cluster_name} {{\n')
+                f.write(f'label="{cluster_data["label"]}";\n')
 
-            nodes = graph["domain_tier_map"][
-                (cluster_data["domain"], cluster_data["tier"])
-            ]
+                f.write(f'fillcolor="{cluster_data["view"]["fillcolor"]}"; style="{cluster_data["view"]["style"]}";\n')
+                f.write(f'color="{cluster_data["view"]["color"]}";\n')
+                f.write(f'penwidth="{cluster_data["view"]["penwidth"]}";\n')
+                f.write(f'margin="{cluster_data["view"]["margin"]}";\n')
 
-            for tech_id, label, category in nodes:
+                for tech_id in cluster_data["nodes"]:
 
-                node = graph["nodes"][tech_id]
-                view = node["view"]
+                    node = graph["nodes"][tech_id]
+                    view = node["view"]
 
-                view_attrs = []
+                    view_attrs = []
 
-                for key, value in view.items():
+                    for key, value in view.items():
 
-                    if isinstance(value, str):
-                        view_attrs.append(f'{key}="{value}"')
-                    else:
-                        view_attrs.append(f'{key}={value}')
+                        if isinstance(value, str):
+                            view_attrs.append(f'{key}="{value}"')
+                        else:
+                            view_attrs.append(f'{key}={value}')
 
-                attrs = ", ".join(view_attrs)
+                    attrs = ", ".join(view_attrs)
 
-                f.write(f'"{tech_id}" [label="{node["label"]}", {attrs}];\n')
+                    f.write(f'"{tech_id}" [label="{node["label"]}", {attrs}];\n')
 
-               # f.write(f'"{tech_id}" [label="{graph["nodes"][tech_id]["label"]}", {graph["nodes"][tech_id]["view"]}];\n')
-               # if category == "DUMMY":
-               #     f.write(f'"{tech_id}" [style=invis, width=0, height=0, label=""];\n')
-               #     graph["node_to_cluster"][tech_id] = cluster_name
-               # else:
-               #     if category == "KEYSTONE":
-               #         f.write(f'"{tech_id}" [label="{label}", shape=doubleoctagon, penwidth=2];\n')
-               #     else:
-               #         if category == "RCENTER":
-               #             f.write(f'"{tech_id}" [label="{label}", shape=doublecircle, penwidth=2];\n')
-               #         else:
-               #             if category == "OIL":
-               #                 f.write(f'"{tech_id}" [style="rounded,filled,dotted,bold", color="#fff4bc", label="{label}", penwidth=2];\n')
-               #             else:
-               #                 if category == "NUCLEAR":
-               #                      f.write(f'"{tech_id}" [style="rounded,filled,dotted,bold", color="#f2f8ff", label="{label}", penwidth=2];\n')
-               #                  else:
-               #                      if category == "OCCULTISM":
-               #                          f.write(f'"{tech_id}" [style="rounded,filled,dotted,bold", color="#ffeff6", label="{label}", penwidth=2];\n')
-               #                      else:
-               #                          if domain == "Programs":
-               #                              f.write(f'"{tech_id}" [style="rounded,filled,bold", color="#ffe599", label="{label}"];\n')
-               #                          else:
-               #                              f.write(f'"{tech_id}" [style="rounded,filled", color="#fffdf2", label="{label}"];\n')
-
-            f.write("}\n")
+                f.write("}\n")
 
         # Tier alignment of nodes overall.
         for t, node_ids in graph["tiers"].items():
@@ -321,7 +295,6 @@ def write_dot(graph, output_file):
             f.write(f'"{src}" -> "{dst}" [{attr_str}];\n')
 
         f.write("}\n")
-
 
 
 rows = load_data(input_file)

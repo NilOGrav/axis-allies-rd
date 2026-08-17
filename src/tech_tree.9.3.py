@@ -220,7 +220,7 @@ def write_dot(graph, output_file):
             graph [
                 pad=0.5,
                 nodesep=0.6,
-                ranksep=3.5
+                ranksep=6.5
                 ];
             """)
 
@@ -235,42 +235,46 @@ def write_dot(graph, output_file):
             """)
 
         # Domain together with tiers combined to clusters and place node within
-        for cluster, cluster_data in graph["clusters"].items():
+        for domain, domain_data in graph["domains"].items():
 
-            cluster_name = f'cluster_{cluster}'
+            for cluster, cluster_data in domain_data["clusters"].items():
 
-            f.write(f'subgraph {cluster_name} {{\n')
-            f.write(f'label="{cluster_data["label"]}";\n')
+                cluster_name = f'cluster_{cluster}'
 
-            # Setting the colors of the nodes
-            domain = cluster_data["domain"]
-            color = domain_colors.get(domain, "black")
-            f.write(f'fillcolor="{color}"; style="rounded,filled,dashed";\n')
-            f.write(f'color="blue";\n')
-            f.write(f'penwidth=1.5;\n')
-            f.write('margin=30;\n')
+                f.write(f'subgraph {cluster_name} {{\n')
+                f.write(f'label="{cluster_data["label"]}";\n')
 
-            nodes = graph["domain_tier_map"][
-                (cluster_data["domain"], cluster_data["tier"])
-            ]
+                # Setting the colors of the nodes
+#               domain = graph["domains"][domain]
+                color = domain_colors.get(domain, "black")
+                f.write(f'fillcolor="{color}"; style="rounded,filled,dashed";\n')
+                f.write(f'color="blue";\n')
+                f.write(f'penwidth=1.5;\n')
+                f.write('margin=30;\n')
 
-            for tech_id, label, category in nodes:
+#            nodes = graph["domain_tier_map"][
+#                (cluster_data["domain"], cluster_data["tier"])
+#            ]
 
-                node = graph["nodes"][tech_id]
-                view = node["view"]
+                for tech_id in cluster_data["nodes"]:
 
-                view_attrs = []
+                    node = graph["nodes"][tech_id]
+                    view = node["view"]
 
-                for key, value in view.items():
+                    view_attrs = []
 
-                    if isinstance(value, str):
-                        view_attrs.append(f'{key}="{value}"')
-                    else:
-                        view_attrs.append(f'{key}={value}')
+                    for key, value in view.items():
 
-                attrs = ", ".join(view_attrs)
+                        if isinstance(value, str):
+                            view_attrs.append(f'{key}="{value}"')
+                        else:
+                            view_attrs.append(f'{key}={value}')
 
-                f.write(f'"{tech_id}" [label="{node["label"]}", {attrs}];\n')
+                    attrs = ", ".join(view_attrs)
+
+                    f.write(f'"{tech_id}" [label="{node["label"]}", {attrs}];\n')
+
+                f.write("}\n")
 
                # f.write(f'"{tech_id}" [label="{graph["nodes"][tech_id]["label"]}", {graph["nodes"][tech_id]["view"]}];\n')
                # if category == "DUMMY":
@@ -297,7 +301,7 @@ def write_dot(graph, output_file):
                #                          else:
                #                              f.write(f'"{tech_id}" [style="rounded,filled", color="#fffdf2", label="{label}"];\n')
 
-            f.write("}\n")
+
 
         # Tier alignment of nodes overall.
         for t, node_ids in graph["tiers"].items():
