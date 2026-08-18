@@ -49,11 +49,27 @@ def process_dependency(dep, target, or_color_index, graph):
         or_color_index += 1
 
         for p in parts:
-            graph["edges"].append((p, target, "dashed", color))
+            graph["edges"].append({
+                "src": p,
+                "dst": target,
+                "view": {
+                    "style": "dashed",
+                    "color": color,
+                    "weight": 2
+                }
+            })
 
     # single AND
     else:
-        graph["edges"].append((parts[0], target, "solid", "black"))
+        graph["edges"].append({
+            "src": parts[0],
+            "dst": target,
+            "view": {
+                "style": "solid",
+                "color": "black",
+                "weight": 2
+            }
+        })
 
     return or_color_index
 
@@ -278,12 +294,18 @@ def write_dot(graph, output_file):
             f.write("{ rank=same; " + " ".join(f'"{n}"' for n in node_ids) + "; }\n")
 
         # Edges
-        for src, dst, style, color in graph["edges"]:
+        for edge in graph["edges"]:
+            src = edge["src"]
+            dst = edge["dst"]
+            edge_view = edge["view"]
+
             attrs = []
 
-            attrs.append(f'style={style}')
-            attrs.append(f'color="{color}"')
-            attrs.append('weight=2')
+            for key, value in edge_view.items():
+                if isinstance(value, str):
+                    attrs.append(f'{key}="{value}"')
+                else:
+                    attrs.append(f'{key}={value}')
 
             # Attach to clusters if nodes are dummy or cross clusters
             if src in graph["node_to_cluster"]:
