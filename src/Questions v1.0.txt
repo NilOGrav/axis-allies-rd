@@ -1,0 +1,20 @@
+Open 0001
+
+Code:
+                "style": "dashed" if len(parts) > 1 else "solid",
+                "color": color if len(parts) > 1 else "black",
+                "weight": 2
+
+Question: shouldn't "dashed", "solid", "black" and 2 be some sort of theming variables and not be hardcoded?
+
+
+Open 0002
+
+Code:
+		# The target is currently always a real technology node,
+        # because dependencies are read from technology rows.
+        dst = target
+        dst_type = "node"
+        dst_id = target
+
+Question: what happened to node -> cluster dependencies?

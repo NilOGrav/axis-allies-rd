@@ -36,6 +36,14 @@ def load_data(input_file):
     return rows
 
 
+def routing_endpoint(endpoint_type, endpoint_id):
+
+    return {
+        "type": endpoint_type,
+        "id": endpoint_id
+    }
+
+
 def process_dependency(dep, target, or_color_index, graph):
 
     if not dep:
@@ -48,31 +56,81 @@ def process_dependency(dep, target, or_color_index, graph):
         color = or_colors[or_color_index % len(or_colors)]
         or_color_index += 1
 
-        for p in parts:
-            graph["edges"].append({
-                "src": p,
-                "dst": target,
-                "view": {
-                    "style": "dashed",
-                    "color": color,
-                    "weight": 2
-                }
-            })
-
-    # single AND
     else:
+        color = "black"
+
+    for p in parts:
+
+        # Dependency refers to a real technology node.
+        if p in graph["nodes"]:
+            src = p
+            src_type = "node"
+            src_id = p
+
+        # Dependency refers to a cluster.
+        elif p in graph["cluster_representatives"]:
+            src = graph["cluster_representatives"][p]
+            src_type = "cluster"
+            src_id = p
+
+        else:
+            raise ValueError(
+                f"Unknown dependency '{p}' for target '{target}'"
+            )
+
         graph["edges"].append({
-            "src": parts[0],
+            "src": src,
             "dst": target,
+
             "view": {
-                "style": "solid",
-                "color": "black",
+                "style": "dashed" if len(parts) > 1 else "solid",
+                "color": color,
                 "weight": 2
             },
-            "routing": {}
+
+            "routing": {
+                "source": routing_endpoint(src_type, src_id),
+                "target": routing_endpoint("node", target)
+            }
         })
 
     return or_color_index
+
+    # if not dep:
+    #     return or_color_index
+    #
+    # parts = [d.strip() for d in dep.split('|') if d.strip()]
+    #
+    # # OR group
+    # if len(parts) > 1:
+    #     color = or_colors[or_color_index % len(or_colors)]
+    #     or_color_index += 1
+    #
+    #     for p in parts:
+    #         graph["edges"].append({
+    #             "src": p,
+    #             "dst": target,
+    #             "view": {
+    #                 "style": "dashed",
+    #                 "color": color,
+    #                 "weight": 2
+    #             }
+    #         })
+    #
+    # # single AND
+    # else:
+    #     graph["edges"].append({
+    #         "src": parts[0],
+    #         "dst": target,
+    #         "view": {
+    #             "style": "solid",
+    #             "color": "black",
+    #             "weight": 2
+    #         },
+    #         "routing": {}
+    #     })
+    #
+    # return or_color_index
 
 
 def process_path(path, tech_id, graph):
@@ -87,17 +145,18 @@ def process_path(path, tech_id, graph):
 
 
 def build_graph(rows):
+
     # create tiers, domains, edges, etc.
     graph = {
         "tiers": defaultdict(list),
         "domains": {},
         "node_to_cluster": {},
+        "cluster_representatives": {},
         "modules": defaultdict(list),
         "path_items": defaultdict(list),
         "nodes": {},
         "edges": []
     }
-
     or_color_index = 0
 
     for row in rows:
@@ -147,6 +206,12 @@ def build_graph(rows):
             "category": category,
             "label": label,
             "path": path,
+            "dependencies": [
+                dep1,
+                dep2,
+                dep3,
+                dep4
+            ],
             "view": {}
         }
 
@@ -158,12 +223,56 @@ def build_graph(rows):
 
         graph["domains"][domain]["clusters"][cluster]["nodes"].append(tech_id)
 
+        if category == "CLUSTER":
+            graph["cluster_representatives"][tech_id] = None
+
         process_path(path, tech_id, graph)
 
-        or_color_index = process_dependency(dep1, tech_id, or_color_index, graph)
-        or_color_index = process_dependency(dep2, tech_id, or_color_index, graph)
-        or_color_index = process_dependency(dep3, tech_id, or_color_index, graph)
-        or_color_index = process_dependency(dep4, tech_id, or_color_index, graph)
+        # or_color_index = process_dependency(dep1, tech_id, or_color_index, graph)
+        # or_color_index = process_dependency(dep2, tech_id, or_color_index, graph)
+        # or_color_index = process_dependency(dep3, tech_id, or_color_index, graph)
+        # or_color_index = process_dependency(dep4, tech_id, or_color_index, graph)
+
+    # Resolve a real representative node for every cluster dependency.
+    for cluster_id in graph["cluster_representatives"]:
+
+        # The CLUSTER row itself already knows which semantic cluster
+        # it belongs to. Do not reconstruct the cluster ID from X.*.
+        cluster_node = graph["nodes"][cluster_id]
+
+        domain = cluster_node["domain"]
+        cluster = cluster_node["cluster"]
+
+        cluster_data = graph["domains"][domain]["clusters"][cluster]
+
+        # Only real nodes may represent the cluster.
+        real_nodes = [
+            tech_id
+            for tech_id in cluster_data["nodes"]
+            if graph["nodes"][tech_id]["category"] != "CLUSTER"
+        ]
+
+        if not real_nodes:
+            raise ValueError(
+                f"Cluster dependency '{cluster_id}' contains no real node"
+            )
+
+        # Temporary deterministic selection.
+        # This selection rule will be refined later.
+        graph["cluster_representatives"][cluster_id] = real_nodes[0]
+
+    # Now that all nodes and cluster representatives exist,
+    # construct the dependency edges.
+    for tech_id, node in graph["nodes"].items():
+
+        for dep in node["dependencies"]:
+
+            or_color_index = process_dependency(
+                dep,
+                tech_id,
+                or_color_index,
+                graph
+            )
 
     return graph
 
