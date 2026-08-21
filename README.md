@@ -4,7 +4,7 @@ Development repository for the custom Research & Development system for
 Axis & Allies 1940 Global. It is a civilization-style system where you research technologies, 
 which open up new technologies on turn. There is also the possibility to in- or exclude add-ons:
 - NUCLEAR: Develop the nuclear bomb and a means to drop it.
-- OIL: Finding and refining oil to allow you logistics to function.
+- OIL: Finding and refining oil to allow your logistics to function.
 - OCCULTISM: To include the myths that Germany did occult resrearch.
 - ToDo - ZOMBIES: to integrate Axis & Allies & Zombies into Axis & Allies 1940 Global
 
@@ -38,9 +38,9 @@ Historical development versions are preserved under `archive/`.
 
 Usage:
 
-$ python3 tech_tree.9.x.py Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v7.8.csv
+$ python3 src/tech_tree.9.X.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v8.Y.csv
 
-This will generate a dot-file from the csv-file, which is than converted to a svg-file that contains the Tech tree.
+This will generate a dot-file in . from the csv-file, which is than converted to a svg-file that contains the Tech tree.
 
 $ dot -Tsvg tech_tree.dot -o tech_tree.svg 
 

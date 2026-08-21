@@ -559,8 +559,15 @@ color="blue";
 penwidth="1.5";
 margin="30";
 "R.4.01" [label="R.4.01\nAluminium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
-"R.4.02" [label="R.4.02\nSteel", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
-"R.4.03" [label="R.4.03\nVril", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+"R.4.02" [label="R.4.02\nVril", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
+}
+subgraph cluster_R_5 {
+label="Resource - Tier 5";
+fillcolor="#eeeeee"; style="rounded,filled,dashed";
+color="blue";
+penwidth="1.5";
+margin="30";
+"R.5.01" [label="R.5.01\nSteel", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_6 {
 label="Resource - Tier 6";
@@ -574,8 +581,8 @@ margin="30";
 { rank=same; "A.1.01" "A.1.02" "A.1.03" "E.1.01" "E.1.02" "E.1.03" "E.1.04" "E.1.05" "F.1.01" "F.1.02" "F.1.03" "F.1.04" "F.1.05" "F.1.06" "I.1.01" "I.1.02" "I.1.03" "I.1.04" "L.1.01" "L.1.02" "L.1.03" "L.1.04" "L.1.05" "N.1.01" "N.1.02" "N.1.03" "N.1.04" "N.1.05" "R.1.01" "X.A.01" "X.E.01" "X.F.01" "X.I.01" "X.L.01" "X.N.01"; }
 { rank=same; "A.2.01" "A.2.02" "A.2.03" "A.2.04" "E.2.01" "E.2.02" "E.2.03" "E.2.04" "E.2.05" "F.2.01" "F.2.02" "F.2.03" "F.2.04" "F.2.05" "F.2.06" "F.2.07" "I.2.01" "I.2.02" "I.2.03" "I.2.04" "L.2.01" "L.2.02" "L.2.03" "L.2.04" "L.2.05" "L.2.06" "N.2.01" "N.2.02" "N.2.03" "N.2.04" "X.A.02" "X.E.02" "X.F.02" "X.I.02" "X.L.02" "X.N.02"; }
 { rank=same; "A.3.01" "E.3.01" "E.3.02" "F.3.01" "I.3.01" "L.3.01" "N.3.01" "P.3.GO"; }
-{ rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "L.4.01" "L.4.02" "L.4.03" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "P.4.GO" "R.4.01" "R.4.02" "R.4.03" "X.A.04" "X.E.04" "X.F.04" "X.I.04" "X.L.04" "X.N.04"; }
-{ rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "P.5.GO" "X.A.05" "X.E.05" "X.F.05" "X.I.05" "X.L.05" "X.N.05"; }
+{ rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "L.4.01" "L.4.02" "L.4.03" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "P.4.GO" "R.4.01" "R.4.02" "X.A.04" "X.E.04" "X.F.04" "X.I.04" "X.L.04" "X.N.04"; }
+{ rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "P.5.GO" "R.5.01" "X.A.05" "X.E.05" "X.F.05" "X.I.05" "X.L.05" "X.N.05"; }
 { rank=same; "A.6.01" "A.6.02" "A.6.03" "A.6.04" "E.6.01" "E.6.02" "E.6.03" "F.6.01" "F.6.02" "F.6.03" "I.6.01" "I.6.02" "I.6.03" "I.6.04" "L.6.01" "L.6.02" "L.6.03" "L.6.04" "L.6.05" "L.6.06" "N.6.01" "N.6.02" "N.6.03" "N.6.04" "P.6.GO" "R.6.01" "R.6.02" "X.A.06" "X.E.06" "X.F.06" "X.I.06" "X.L.06" "X.N.06"; }
 { rank=same; "E.0.01" "F.0.01"; }
 { rank=same; "E.7.01" "P.7.FI" "P.7.GA" "P.7.GL" "P.7.GO" "P.7.JP" "P.7.NU" "P.7.RU" "P.7.SG" "P.7.SU" "P.7.UK" "P.7.US"; }
@@ -811,8 +818,8 @@ margin="30";
 "E.6.02" -> "P.9.NU" [style="dashed", color="#f781bf", weight=2];
 "A.6.04" -> "P.9.NU" [style="dashed", color="#f781bf", weight=2];
 "E.3.02" -> "R.4.01" [style="solid", color="black", weight=2];
-"E.4.05" -> "R.4.02" [style="solid", color="black", weight=2];
-"P.3.GO" -> "R.4.03" [style="solid", color="black", weight=2];
+"E.4.05" -> "R.5.01" [style="solid", color="black", weight=2];
+"P.3.GO" -> "R.4.02" [style="solid", color="black", weight=2];
 "E.0.01" -> "X.A.01" [style="solid", color="black", weight=2];
 "X.A.01" -> "X.A.02" [style="solid", color="black", weight=2];
 "A.3.01" -> "X.A.04" [style="solid", color="black", weight=2];

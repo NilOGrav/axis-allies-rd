@@ -23,6 +23,19 @@ or_colors = [
 ]
 
 
+def create_graph():
+
+    return {
+        "tiers": defaultdict(list),
+        "domains": {},
+        "cluster_representatives": {},
+        "modules": defaultdict(list),
+        "path_items": defaultdict(list),
+        "nodes": {},
+        "edges": []
+    }
+
+
 def load_data(input_file):
 
     rows = []
@@ -96,42 +109,6 @@ def process_dependency(dep, target, or_color_index, graph):
 
     return or_color_index
 
-    # if not dep:
-    #     return or_color_index
-    #
-    # parts = [d.strip() for d in dep.split('|') if d.strip()]
-    #
-    # # OR group
-    # if len(parts) > 1:
-    #     color = or_colors[or_color_index % len(or_colors)]
-    #     or_color_index += 1
-    #
-    #     for p in parts:
-    #         graph["edges"].append({
-    #             "src": p,
-    #             "dst": target,
-    #             "view": {
-    #                 "style": "dashed",
-    #                 "color": color,
-    #                 "weight": 2
-    #             }
-    #         })
-    #
-    # # single AND
-    # else:
-    #     graph["edges"].append({
-    #         "src": parts[0],
-    #         "dst": target,
-    #         "view": {
-    #             "style": "solid",
-    #             "color": "black",
-    #             "weight": 2
-    #         },
-    #         "routing": {}
-    #     })
-    #
-    # return or_color_index
-
 
 def process_path(path, tech_id, graph):
 
@@ -147,16 +124,8 @@ def process_path(path, tech_id, graph):
 def build_graph(rows):
 
     # create tiers, domains, edges, etc.
-    graph = {
-        "tiers": defaultdict(list),
-        "domains": {},
-        "node_to_cluster": {},
-        "cluster_representatives": {},
-        "modules": defaultdict(list),
-        "path_items": defaultdict(list),
-        "nodes": {},
-        "edges": []
-    }
+    graph = create_graph()
+
     or_color_index = 0
 
     for row in rows:
@@ -190,11 +159,7 @@ def build_graph(rows):
                 "view": {}
             }
 
-        if category == "DUMMY":
-            label = ""
-            graph["node_to_cluster"][tech_id] = f"cluster_{cluster}"
-        else:
-            label = f"{tech_id}\\n{name}"
+        label = f"{tech_id}\\n{name}"
 
         graph["nodes"][tech_id] = {
             "name": name,
@@ -215,9 +180,7 @@ def build_graph(rows):
             "view": {}
         }
 
-        if category != "DUMMY":
-            graph["tiers"][tier].append(tech_id)
-#        graph["tiers"][tier].append(tech_id)
+        graph["tiers"][tier].append(tech_id)
 
         graph["modules"][module].append(tech_id)
 
@@ -227,11 +190,6 @@ def build_graph(rows):
             graph["cluster_representatives"][tech_id] = None
 
         process_path(path, tech_id, graph)
-
-        # or_color_index = process_dependency(dep1, tech_id, or_color_index, graph)
-        # or_color_index = process_dependency(dep2, tech_id, or_color_index, graph)
-        # or_color_index = process_dependency(dep3, tech_id, or_color_index, graph)
-        # or_color_index = process_dependency(dep4, tech_id, or_color_index, graph)
 
     # Resolve a real representative node for every cluster dependency.
     for cluster_id in graph["cluster_representatives"]:
@@ -283,14 +241,7 @@ def apply_view(graph):
 
         category = node["category"]
 
-        if category == "DUMMY":
-            node["view"] = {
-                "style": "invis",
-                "width": 0,
-                "height": 0,
-            }
-
-        elif category == "KEYSTONE":
+        if category == "KEYSTONE":
             node["view"] = {
                 "shape": "doubleoctagon",
                 "style": "rounded,filled",
@@ -337,6 +288,22 @@ def apply_view(graph):
 
     return graph
 
+def apply_graphviz_routing(edge, attrs):
+
+    routing = edge["routing"]
+
+    source = routing["source"]
+    target = routing["target"]
+
+    if source["type"] == "cluster":
+        attrs.append(
+            f'ltail=cluster_{source["id"]}'
+        )
+
+    if target["type"] == "cluster":
+        attrs.append(
+            f'lhead=cluster_{target["id"]}'
+        )
 
 def write_dot(graph, output_file):
 
@@ -422,22 +389,8 @@ def write_dot(graph, output_file):
                 else:
                     attrs.append(f'{key}={value}')
 
-            # Graphviz cluster routing
-            if src in graph["node_to_cluster"]:
-                attrs.append(
-                    f'ltail={graph["node_to_cluster"][src]}'
-                )
-
-            if dst in graph["node_to_cluster"]:
-                attrs.append(
-                    f'lhead={graph["node_to_cluster"][dst]}'
-                )
-
-            # Attach to clusters if nodes are dummy or cross clusters
-#            if src in graph["node_to_cluster"]:
-#                attrs.append(f'ltail={graph["node_to_cluster"][src]}')
-#            if dst in graph["node_to_cluster"]:
-#                attrs.append(f'lhead={graph["node_to_cluster"][dst]}')
+            # Translate semantic routing into Graphviz routing.
+            apply_graphviz_routing(edge, attrs)
 
             attr_str = ", ".join(attrs)
 
