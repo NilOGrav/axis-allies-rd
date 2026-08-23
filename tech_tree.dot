@@ -1,24 +1,22 @@
 digraph TechTree {
-rankdir=LR;
-splines=polyline;
-compound=true;
-clusterrank=local;
-newrank=true;
-
-            graph [
-                pad=0.5,
-                nodesep=0.6,
-                ranksep=7.0
-                ];
-            
-            node [
-                shape=box,
-                width=3.5,
-                height=1.0,
-                fixedsize=true,
-                fontsize=10
-                ];
-            subgraph cluster_A_1 {
+graph [
+    rankdir="LR",
+    splines="polyline",
+    compound=true,
+    clusterrank="local",
+    newrank=true,
+    pad=0.5,
+    nodesep=0.6,
+    ranksep=7.0
+];
+node [
+    shape="box",
+    width=3.5,
+    height=1.0,
+    fixedsize=true,
+    fontsize=10
+];
+subgraph cluster_A_1 {
 label="Air - Tier 1";
 fillcolor="#cfe8ff"; style="rounded,filled,dashed";
 color="blue";
