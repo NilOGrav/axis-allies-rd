@@ -1,27 +1,9 @@
 digraph TechTree {
-graph [
-    rankdir="LR",
-    splines="polyline",
-    compound=true,
-    clusterrank="local",
-    newrank=true,
-    pad=0.5,
-    nodesep=0.6,
-    ranksep=7.0
-];
-node [
-    shape="box",
-    width=3.5,
-    height=1.0,
-    fixedsize=true,
-    fontsize=10
-];
+graph [rankdir="LR", splines="polyline", compound=true, clusterrank="local", newrank=true, pad=0.5, nodesep=0.6, ranksep=7.0];
+node [shape="box", width=3.5, height=1.0, fixedsize=true, fontsize=10];
 subgraph cluster_A_1 {
 label="Air - Tier 1";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.1.01" [label="A.1.01\nImproved Airframes", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.1.02" [label="A.1.02\nAir Transport Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.1.03" [label="A.1.03\nZeppelin development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -29,10 +11,7 @@ margin="30";
 }
 subgraph cluster_A_2 {
 label="Air - Tier 2";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.2.01" [label="A.2.01\nDefensive Turrets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.2.02" [label="A.2.02\nImproved scramble (ATC)", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.2.03" [label="A.2.03\nBombing Calibration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -41,18 +20,12 @@ margin="30";
 }
 subgraph cluster_A_3 {
 label="Air - Tier 3";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.3.01" [label="A.3.01\nAir Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_A_4 {
 label="Air - Tier 4";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.4.01" [label="A.4.01\nLong-Range Aircraft", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.4.02" [label="A.4.02\nAdvanced Fighter Development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.4.03" [label="A.4.03\nParatroopers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -61,10 +34,7 @@ margin="30";
 }
 subgraph cluster_A_5 {
 label="Air - Tier 5";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.5.01" [label="A.5.01\nJet Engine Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.5.02" [label="A.5.02\nEngine Optimization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.5.03" [label="A.5.03\nHeavy Bomber Design", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -73,10 +43,7 @@ margin="30";
 }
 subgraph cluster_A_6 {
 label="Air - Tier 6";
-fillcolor="#cfe8ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "A.6.01" [label="A.6.01\nEarly Jet Fighters", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.6.02" [label="A.6.02\nUnder the cover of the night", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.6.03" [label="A.6.03\nUnder the Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -85,19 +52,13 @@ margin="30";
 }
 subgraph cluster_E_0 {
 label="Energy And Physics - Tier 0";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.0.01" [label="E.0.01\nBasic Research Facility", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 "F.0.01" [label="F.0.01\nOil Derrick", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_1 {
 label="Energy And Physics - Tier 1";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.1.01" [label="E.1.01\nEarly Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.1.02" [label="E.1.02\nHeavy Water Chemistry", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.1.03" [label="E.1.03\nImproved AA Procedures", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -107,10 +68,7 @@ margin="30";
 }
 subgraph cluster_E_2 {
 label="Energy And Physics - Tier 2";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.2.01" [label="E.2.01\nIntegrated Air Defense Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.2.02" [label="E.2.02\nReactor Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.2.03" [label="E.2.03\nRadar Wave Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -120,19 +78,13 @@ margin="30";
 }
 subgraph cluster_E_3 {
 label="Energy And Physics - Tier 3";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.3.01" [label="E.3.01\nEnergy & Physics Institute", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 "E.3.02" [label="E.3.02\nAdvanced Metallurgy", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_4 {
 label="Energy And Physics - Tier 4";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.4.01" [label="E.4.01\nReactor Engineering", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.4.02" [label="E.4.02\nRocket Propulsion Theory", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.4.03" [label="E.4.03\nSynthetic Oil Expansion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -142,10 +94,7 @@ margin="30";
 }
 subgraph cluster_E_5 {
 label="Energy And Physics - Tier 5";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.5.01" [label="E.5.01\nUranium Processing", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.02" [label="E.5.02\nRocket Development Program", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.03" [label="E.5.03\nStrategic Payload Integration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -153,10 +102,7 @@ margin="30";
 }
 subgraph cluster_E_6 {
 label="Energy And Physics - Tier 6";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.6.01" [label="E.6.01\nAdvanced Ballistics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.6.02" [label="E.6.02\nNuclear Delivery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.6.03" [label="E.6.03\nNuclear Reactor", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -164,26 +110,17 @@ margin="30";
 }
 subgraph cluster_E_7 {
 label="Energy And Physics - Tier 7";
-fillcolor="#f8d7da"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.7.01" [label="E.7.01\nCruise Missile Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_5 {
 label="Logistics And Industry - Tier 5";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "E.5.04" [label="E.5.04\nRecycle Station", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_F_1 {
 label="Logistics And Industry - Tier 1";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.1.01" [label="F.1.01\nSeaplane base", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.1.02" [label="F.1.02\nWar Bonds Campaign", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.1.03" [label="F.1.03\nPort Efficiency", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -194,10 +131,7 @@ margin="30";
 }
 subgraph cluster_F_2 {
 label="Logistics And Industry - Tier 2";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.2.01" [label="F.2.01\nStandardized Parts", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.2.02" [label="F.2.02\nRail Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.2.03" [label="F.2.03\nIncreased Factory Production", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -209,18 +143,12 @@ margin="30";
 }
 subgraph cluster_F_3 {
 label="Logistics And Industry - Tier 3";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.3.01" [label="F.3.01\nIndustrial & Logistics Bureau", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_F_4 {
 label="Logistics And Industry - Tier 4";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.4.01" [label="F.4.01\nStrategic Rail Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.4.02" [label="F.4.02\nIndustrial Relocation", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.4.03" [label="F.4.03\nMass Production", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -231,10 +159,7 @@ margin="30";
 }
 subgraph cluster_F_5 {
 label="Logistics And Industry - Tier 5";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.5.01" [label="F.5.01\nArmoured Trains", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.5.02" [label="F.5.02\nIndustrial Mobilization", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.5.03" [label="F.5.03\nImproved Shipyards", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -244,10 +169,7 @@ margin="30";
 }
 subgraph cluster_F_6 {
 label="Logistics And Industry - Tier 6";
-fillcolor="#c4a6ff"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "F.6.01" [label="F.6.01\nExpress Railway", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.6.02" [label="F.6.02\nMegafactories", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.6.03" [label="F.6.03\nAdvanced Assembly Lines", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -255,10 +177,7 @@ margin="30";
 }
 subgraph cluster_I_1 {
 label="Intelligence - Tier 1";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.1.01" [label="I.1.01\nGermany: Enigma", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.1.02" [label="I.1.02\nBasic Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.1.03" [label="I.1.03\nCodebreaking", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -267,10 +186,7 @@ margin="30";
 }
 subgraph cluster_I_2 {
 label="Intelligence - Tier 2";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.2.01" [label="I.2.01\nUK: Alan Turing", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.2.02" [label="I.2.02\nCryptographic Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.2.03" [label="I.2.03\nPropaganda Effect on Mobilization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -279,18 +195,12 @@ margin="30";
 }
 subgraph cluster_I_3 {
 label="Intelligence - Tier 3";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.3.01" [label="I.3.01\nIntelligence Directorate", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_I_4 {
 label="Intelligence - Tier 4";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.4.01" [label="I.4.01\nEspionage Networks", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.4.02" [label="I.4.02\nSignals Interception", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.4.03" [label="I.4.03\nStealth Techniques", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -299,10 +209,7 @@ margin="30";
 }
 subgraph cluster_I_5 {
 label="Intelligence - Tier 5";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.5.01" [label="I.5.01\nCounterintelligence", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.5.02" [label="I.5.02\nScientific Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.5.03" [label="I.5.03\nPolitical Influence Operations", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -311,10 +218,7 @@ margin="30";
 }
 subgraph cluster_I_6 {
 label="Intelligence - Tier 6";
-fillcolor="#e0f7fa"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "I.6.01" [label="I.6.01\nCounter sabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.6.02" [label="I.6.02\nEspionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.6.03" [label="I.6.03\nSabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -323,10 +227,7 @@ margin="30";
 }
 subgraph cluster_L_1 {
 label="Land - Tier 1";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.1.01" [label="L.1.01\nMorale Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.1.02" [label="L.1.02\nBarbed wire", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.1.03" [label="L.1.03\nEntrenchment Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -336,10 +237,7 @@ margin="30";
 }
 subgraph cluster_L_2 {
 label="Land - Tier 2";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.2.01" [label="L.2.01\nCzech hedgehogs", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.2.02" [label="L.2.02\nImproved Training", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.2.03" [label="L.2.03\nLand mine (field)", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -350,18 +248,12 @@ margin="30";
 }
 subgraph cluster_L_3 {
 label="Land - Tier 3";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.3.01" [label="L.3.01\nLand Warfare Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_L_4 {
 label="Land - Tier 4";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.4.01" [label="L.4.01\nBunkers", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.4.02" [label="L.4.02\nMechanized Warfare Doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.4.03" [label="L.4.03\nAdvanced Artillery", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -369,10 +261,7 @@ margin="30";
 }
 subgraph cluster_L_5 {
 label="Land - Tier 5";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.5.01" [label="L.5.01\nConcrete bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.5.02" [label="L.5.02\nEnforced bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.5.03" [label="L.5.03\nSelf-Propelled Artillery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -384,10 +273,7 @@ margin="30";
 }
 subgraph cluster_L_6 {
 label="Land - Tier 6";
-fillcolor="#d9f2d9"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "L.6.01" [label="L.6.01\nNuclear bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.6.02" [label="L.6.02\nDefensive Fortifications", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.6.03" [label="L.6.03\nArtillery Fire Control", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -398,10 +284,7 @@ margin="30";
 }
 subgraph cluster_N_1 {
 label="Naval - Tier 1";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.1.01" [label="N.1.01\nImproved Transport Capacity", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.1.02" [label="N.1.02\nExtended Range Submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.1.03" [label="N.1.03\nSea mines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -411,10 +294,7 @@ margin="30";
 }
 subgraph cluster_N_2 {
 label="Naval - Tier 2";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.2.01" [label="N.2.01\nAdvanced Submarine Hulls", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.2.02" [label="N.2.02\nAdvanced ASW", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.2.03" [label="N.2.03\nTorpedos", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -423,18 +303,12 @@ margin="30";
 }
 subgraph cluster_N_3 {
 label="Naval - Tier 3";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.3.01" [label="N.3.01\nNaval Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_N_4 {
 label="Naval - Tier 4";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.4.01" [label="N.4.01\nSubmarine Fleet Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.4.02" [label="N.4.02\nSurface Fleet doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.4.03" [label="N.4.03\nSonar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -443,10 +317,7 @@ margin="30";
 }
 subgraph cluster_N_5 {
 label="Naval - Tier 5";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.5.01" [label="N.5.01\nMobile submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.5.02" [label="N.5.02\nSilent Running", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.5.03" [label="N.5.03\nSuper battleships", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -456,10 +327,7 @@ margin="30";
 }
 subgraph cluster_N_6 {
 label="Naval - Tier 6";
-fillcolor="#fff2cc"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "N.6.01" [label="N.6.01\nNuclear Propulsion Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.6.02" [label="N.6.02\nAdvanced Submarine Propulsion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.6.03" [label="N.6.03\nHeavy battleship", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -468,42 +336,27 @@ margin="30";
 }
 subgraph cluster_P_3 {
 label="Programs - Tier 3";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.3.GO" [label="P.3.GO\nGermany: Occultism: The Ahnenerbe Institute", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_4 {
 label="Programs - Tier 4";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.4.GO" [label="P.4.GO\nGermany: Occultism: Expedition to Tibet", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_5 {
 label="Programs - Tier 5";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.5.GO" [label="P.5.GO\nGermany: Occultism: Thule Society", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_6 {
 label="Programs - Tier 6";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.6.GO" [label="P.6.GO\nGermany: Occultism: Spear of Longinus", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_7 {
 label="Programs - Tier 7";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.7.FI" [label="P.7.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.7.GA" [label="P.7.GA\nGermany: Atlantik Wall", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.7.GL" [label="P.7.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -518,10 +371,7 @@ margin="30";
 }
 subgraph cluster_P_8 {
 label="Programs - Tier 8";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.8.FI" [label="P.8.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.8.GA" [label="P.8.GA\nGermany: Atlantic Wall Pt. 2", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.8.GL" [label="P.8.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -536,43 +386,28 @@ margin="30";
 }
 subgraph cluster_P_9 {
 label="Programs - Tier 9";
-fillcolor="#ffd9b3"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "P.9.NU" [label="P.9.NU\nProject Manhattan – Dropping The Bomb", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_R_1 {
 label="Resource - Tier 1";
-fillcolor="#eeeeee"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "R.1.01" [label="R.1.01\nOil", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_4 {
 label="Resource - Tier 4";
-fillcolor="#eeeeee"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "R.4.01" [label="R.4.01\nAluminium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.4.02" [label="R.4.02\nVril", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_5 {
 label="Resource - Tier 5";
-fillcolor="#eeeeee"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "R.5.01" [label="R.5.01\nSteel", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_6 {
 label="Resource - Tier 6";
-fillcolor="#eeeeee"; style="rounded,filled,dashed";
-color="blue";
-penwidth="1.5";
-margin="30";
+graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
 "R.6.01" [label="R.6.01\nUranium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.6.02" [label="R.6.02\nHeavy Water", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }

@@ -36,9 +36,11 @@ The repository is maintained using Git and GitHub.
 The `main` branch contains the current working version.
 Historical development versions are preserved under `archive/`.
 
+Since of v10.2 Github is handling the version history.
+
 Usage:
 
-$ python3 src/tech_tree.9.X.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v8.Y.csv
+$ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v8.Y.csv
 
 This will generate a dot-file in . from the csv-file, which is than converted to a svg-file that contains the Tech tree.
 
