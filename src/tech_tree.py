@@ -37,7 +37,15 @@ output_file = "tech_tree.dot"
 #  │
 #  └── global dot_view + object views + routing
 #  ↓
-# DOT / SVG
+# DOT / SVG generation
+#       ↓
+#     Graphviz
+#       ↓
+#     "good enough" graph geometry
+#       ↓
+#     SVG post-processing
+#       ↓
+# final aligned tech tree
 
 
 domain_colors = {
@@ -58,6 +66,8 @@ or_colors = [
 ]
 
 dot_view = {
+    "name": "TechTree",
+
     "graph": {
         "rankdir": "LR",
         "splines": "polyline",
@@ -77,6 +87,7 @@ dot_view = {
         "fontsize": 10,
     }
 }
+
 
 def create_graph():
 
@@ -343,6 +354,7 @@ def apply_view(graph):
 
     return graph
 
+
 def apply_graphviz_routing(edge, attrs):
 
     routing = edge["routing"]
@@ -359,6 +371,7 @@ def apply_graphviz_routing(edge, attrs):
         attrs.append(
             f'lhead=cluster_{target["id"]}'
         )
+
 
 def format_dot_attrs(attrs):
 
@@ -383,31 +396,8 @@ def write_dot(graph, output_file):
     with open(output_file, "w", encoding="utf-8") as f:
 
         # TODO - Maybe make title view depended
-        f.write("digraph TechTree {\n")
-        # f.write("rankdir=LR;\n")
-        # f.write("splines=polyline;\n")
-        # f.write("compound=true;\n")
-        # f.write("clusterrank=local;\n")
-        # f.write("newrank=true;\n")
-        #
-        # f.write("""
-        #     graph [
-        #         pad=0.5,
-        #         nodesep=0.6,
-        #         ranksep=7.0
-        #         ];
-        #     """)
-        #
-        # f.write("""
-        #     node [
-        #         shape=box,
-        #         width=3.5,
-        #         height=1.0,
-        #         fixedsize=true,
-        #         fontsize=10
-        #         ];
-        #     """)
-
+        # f.write("digraph TechTree {\n")
+        f.write(f'digraph {dot_view["name"]} {{\n')
 
         # Global Graphviz view settings
         graph_attrs = format_dot_attrs(dot_view["graph"])
@@ -421,43 +411,6 @@ def write_dot(graph, output_file):
         f.write(
             f"node [{node_attrs}];\n"
         )
-        # graph_attrs = []
-        #
-        # graph_attrs = format_dot_attrs(dot_view["graph"])
-        #
-        # f.write(
-        #     f"graph [{graph_attrs}];\n"
-        # )
-        # # for key, value in dot_view["graph"].items():
-        # #     if isinstance(value, str):
-        # #         graph_attrs.append(f'{key}="{value}"')
-        # #     else:
-        # #         graph_attrs.append(f'{key}={str(value).lower() if isinstance(value, bool) else value}')
-        #
-        # f.write(
-        #     "graph [\n    "
-        #     + ",\n    ".join(graph_attrs)
-        #     + "\n];\n"
-        # )
-        #
-        # node_attrs = []
-        #
-        # node_attrs = format_dot_attrs(dot_view["node"])
-        #
-        # f.write(
-        #     f"node [{node_attrs}];\n"
-        # )
-        # # for key, value in dot_view["node"].items():
-        # #     if isinstance(value, str):
-        # #         node_attrs.append(f'{key}="{value}"')
-        # #     else:
-        # #         node_attrs.append(f'{key}={str(value).lower() if isinstance(value, bool) else value}')
-        #
-        # f.write(
-        #     "node [\n    "
-        #     + ",\n    ".join(node_attrs)
-        #     + "\n];\n"
-        # )
 
         # Domain together with tiers combined to clusters and place node within
         for domain, domain_data in graph["domains"].items():
@@ -476,28 +429,12 @@ def write_dot(graph, output_file):
                     f'graph [{cluster_attrs}];\n'
                 )
 
-                # f.write(f'fillcolor="{cluster_data["view"]["fillcolor"]}"; style="{cluster_data["view"]["style"]}";\n')
-                # f.write(f'color="{cluster_data["view"]["color"]}";\n')
-                # f.write(f'penwidth="{cluster_data["view"]["penwidth"]}";\n')
-                # f.write(f'margin="{cluster_data["view"]["margin"]}";\n')
-
                 for tech_id in cluster_data["nodes"]:
 
                     node = graph["nodes"][tech_id]
                     view = node["view"]
 
                     attrs = format_dot_attrs(view)
-
-                    # view_attrs = []
-                    #
-                    # for key, value in view.items():
-                    #
-                    #     if isinstance(value, str):
-                    #         view_attrs.append(f'{key}="{value}"')
-                    #     else:
-                    #         view_attrs.append(f'{key}={value}')
-                    #
-                    # attrs = ", ".join(view_attrs)
 
                     f.write(
                         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
@@ -524,12 +461,6 @@ def write_dot(graph, output_file):
 
             if edge_view_attrs:
                 attrs.append(edge_view_attrs)
-
-            # for key, value in edge_view.items():
-            #     if isinstance(value, str):
-            #         attrs.append(f'{key}="{value}"')
-            #     else:
-            #         attrs.append(f'{key}={value}')
 
             # Translate semantic routing into Graphviz routing.
             apply_graphviz_routing(edge, attrs)
