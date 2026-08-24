@@ -42,9 +42,5 @@ Usage:
 
 $ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v8.Y.csv
 
-This will generate a dot-file in . from the csv-file, which is than converted to a svg-file that contains the Tech tree.
-
-$ dot -Tsvg tech_tree.dot -o tech_tree.svg 
-
-
+This will generate a dot-file (in .) from the csv-file, which is than converted to a svg-file (also in .) that contains the Tech tree.
 

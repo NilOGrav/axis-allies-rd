@@ -1,9 +1,11 @@
 import sys
 import csv
+import subprocess
 from collections import defaultdict
 
 input_file = sys.argv[1]
-output_file = "tech_tree.dot"
+dot_file = "tech_tree.dot"
+svg_file = "tech_tree.svg"
 
 
 # Sturcture of the code:
@@ -391,9 +393,9 @@ def format_dot_attrs(attrs):
     return ", ".join(formatted)
 
 
-def write_dot(graph, output_file):
+def write_dot(graph, dot_file):
 
-    with open(output_file, "w", encoding="utf-8") as f:
+    with open(dot_file, "w", encoding="utf-8") as f:
 
         # TODO - Maybe make title view depended
         # f.write("digraph TechTree {\n")
@@ -474,13 +476,24 @@ def write_dot(graph, output_file):
         f.write("}\n")
 
 
+def run_graphviz(dot_file, svg_file):
+
+    subprocess.run(
+        ["dot", "-Tsvg", dot_file, "-o", svg_file],
+        check=True
+    )
+
+
 rows = load_data(input_file)
 
 graph = build_graph(rows)
 
 graph = apply_view(graph)
 
-write_dot(graph, output_file)
+write_dot(graph, dot_file)
+
+run_graphviz(dot_file, svg_file)
+
 
 
 
