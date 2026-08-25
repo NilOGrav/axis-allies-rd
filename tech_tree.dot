@@ -3,14 +3,14 @@ graph [rankdir="LR", splines="polyline", compound=true, clusterrank="local", new
 node [shape="box", width=3.5, height=1.0, fixedsize=true, fontsize=10];
 subgraph cluster_A_1 {
 label="Air - Tier 1";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.1.01" [label="A.1.01\nImproved Airframes", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.1.02" [label="A.1.02\nAir Transport Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.1.03" [label="A.1.03\nZeppelin development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_A_2 {
 label="Air - Tier 2";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.2.01" [label="A.2.01\nDefensive Turrets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.2.02" [label="A.2.02\nImproved scramble (ATC)", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.2.03" [label="A.2.03\nBombing Calibration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -18,12 +18,12 @@ graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_A_3 {
 label="Air - Tier 3";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.3.01" [label="A.3.01\nAir Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_A_4 {
 label="Air - Tier 4";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.4.01" [label="A.4.01\nLong-Range Aircraft", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.4.02" [label="A.4.02\nAdvanced Fighter Development", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.4.03" [label="A.4.03\nParatroopers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -31,7 +31,7 @@ graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_A_5 {
 label="Air - Tier 5";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.5.01" [label="A.5.01\nJet Engine Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.5.02" [label="A.5.02\nEngine Optimization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.5.03" [label="A.5.03\nHeavy Bomber Design", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -39,7 +39,7 @@ graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_A_6 {
 label="Air - Tier 6";
-graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cfe8ff"];
 "A.6.01" [label="A.6.01\nEarly Jet Fighters", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.6.02" [label="A.6.02\nUnder the cover of the night", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "A.6.03" [label="A.6.03\nUnder the Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -47,13 +47,13 @@ graph [fillcolor="#cfe8ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_E_0 {
 label="Energy And Physics - Tier 0";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.0.01" [label="E.0.01\nBasic Research Facility", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 "F.0.01" [label="F.0.01\nOil Derrick", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_1 {
 label="Energy And Physics - Tier 1";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.1.01" [label="E.1.01\nEarly Radar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.1.02" [label="E.1.02\nHeavy Water Chemistry", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.1.03" [label="E.1.03\nImproved AA Procedures", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -62,7 +62,7 @@ graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_E_2 {
 label="Energy And Physics - Tier 2";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.2.01" [label="E.2.01\nIntegrated Air Defense Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.2.02" [label="E.2.02\nReactor Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.2.03" [label="E.2.03\nRadar Wave Theory", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -71,13 +71,13 @@ graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_E_3 {
 label="Energy And Physics - Tier 3";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.3.01" [label="E.3.01\nEnergy & Physics Institute", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 "E.3.02" [label="E.3.02\nAdvanced Metallurgy", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_4 {
 label="Energy And Physics - Tier 4";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.4.01" [label="E.4.01\nReactor Engineering", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.4.02" [label="E.4.02\nRocket Propulsion Theory", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.4.03" [label="E.4.03\nSynthetic Oil Expansion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -86,31 +86,31 @@ graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_E_5 {
 label="Energy And Physics - Tier 5";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.5.01" [label="E.5.01\nUranium Processing", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.02" [label="E.5.02\nRocket Development Program", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.03" [label="E.5.03\nStrategic Payload Integration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_6 {
 label="Energy And Physics - Tier 6";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.6.01" [label="E.6.01\nAdvanced Ballistics", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.6.02" [label="E.6.02\nNuclear Delivery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.6.03" [label="E.6.03\nNuclear Reactor", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_7 {
 label="Energy And Physics - Tier 7";
-graph [fillcolor="#f8d7da", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.7.01" [label="E.7.01\nCruise Missile Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_5 {
 label="Logistics And Industry - Tier 5";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "E.5.04" [label="E.5.04\nRecycle Station", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_F_1 {
 label="Logistics And Industry - Tier 1";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.1.01" [label="F.1.01\nSeaplane base", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.1.02" [label="F.1.02\nWar Bonds Campaign", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.1.03" [label="F.1.03\nPort Efficiency", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -120,7 +120,7 @@ graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_F_2 {
 label="Logistics And Industry - Tier 2";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.2.01" [label="F.2.01\nStandardized Parts", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.2.02" [label="F.2.02\nRail Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.2.03" [label="F.2.03\nIncreased Factory Production", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -131,12 +131,12 @@ graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_F_3 {
 label="Logistics And Industry - Tier 3";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.3.01" [label="F.3.01\nIndustrial & Logistics Bureau", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_F_4 {
 label="Logistics And Industry - Tier 4";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.4.01" [label="F.4.01\nStrategic Rail Network", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.4.02" [label="F.4.02\nIndustrial Relocation", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.4.03" [label="F.4.03\nMass Production", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -146,7 +146,7 @@ graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_F_5 {
 label="Logistics And Industry - Tier 5";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.5.01" [label="F.5.01\nArmoured Trains", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.5.02" [label="F.5.02\nIndustrial Mobilization", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.5.03" [label="F.5.03\nImproved Shipyards", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -155,14 +155,14 @@ graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_F_6 {
 label="Logistics And Industry - Tier 6";
-graph [fillcolor="#c4a6ff", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
 "F.6.01" [label="F.6.01\nExpress Railway", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.6.02" [label="F.6.02\nMegafactories", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "F.6.03" [label="F.6.03\nAdvanced Assembly Lines", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_I_1 {
 label="Intelligence - Tier 1";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.1.01" [label="I.1.01\nGermany: Enigma", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.1.02" [label="I.1.02\nBasic Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.1.03" [label="I.1.03\nCodebreaking", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -170,7 +170,7 @@ graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_I_2 {
 label="Intelligence - Tier 2";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.2.01" [label="I.2.01\nUK: Alan Turing", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.2.02" [label="I.2.02\nCryptographic Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.2.03" [label="I.2.03\nPropaganda Effect on Mobilization", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -178,12 +178,12 @@ graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_I_3 {
 label="Intelligence - Tier 3";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.3.01" [label="I.3.01\nIntelligence Directorate", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_I_4 {
 label="Intelligence - Tier 4";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.4.01" [label="I.4.01\nEspionage Networks", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.4.02" [label="I.4.02\nSignals Interception", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.4.03" [label="I.4.03\nStealth Techniques", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -191,7 +191,7 @@ graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_I_5 {
 label="Intelligence - Tier 5";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.5.01" [label="I.5.01\nCounterintelligence", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.5.02" [label="I.5.02\nScientific Espionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.5.03" [label="I.5.03\nPolitical Influence Operations", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -199,7 +199,7 @@ graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_I_6 {
 label="Intelligence - Tier 6";
-graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#e0f7fa"];
 "I.6.01" [label="I.6.01\nCounter sabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.6.02" [label="I.6.02\nEspionage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "I.6.03" [label="I.6.03\nSabotage", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -207,7 +207,7 @@ graph [fillcolor="#e0f7fa", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_L_1 {
 label="Land - Tier 1";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.1.01" [label="L.1.01\nMorale Systems", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.1.02" [label="L.1.02\nBarbed wire", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.1.03" [label="L.1.03\nEntrenchment Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -216,7 +216,7 @@ graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_L_2 {
 label="Land - Tier 2";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.2.01" [label="L.2.01\nCzech hedgehogs", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.2.02" [label="L.2.02\nImproved Training", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.2.03" [label="L.2.03\nLand mine (field)", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -226,19 +226,19 @@ graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_L_3 {
 label="Land - Tier 3";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.3.01" [label="L.3.01\nLand Warfare Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_L_4 {
 label="Land - Tier 4";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.4.01" [label="L.4.01\nBunkers", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.4.02" [label="L.4.02\nMechanized Warfare Doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.4.03" [label="L.4.03\nAdvanced Artillery", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_L_5 {
 label="Land - Tier 5";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.5.01" [label="L.5.01\nConcrete bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.5.02" [label="L.5.02\nEnforced bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.5.03" [label="L.5.03\nSelf-Propelled Artillery", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -249,7 +249,7 @@ graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_L_6 {
 label="Land - Tier 6";
-graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d9f2d9"];
 "L.6.01" [label="L.6.01\nNuclear bunkers", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.6.02" [label="L.6.02\nDefensive Fortifications", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "L.6.03" [label="L.6.03\nArtillery Fire Control", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -259,7 +259,7 @@ graph [fillcolor="#d9f2d9", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_N_1 {
 label="Naval - Tier 1";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.1.01" [label="N.1.01\nImproved Transport Capacity", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.1.02" [label="N.1.02\nExtended Range Submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.1.03" [label="N.1.03\nSea mines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -268,7 +268,7 @@ graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_N_2 {
 label="Naval - Tier 2";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.2.01" [label="N.2.01\nAdvanced Submarine Hulls", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.2.02" [label="N.2.02\nAdvanced ASW", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.2.03" [label="N.2.03\nTorpedos", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -276,12 +276,12 @@ graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_N_3 {
 label="Naval - Tier 3";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.3.01" [label="N.3.01\nNaval Research Center", shape="doublecircle", style="filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_N_4 {
 label="Naval - Tier 4";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.4.01" [label="N.4.01\nSubmarine Fleet Coordination", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.4.02" [label="N.4.02\nSurface Fleet doctrine", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.4.03" [label="N.4.03\nSonar", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -289,7 +289,7 @@ graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_N_5 {
 label="Naval - Tier 5";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.5.01" [label="N.5.01\nMobile submarines", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.5.02" [label="N.5.02\nSilent Running", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.5.03" [label="N.5.03\nSuper battleships", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -298,7 +298,7 @@ graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_N_6 {
 label="Naval - Tier 6";
-graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#fff2cc"];
 "N.6.01" [label="N.6.01\nNuclear Propulsion Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.6.02" [label="N.6.02\nAdvanced Submarine Propulsion", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "N.6.03" [label="N.6.03\nHeavy battleship", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -306,27 +306,27 @@ graph [fillcolor="#fff2cc", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_P_3 {
 label="Programs - Tier 3";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.3.GO" [label="P.3.GO\nGermany: Occultism: The Ahnenerbe Institute", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_4 {
 label="Programs - Tier 4";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.4.GO" [label="P.4.GO\nGermany: Occultism: Expedition to Tibet", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_5 {
 label="Programs - Tier 5";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.5.GO" [label="P.5.GO\nGermany: Occultism: Thule Society", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_6 {
 label="Programs - Tier 6";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.6.GO" [label="P.6.GO\nGermany: Occultism: Spear of Longinus", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_P_7 {
 label="Programs - Tier 7";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.7.FI" [label="P.7.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.7.GA" [label="P.7.GA\nGermany: Atlantik Wall", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.7.GL" [label="P.7.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -341,7 +341,7 @@ graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_P_8 {
 label="Programs - Tier 8";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.8.FI" [label="P.8.FI\nFighter Jets", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.8.GA" [label="P.8.GA\nGermany: Atlantic Wall Pt. 2", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 "P.8.GL" [label="P.8.GL\nGermany: Wunderwaffen: LandKreuzer P. 1500", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
@@ -356,28 +356,28 @@ graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidt
 }
 subgraph cluster_P_9 {
 label="Programs - Tier 9";
-graph [fillcolor="#ffd9b3", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#ffd9b3"];
 "P.9.NU" [label="P.9.NU\nProject Manhattan – Dropping The Bomb", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_R_1 {
 label="Resource - Tier 1";
-graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#eeeeee"];
 "R.1.01" [label="R.1.01\nOil", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_4 {
 label="Resource - Tier 4";
-graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#eeeeee"];
 "R.4.01" [label="R.4.01\nAluminium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.4.02" [label="R.4.02\nVril", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_5 {
 label="Resource - Tier 5";
-graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#eeeeee"];
 "R.5.01" [label="R.5.01\nSteel", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
 subgraph cluster_R_6 {
 label="Resource - Tier 6";
-graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30];
+graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#eeeeee"];
 "R.6.01" [label="R.6.01\nUranium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.6.02" [label="R.6.02\nHeavy Water", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
@@ -402,12 +402,12 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "A.2.03" -> "A.4.05" [style="solid", color="black", weight=2];
 "I.4.02" -> "A.5.01" [style="solid", color="black", weight=2];
 "A.4.02" -> "A.5.01" [style="solid", color="black", weight=2];
-"A.4.01" -> "A.5.02" [style="dashed", color="#e41a1c", weight=2];
-"A.4.05" -> "A.5.02" [style="dashed", color="#e41a1c", weight=2];
+"A.4.01" -> "A.5.02" [style="dashed", weight=2, color="#e41a1c"];
+"A.4.05" -> "A.5.02" [style="dashed", weight=2, color="#e41a1c"];
 "F.4.03" -> "A.5.03" [style="solid", color="black", weight=2];
 "A.4.01" -> "A.5.03" [style="solid", color="black", weight=2];
-"A.4.01" -> "A.5.04" [style="dashed", color="#377eb8", weight=2];
-"A.4.05" -> "A.5.04" [style="dashed", color="#377eb8", weight=2];
+"A.4.01" -> "A.5.04" [style="dashed", weight=2, color="#377eb8"];
+"A.4.05" -> "A.5.04" [style="dashed", weight=2, color="#377eb8"];
 "A.5.01" -> "A.6.01" [style="solid", color="black", weight=2];
 "F.5.02" -> "A.6.01" [style="solid", color="black", weight=2];
 "A.5.04" -> "A.6.02" [style="solid", color="black", weight=2];
@@ -415,8 +415,8 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "E.4.05" -> "A.6.04" [style="solid", color="black", weight=2];
 "A.5.03" -> "A.6.04" [style="solid", color="black", weight=2];
 "E.5.03" -> "A.6.04" [style="solid", color="black", weight=2];
-"E.1.01" -> "E.2.01" [style="dashed", color="#4daf4a", weight=2];
-"E.1.03" -> "E.2.01" [style="dashed", color="#4daf4a", weight=2];
+"E.1.01" -> "E.2.01" [style="dashed", weight=2, color="#4daf4a"];
+"E.1.03" -> "E.2.01" [style="dashed", weight=2, color="#4daf4a"];
 "E.1.01" -> "E.2.03" [style="solid", color="black", weight=2];
 "E.1.04" -> "E.2.05" [style="solid", color="black", weight=2];
 "E.3.01" -> "E.4.01" [style="solid", color="black", weight=2];
@@ -428,31 +428,31 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "E.4.01" -> "E.5.01" [style="solid", color="black", weight=2];
 "F.4.03" -> "E.5.02" [style="solid", color="black", weight=2];
 "E.4.02" -> "E.5.02" [style="solid", color="black", weight=2];
-"E.4.01" -> "E.5.03" [style="dashed", color="#984ea3", weight=2];
-"E.4.02" -> "E.5.03" [style="dashed", color="#984ea3", weight=2];
-"E.3.02" -> "E.5.04" [style="dashed", color="#ff7f00", weight=2];
-"E.4.05" -> "E.5.04" [style="dashed", color="#ff7f00", weight=2];
+"E.4.01" -> "E.5.03" [style="dashed", weight=2, color="#984ea3"];
+"E.4.02" -> "E.5.03" [style="dashed", weight=2, color="#984ea3"];
+"E.3.02" -> "E.5.04" [style="dashed", weight=2, color="#ff7f00"];
+"E.4.05" -> "E.5.04" [style="dashed", weight=2, color="#ff7f00"];
 "E.5.02" -> "E.6.01" [style="solid", color="black", weight=2];
-"E.5.02" -> "E.6.02" [style="dashed", color="#ffff33", weight=2];
-"E.5.03" -> "E.6.02" [style="dashed", color="#ffff33", weight=2];
+"E.5.02" -> "E.6.02" [style="dashed", weight=2, color="#ffff33"];
+"E.5.03" -> "E.6.02" [style="dashed", weight=2, color="#ffff33"];
 "E.5.01" -> "E.6.03" [style="solid", color="black", weight=2];
 "E.6.02" -> "E.7.01" [style="solid", color="black", weight=2];
 "F.1.05" -> "F.2.01" [style="solid", color="black", weight=2];
-"F.1.04" -> "F.2.02" [style="dashed", color="#a65628", weight=2];
-"F.1.05" -> "F.2.02" [style="dashed", color="#a65628", weight=2];
-"F.1.02" -> "F.2.03" [style="dashed", color="#f781bf", weight=2];
-"F.1.05" -> "F.2.03" [style="dashed", color="#f781bf", weight=2];
-"F.1.01" -> "F.2.04" [style="dashed", color="#e41a1c", weight=2];
-"F.1.02" -> "F.2.04" [style="dashed", color="#e41a1c", weight=2];
-"F.1.03" -> "F.2.04" [style="dashed", color="#e41a1c", weight=2];
+"F.1.04" -> "F.2.02" [style="dashed", weight=2, color="#a65628"];
+"F.1.05" -> "F.2.02" [style="dashed", weight=2, color="#a65628"];
+"F.1.02" -> "F.2.03" [style="dashed", weight=2, color="#f781bf"];
+"F.1.05" -> "F.2.03" [style="dashed", weight=2, color="#f781bf"];
+"F.1.01" -> "F.2.04" [style="dashed", weight=2, color="#e41a1c"];
+"F.1.02" -> "F.2.04" [style="dashed", weight=2, color="#e41a1c"];
+"F.1.03" -> "F.2.04" [style="dashed", weight=2, color="#e41a1c"];
 "E.1.04" -> "F.2.07" [style="solid", color="black", weight=2];
 "F.3.01" -> "F.4.01" [style="solid", color="black", weight=2];
 "F.2.02" -> "F.4.01" [style="solid", color="black", weight=2];
 "F.3.01" -> "F.4.02" [style="solid", color="black", weight=2];
-"F.2.02" -> "F.4.02" [style="dashed", color="#377eb8", weight=2];
-"F.2.04" -> "F.4.02" [style="dashed", color="#377eb8", weight=2];
-"F.2.01" -> "F.4.03" [style="dashed", color="#4daf4a", weight=2];
-"F.2.03" -> "F.4.03" [style="dashed", color="#4daf4a", weight=2];
+"F.2.02" -> "F.4.02" [style="dashed", weight=2, color="#377eb8"];
+"F.2.04" -> "F.4.02" [style="dashed", weight=2, color="#377eb8"];
+"F.2.01" -> "F.4.03" [style="dashed", weight=2, color="#4daf4a"];
+"F.2.03" -> "F.4.03" [style="dashed", weight=2, color="#4daf4a"];
 "F.3.01" -> "F.4.03" [style="solid", color="black", weight=2];
 "F.3.01" -> "F.4.04" [style="solid", color="black", weight=2];
 "F.1.06" -> "F.4.05" [style="solid", color="black", weight=2];
@@ -464,99 +464,99 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "F.4.04" -> "F.5.05" [style="solid", color="black", weight=2];
 "F.5.01" -> "F.6.01" [style="solid", color="black", weight=2];
 "L.5.04" -> "F.6.01" [style="solid", color="black", weight=2];
-"F.5.02" -> "F.6.02" [style="dashed", color="#984ea3", weight=2];
-"F.5.04" -> "F.6.02" [style="dashed", color="#984ea3", weight=2];
-"F.5.05" -> "F.6.02" [style="dashed", color="#984ea3", weight=2];
+"F.5.02" -> "F.6.02" [style="dashed", weight=2, color="#984ea3"];
+"F.5.04" -> "F.6.02" [style="dashed", weight=2, color="#984ea3"];
+"F.5.05" -> "F.6.02" [style="dashed", weight=2, color="#984ea3"];
 "F.5.02" -> "F.6.02" [style="solid", color="black", weight=2];
 "F.5.02" -> "F.6.03" [style="solid", color="black", weight=2];
 "I.1.01" -> "I.2.01" [style="solid", color="black", weight=2];
-"I.1.02" -> "I.2.02" [style="dashed", color="#ff7f00", weight=2];
-"I.1.03" -> "I.2.02" [style="dashed", color="#ff7f00", weight=2];
-"I.1.03" -> "I.2.03" [style="dashed", color="#ffff33", weight=2];
-"I.1.04" -> "I.2.03" [style="dashed", color="#ffff33", weight=2];
-"I.1.02" -> "I.2.04" [style="dashed", color="#a65628", weight=2];
-"I.1.04" -> "I.2.04" [style="dashed", color="#a65628", weight=2];
-"I.2.02" -> "I.4.01" [style="dashed", color="#f781bf", weight=2];
-"I.2.04" -> "I.4.01" [style="dashed", color="#f781bf", weight=2];
-"I.2.01" -> "I.4.02" [style="dashed", color="#e41a1c", weight=2];
-"I.2.02" -> "I.4.02" [style="dashed", color="#e41a1c", weight=2];
-"E.2.01" -> "I.4.02" [style="dashed", color="#377eb8", weight=2];
-"E.2.03" -> "I.4.02" [style="dashed", color="#377eb8", weight=2];
-"E.2.03" -> "I.4.03" [style="dashed", color="#4daf4a", weight=2];
-"I.2.04" -> "I.4.03" [style="dashed", color="#4daf4a", weight=2];
-"I.2.04" -> "I.4.04" [style="dashed", color="#984ea3", weight=2];
-"I.2.03" -> "I.4.04" [style="dashed", color="#984ea3", weight=2];
-"I.4.01" -> "I.5.01" [style="dashed", color="#ff7f00", weight=2];
-"I.4.02" -> "I.5.01" [style="dashed", color="#ff7f00", weight=2];
-"I.4.01" -> "I.5.02" [style="dashed", color="#ffff33", weight=2];
-"I.4.03" -> "I.5.02" [style="dashed", color="#ffff33", weight=2];
+"I.1.02" -> "I.2.02" [style="dashed", weight=2, color="#ff7f00"];
+"I.1.03" -> "I.2.02" [style="dashed", weight=2, color="#ff7f00"];
+"I.1.03" -> "I.2.03" [style="dashed", weight=2, color="#ffff33"];
+"I.1.04" -> "I.2.03" [style="dashed", weight=2, color="#ffff33"];
+"I.1.02" -> "I.2.04" [style="dashed", weight=2, color="#a65628"];
+"I.1.04" -> "I.2.04" [style="dashed", weight=2, color="#a65628"];
+"I.2.02" -> "I.4.01" [style="dashed", weight=2, color="#f781bf"];
+"I.2.04" -> "I.4.01" [style="dashed", weight=2, color="#f781bf"];
+"I.2.01" -> "I.4.02" [style="dashed", weight=2, color="#e41a1c"];
+"I.2.02" -> "I.4.02" [style="dashed", weight=2, color="#e41a1c"];
+"E.2.01" -> "I.4.02" [style="dashed", weight=2, color="#377eb8"];
+"E.2.03" -> "I.4.02" [style="dashed", weight=2, color="#377eb8"];
+"E.2.03" -> "I.4.03" [style="dashed", weight=2, color="#4daf4a"];
+"I.2.04" -> "I.4.03" [style="dashed", weight=2, color="#4daf4a"];
+"I.2.04" -> "I.4.04" [style="dashed", weight=2, color="#984ea3"];
+"I.2.03" -> "I.4.04" [style="dashed", weight=2, color="#984ea3"];
+"I.4.01" -> "I.5.01" [style="dashed", weight=2, color="#ff7f00"];
+"I.4.02" -> "I.5.01" [style="dashed", weight=2, color="#ff7f00"];
+"I.4.01" -> "I.5.02" [style="dashed", weight=2, color="#ffff33"];
+"I.4.03" -> "I.5.02" [style="dashed", weight=2, color="#ffff33"];
 "I.4.04" -> "I.5.03" [style="solid", color="black", weight=2];
-"I.4.03" -> "I.5.04" [style="dashed", color="#a65628", weight=2];
-"I.4.04" -> "I.5.04" [style="dashed", color="#a65628", weight=2];
+"I.4.03" -> "I.5.04" [style="dashed", weight=2, color="#a65628"];
+"I.4.04" -> "I.5.04" [style="dashed", weight=2, color="#a65628"];
 "F.2.04" -> "I.6.01" [style="solid", color="black", weight=2];
 "I.5.01" -> "I.6.01" [style="solid", color="black", weight=2];
 "I.5.03" -> "I.6.02" [style="solid", color="black", weight=2];
-"I.5.02" -> "I.6.03" [style="dashed", color="#f781bf", weight=2];
-"I.5.04" -> "I.6.03" [style="dashed", color="#f781bf", weight=2];
-"I.5.01" -> "I.6.04" [style="dashed", color="#e41a1c", weight=2];
-"I.5.02" -> "I.6.04" [style="dashed", color="#e41a1c", weight=2];
-"L.1.02" -> "L.2.01" [style="dashed", color="#377eb8", weight=2];
-"L.1.03" -> "L.2.01" [style="dashed", color="#377eb8", weight=2];
-"L.1.04" -> "L.2.01" [style="dashed", color="#377eb8", weight=2];
-"L.1.01" -> "L.2.02" [style="dashed", color="#4daf4a", weight=2];
-"L.1.03" -> "L.2.02" [style="dashed", color="#4daf4a", weight=2];
-"L.1.04" -> "L.2.02" [style="dashed", color="#4daf4a", weight=2];
-"L.1.02" -> "L.2.03" [style="dashed", color="#984ea3", weight=2];
-"L.1.03" -> "L.2.03" [style="dashed", color="#984ea3", weight=2];
-"L.1.05" -> "L.2.03" [style="dashed", color="#984ea3", weight=2];
-"L.1.02" -> "L.2.04" [style="dashed", color="#ff7f00", weight=2];
-"L.1.03" -> "L.2.04" [style="dashed", color="#ff7f00", weight=2];
-"L.1.05" -> "L.2.04" [style="dashed", color="#ff7f00", weight=2];
-"L.1.01" -> "L.2.05" [style="dashed", color="#ffff33", weight=2];
-"L.1.05" -> "L.2.05" [style="dashed", color="#ffff33", weight=2];
-"L.1.02" -> "L.2.06" [style="dashed", color="#a65628", weight=2];
-"L.1.03" -> "L.2.06" [style="dashed", color="#a65628", weight=2];
-"L.1.04" -> "L.2.06" [style="dashed", color="#a65628", weight=2];
+"I.5.02" -> "I.6.03" [style="dashed", weight=2, color="#f781bf"];
+"I.5.04" -> "I.6.03" [style="dashed", weight=2, color="#f781bf"];
+"I.5.01" -> "I.6.04" [style="dashed", weight=2, color="#e41a1c"];
+"I.5.02" -> "I.6.04" [style="dashed", weight=2, color="#e41a1c"];
+"L.1.02" -> "L.2.01" [style="dashed", weight=2, color="#377eb8"];
+"L.1.03" -> "L.2.01" [style="dashed", weight=2, color="#377eb8"];
+"L.1.04" -> "L.2.01" [style="dashed", weight=2, color="#377eb8"];
+"L.1.01" -> "L.2.02" [style="dashed", weight=2, color="#4daf4a"];
+"L.1.03" -> "L.2.02" [style="dashed", weight=2, color="#4daf4a"];
+"L.1.04" -> "L.2.02" [style="dashed", weight=2, color="#4daf4a"];
+"L.1.02" -> "L.2.03" [style="dashed", weight=2, color="#984ea3"];
+"L.1.03" -> "L.2.03" [style="dashed", weight=2, color="#984ea3"];
+"L.1.05" -> "L.2.03" [style="dashed", weight=2, color="#984ea3"];
+"L.1.02" -> "L.2.04" [style="dashed", weight=2, color="#ff7f00"];
+"L.1.03" -> "L.2.04" [style="dashed", weight=2, color="#ff7f00"];
+"L.1.05" -> "L.2.04" [style="dashed", weight=2, color="#ff7f00"];
+"L.1.01" -> "L.2.05" [style="dashed", weight=2, color="#ffff33"];
+"L.1.05" -> "L.2.05" [style="dashed", weight=2, color="#ffff33"];
+"L.1.02" -> "L.2.06" [style="dashed", weight=2, color="#a65628"];
+"L.1.03" -> "L.2.06" [style="dashed", weight=2, color="#a65628"];
+"L.1.04" -> "L.2.06" [style="dashed", weight=2, color="#a65628"];
 "L.2.01" -> "L.3.01" [style="solid", color="black", weight=2, ltail=cluster_L_2];
-"L.2.01" -> "L.4.01" [style="dashed", color="#f781bf", weight=2];
-"L.2.03" -> "L.4.01" [style="dashed", color="#f781bf", weight=2];
-"L.2.06" -> "L.4.01" [style="dashed", color="#f781bf", weight=2];
-"L.2.01" -> "L.4.02" [style="dashed", color="#e41a1c", weight=2];
-"L.2.02" -> "L.4.02" [style="dashed", color="#e41a1c", weight=2];
-"L.2.05" -> "L.4.02" [style="dashed", color="#e41a1c", weight=2];
-"L.2.01" -> "L.4.03" [style="dashed", color="#377eb8", weight=2];
-"L.2.03" -> "L.4.03" [style="dashed", color="#377eb8", weight=2];
-"L.2.04" -> "L.4.03" [style="dashed", color="#377eb8", weight=2];
+"L.2.01" -> "L.4.01" [style="dashed", weight=2, color="#f781bf"];
+"L.2.03" -> "L.4.01" [style="dashed", weight=2, color="#f781bf"];
+"L.2.06" -> "L.4.01" [style="dashed", weight=2, color="#f781bf"];
+"L.2.01" -> "L.4.02" [style="dashed", weight=2, color="#e41a1c"];
+"L.2.02" -> "L.4.02" [style="dashed", weight=2, color="#e41a1c"];
+"L.2.05" -> "L.4.02" [style="dashed", weight=2, color="#e41a1c"];
+"L.2.01" -> "L.4.03" [style="dashed", weight=2, color="#377eb8"];
+"L.2.03" -> "L.4.03" [style="dashed", weight=2, color="#377eb8"];
+"L.2.04" -> "L.4.03" [style="dashed", weight=2, color="#377eb8"];
 "L.4.01" -> "L.5.01" [style="solid", color="black", weight=2];
 "L.4.01" -> "L.5.02" [style="solid", color="black", weight=2];
 "L.4.03" -> "L.5.03" [style="solid", color="black", weight=2];
 "F.4.03" -> "L.5.04" [style="solid", color="black", weight=2];
 "L.4.03" -> "L.5.04" [style="solid", color="black", weight=2];
 "L.4.02" -> "L.5.05" [style="solid", color="black", weight=2];
-"L.4.02" -> "L.5.06" [style="dashed", color="#4daf4a", weight=2];
-"L.4.03" -> "L.5.06" [style="dashed", color="#4daf4a", weight=2];
-"L.4.02" -> "L.5.07" [style="dashed", color="#984ea3", weight=2];
-"L.4.03" -> "L.5.07" [style="dashed", color="#984ea3", weight=2];
-"L.5.01" -> "L.6.01" [style="dashed", color="#ff7f00", weight=2];
-"L.5.02" -> "L.6.01" [style="dashed", color="#ff7f00", weight=2];
-"L.5.01" -> "L.6.02" [style="dashed", color="#ffff33", weight=2];
-"L.5.02" -> "L.6.02" [style="dashed", color="#ffff33", weight=2];
+"L.4.02" -> "L.5.06" [style="dashed", weight=2, color="#4daf4a"];
+"L.4.03" -> "L.5.06" [style="dashed", weight=2, color="#4daf4a"];
+"L.4.02" -> "L.5.07" [style="dashed", weight=2, color="#984ea3"];
+"L.4.03" -> "L.5.07" [style="dashed", weight=2, color="#984ea3"];
+"L.5.01" -> "L.6.01" [style="dashed", weight=2, color="#ff7f00"];
+"L.5.02" -> "L.6.01" [style="dashed", weight=2, color="#ff7f00"];
+"L.5.01" -> "L.6.02" [style="dashed", weight=2, color="#ffff33"];
+"L.5.02" -> "L.6.02" [style="dashed", weight=2, color="#ffff33"];
 "L.5.03" -> "L.6.03" [style="solid", color="black", weight=2];
-"L.5.04" -> "L.6.04" [style="dashed", color="#a65628", weight=2];
-"L.5.05" -> "L.6.04" [style="dashed", color="#a65628", weight=2];
+"L.5.04" -> "L.6.04" [style="dashed", weight=2, color="#a65628"];
+"L.5.05" -> "L.6.04" [style="dashed", weight=2, color="#a65628"];
 "L.5.07" -> "L.6.05" [style="solid", color="black", weight=2];
-"L.5.06" -> "L.6.06" [style="dashed", color="#f781bf", weight=2];
-"A.4.03" -> "L.6.06" [style="dashed", color="#f781bf", weight=2];
-"N.1.02" -> "N.2.01" [style="dashed", color="#e41a1c", weight=2];
-"N.1.04" -> "N.2.01" [style="dashed", color="#e41a1c", weight=2];
+"L.5.06" -> "L.6.06" [style="dashed", weight=2, color="#f781bf"];
+"A.4.03" -> "L.6.06" [style="dashed", weight=2, color="#f781bf"];
+"N.1.02" -> "N.2.01" [style="dashed", weight=2, color="#e41a1c"];
+"N.1.04" -> "N.2.01" [style="dashed", weight=2, color="#e41a1c"];
 "N.1.01" -> "N.2.04" [style="solid", color="black", weight=2];
 "N.2.01" -> "N.3.01" [style="solid", color="black", weight=2, ltail=cluster_N_2];
 "N.2.01" -> "N.4.01" [style="solid", color="black", weight=2];
-"N.2.02" -> "N.4.02" [style="dashed", color="#377eb8", weight=2];
-"N.2.03" -> "N.4.02" [style="dashed", color="#377eb8", weight=2];
-"N.2.04" -> "N.4.02" [style="dashed", color="#377eb8", weight=2];
-"N.2.03" -> "N.4.04" [style="dashed", color="#4daf4a", weight=2];
-"N.2.04" -> "N.4.04" [style="dashed", color="#4daf4a", weight=2];
+"N.2.02" -> "N.4.02" [style="dashed", weight=2, color="#377eb8"];
+"N.2.03" -> "N.4.02" [style="dashed", weight=2, color="#377eb8"];
+"N.2.04" -> "N.4.02" [style="dashed", weight=2, color="#377eb8"];
+"N.2.03" -> "N.4.04" [style="dashed", weight=2, color="#4daf4a"];
+"N.2.04" -> "N.4.04" [style="dashed", weight=2, color="#4daf4a"];
 "N.4.01" -> "N.5.01" [style="solid", color="black", weight=2];
 "N.4.01" -> "N.5.02" [style="solid", color="black", weight=2];
 "N.4.02" -> "N.5.03" [style="solid", color="black", weight=2];
@@ -569,8 +569,8 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "E.4.05" -> "N.6.03" [style="solid", color="black", weight=2];
 "N.5.03" -> "N.6.03" [style="solid", color="black", weight=2];
 "F.5.03" -> "N.6.03" [style="solid", color="black", weight=2];
-"F.5.02" -> "N.6.04" [style="dashed", color="#984ea3", weight=2];
-"F.5.05" -> "N.6.04" [style="dashed", color="#984ea3", weight=2];
+"F.5.02" -> "N.6.04" [style="dashed", weight=2, color="#984ea3"];
+"F.5.05" -> "N.6.04" [style="dashed", weight=2, color="#984ea3"];
 "N.5.04" -> "N.6.04" [style="solid", color="black", weight=2];
 "E.2.01" -> "P.3.GO" [style="solid", color="black", weight=2, ltail=cluster_E_2];
 "P.3.GO" -> "P.4.GO" [style="solid", color="black", weight=2];
@@ -589,21 +589,21 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "E.6.03" -> "P.7.NU" [style="solid", color="black", weight=2];
 "R.6.02" -> "P.7.NU" [style="solid", color="black", weight=2];
 "I.5.04" -> "P.7.RU" [style="solid", color="black", weight=2];
-"L.6.06" -> "P.7.RU" [style="dashed", color="#ff7f00", weight=2];
-"L.6.04" -> "P.7.RU" [style="dashed", color="#ff7f00", weight=2];
+"L.6.06" -> "P.7.RU" [style="dashed", weight=2, color="#ff7f00"];
+"L.6.04" -> "P.7.RU" [style="dashed", weight=2, color="#ff7f00"];
 "L.6.03" -> "P.7.SG" [style="solid", color="black", weight=2];
 "F.6.01" -> "P.7.SG" [style="solid", color="black", weight=2];
 "N.6.01" -> "P.7.SU" [style="solid", color="black", weight=2];
 "E.4.05" -> "P.7.SU" [style="solid", color="black", weight=2];
-"I.6.01" -> "P.7.UK" [style="dashed", color="#ffff33", weight=2];
-"I.6.02" -> "P.7.UK" [style="dashed", color="#ffff33", weight=2];
-"I.6.03" -> "P.7.UK" [style="dashed", color="#ffff33", weight=2];
-"I.6.04" -> "P.7.UK" [style="dashed", color="#ffff33", weight=2];
+"I.6.01" -> "P.7.UK" [style="dashed", weight=2, color="#ffff33"];
+"I.6.02" -> "P.7.UK" [style="dashed", weight=2, color="#ffff33"];
+"I.6.03" -> "P.7.UK" [style="dashed", weight=2, color="#ffff33"];
+"I.6.04" -> "P.7.UK" [style="dashed", weight=2, color="#ffff33"];
 "F.5.04" -> "P.7.UK" [style="solid", color="black", weight=2];
 "F.6.02" -> "P.7.US" [style="solid", color="black", weight=2];
-"A.6.01" -> "P.7.US" [style="dashed", color="#a65628", weight=2, ltail=cluster_A_6];
-"L.6.01" -> "P.7.US" [style="dashed", color="#a65628", weight=2, ltail=cluster_L_6];
-"N.6.01" -> "P.7.US" [style="dashed", color="#a65628", weight=2, ltail=cluster_N_6];
+"A.6.01" -> "P.7.US" [style="dashed", weight=2, color="#a65628", ltail=cluster_A_6];
+"L.6.01" -> "P.7.US" [style="dashed", weight=2, color="#a65628", ltail=cluster_L_6];
+"N.6.01" -> "P.7.US" [style="dashed", weight=2, color="#a65628", ltail=cluster_N_6];
 "P.7.FI" -> "P.8.FI" [style="solid", color="black", weight=2];
 "P.7.GA" -> "P.8.GA" [style="solid", color="black", weight=2];
 "P.7.GL" -> "P.8.GL" [style="solid", color="black", weight=2];
@@ -617,9 +617,9 @@ graph [fillcolor="#eeeeee", style="rounded,filled,dashed", color="blue", penwidt
 "N.5.05" -> "P.8.US" [style="solid", color="black", weight=2];
 "P.7.US" -> "P.8.US" [style="solid", color="black", weight=2];
 "P.8.NU" -> "P.9.NU" [style="solid", color="black", weight=2];
-"N.6.02" -> "P.9.NU" [style="dashed", color="#f781bf", weight=2];
-"E.6.02" -> "P.9.NU" [style="dashed", color="#f781bf", weight=2];
-"A.6.04" -> "P.9.NU" [style="dashed", color="#f781bf", weight=2];
+"N.6.02" -> "P.9.NU" [style="dashed", weight=2, color="#f781bf"];
+"E.6.02" -> "P.9.NU" [style="dashed", weight=2, color="#f781bf"];
+"A.6.04" -> "P.9.NU" [style="dashed", weight=2, color="#f781bf"];
 "E.3.02" -> "R.4.01" [style="solid", color="black", weight=2];
 "E.4.05" -> "R.5.01" [style="solid", color="black", weight=2];
 "P.3.GO" -> "R.4.02" [style="solid", color="black", weight=2];

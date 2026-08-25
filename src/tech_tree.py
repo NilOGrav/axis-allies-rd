@@ -61,6 +61,8 @@ domain_colors = {
     "Resource": "#eeeeee",
 }
 
+default_domain_color = "black"
+
 or_colors = [
     "#e41a1c", "#377eb8", "#4daf4a",
     "#984ea3", "#ff7f00", "#ffff33",
@@ -88,6 +90,58 @@ dot_view = {
         "fixedsize": True,
         "fontsize": 10,
     }
+}
+
+
+edge_view = {
+    "AND": {
+        "style": "solid",
+        "color": "black",
+        "weight": 2,
+    },
+
+    "OR": {
+        "style": "dashed",
+        "weight": 2,
+    }
+}
+
+node_views = {
+    "KEYSTONE": {
+        "shape": "doubleoctagon",
+        "style": "rounded,filled",
+        "color": "#fffdf2",
+        "penwidth": 2
+    },
+
+    "RCENTER": {
+        "shape": "doublecircle",
+        "style": "filled",
+        "color": "#fffdf2",
+        "penwidth": 2
+    },
+
+    "RESOURCE": {
+        "shape": "box",
+        "style": "rounded,filled,dotted,bold",
+        "color": "#fffdf2",
+        "penwidth": 1
+    },
+
+    "DEFAULT": {
+        "shape": "box",
+        "style": "rounded,filled",
+        "color": "#fffdf2",
+        "penwidth": 2
+    }
+}
+
+
+cluster_view = {
+    "style": "rounded,filled,dashed",
+    "color": "blue",
+    "penwidth": 1.5,
+    "margin": 30
 }
 
 
@@ -193,62 +247,13 @@ def process_dependency(dep, target, or_color_index, graph):
     if len(parts) > 1:
         color = or_colors[or_color_index % len(or_colors)]
         or_color_index += 1
+        view = edge_view["OR"].copy()
+        view["color"] = color
 
+    # AND dependency
     else:
-        # TODO - Variabalize AND-color
-        color = "black"
+        view = edge_view["AND"].copy()
 
-    # for p in parts:
-    #
-    #     # Dependency refers to a real technology node.
-    #     if p in graph["nodes"]:
-    #         src = p
-    #         src_type = "node"
-    #         src_id = p
-    #
-    #     # Dependency refers to a cluster.
-    #     elif p in graph["cluster_representatives"]:
-    #         src = graph["cluster_representatives"][p]
-    #         src_type = "cluster"
-    #         src_id = p
-    #
-    #     else:
-    #         raise ValueError(
-    #             f"Unknown dependency '{p}' for target '{target}'"
-    #         )
-    #
-    #     # graph["edges"].append({
-    #     #     "src": src,
-    #     #     "dst": target,
-    #     #
-    #     #     "view": {
-    #     #         "style": "dashed" if len(parts) > 1 else "solid",
-    #     #         "color": color,
-    #     #         "weight": 2
-    #     #     },
-    #     #
-    #     #     "routing": {
-    #     #         "source": routing_endpoint(src_type, src_id),
-    #     #         "target": routing_endpoint("node", target)
-    #     #     }
-    #     # })
-    #     graph["edges"].append(
-    #         create_edge(
-    #             src,
-    #             target,
-    #             {
-    #                 "style": "dashed" if len(parts) > 1 else "solid",
-    #                 "color": color,
-    #                 "weight": 2
-    #             },
-    #             {
-    #                 "source": routing_endpoint(src_type, src_id),
-    #                 "target": routing_endpoint("node", target)
-    #             }
-    #         )
-    #     )
-    #
-    #
     for p in parts:
 
         # Dependency refers to a real technology node.
@@ -289,11 +294,7 @@ def process_dependency(dep, target, or_color_index, graph):
             create_edge(
                 src,
                 dst,
-                {
-                    "style": "dashed" if len(parts) > 1 else "solid",
-                    "color": color,
-                    "weight": 2
-                },
+                view,
                 {
                     "source": routing_endpoint(src_type, src_id),
                     "target": routing_endpoint(dst_type, dst_id)
@@ -338,21 +339,9 @@ def build_graph(rows):
 
         cluster = f"{domain_code}_{tier}"
 
-        # if domain not in graph["domains"]:
-        #     graph["domains"][domain] = {
-        #         "domain_code": domain_code,
-        #         "clusters": {}
-        #     }
         if domain not in graph["domains"]:
             graph["domains"][domain] = create_domain(domain_code)
 
-        # if cluster not in graph["domains"][domain]["clusters"]:
-        #     graph["domains"][domain]["clusters"][cluster] = {
-        #         "tier": tier,
-        #         "label": f"{domain} - Tier {tier}",
-        #         "nodes": [],
-        #         "view": {}
-        #     }
         if cluster not in graph["domains"][domain]["clusters"]:
             graph["domains"][domain]["clusters"][cluster] = create_cluster(
                 tier,
@@ -361,24 +350,6 @@ def build_graph(rows):
 
         label = f"{tech_id}\\n{name}"
 
-        # graph["nodes"][tech_id] = {
-        #     "name": name,
-        #     "domain_code": domain_code,
-        #     "domain": domain,
-        #     "tier": tier,
-        #     "cluster": cluster,
-        #     "module": module,
-        #     "category": category,
-        #     "label": label,
-        #     "path": path,
-        #     "dependencies": [
-        #         dep1,
-        #         dep2,
-        #         dep3,
-        #         dep4
-        #     ],
-        #     "view": {}
-        # }
         graph["nodes"][tech_id] = create_node(
             tech_id,
             name,
@@ -459,50 +430,20 @@ def apply_view(graph):
 
         category = node["category"]
 
-        if category == "KEYSTONE":
-            node["view"] = {
-                "shape": "doubleoctagon",
-                "style": "rounded,filled",
-                "color": "#fffdf2",
-                "penwidth": 2
-            }
-
-        elif category == "RCENTER":
-            node["view"] = {
-                "shape": "doublecircle",
-                "style": "filled",
-                "color": "#fffdf2",
-                "penwidth": 2
-            }
-
-        elif category == "RESOURCE":
-            node["view"] = {
-                "shape": "box",
-                "style": "rounded,filled,dotted,bold",
-                "color": "#fffdf2",
-                "penwidth": 1
-            }
-
-        else:
-            node["view"] = {
-                "shape": "box",
-                "style": "rounded,filled",
-                "color": "#fffdf2",
-                "penwidth": 2
-            }
+        node["view"] = node_views.get(
+            category,
+            node_views["DEFAULT"]
+        ).copy()
 
     for domain, domain_data in graph["domains"].items():
 
         for cluster, cluster_data in domain_data["clusters"].items():
 
-            # Setting the colors of the clusters
-            cluster_data["view"] = {
-                "fillcolor": domain_colors.get(domain, "black"),
-                "style": "rounded,filled,dashed",
-                "color": "blue",
-                "penwidth": 1.5,
-                "margin": 30
-            }
+            cluster_data["view"] = cluster_view.copy()
+            cluster_data["view"]["fillcolor"] = domain_colors.get(
+                domain,
+                default_domain_color
+            )
 
     return graph
 
@@ -547,8 +488,7 @@ def write_dot(graph, dot_file):
 
     with open(dot_file, "w", encoding="utf-8") as f:
 
-        # TODO - Maybe make title view depended
-        # f.write("digraph TechTree {\n")
+        # Set name of graph
         f.write(f'digraph {dot_view["name"]} {{\n')
 
         # Global Graphviz view settings
@@ -577,20 +517,9 @@ def write_dot(graph, dot_file):
                 cluster_attrs = format_dot_attrs(cluster_data["view"])
 
                 f.write(
-                    # f'{cluster_attrs};\n'
                     f'graph [{cluster_attrs}];\n'
                 )
 
-                # for tech_id in cluster_data["nodes"]:
-                #
-                #     node = graph["nodes"][tech_id]
-                #     view = node["view"]
-                #
-                #     attrs = format_dot_attrs(view)
-                #
-                #     f.write(
-                #         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
-                #     )
                 for tech_id in cluster_data["nodes"]:
 
                     node = graph["nodes"][tech_id]
@@ -609,8 +538,6 @@ def write_dot(graph, dot_file):
                 f.write("}\n")
 
         # Tier alignment of nodes overall.
-        # for t, node_ids in graph["tiers"].items():
-        #     f.write("{ rank=same; " + " ".join(f'"{n}"' for n in node_ids) + "; }\n")
         for t, node_ids in graph["tiers"].items():
 
             visible_nodes = [
@@ -673,8 +600,3 @@ write_dot(graph, dot_file)
 run_graphviz(dot_file, svg_file)
 
 # TODO - post-processing SVG
-
-
-
-
-
