@@ -128,6 +128,10 @@ node_views = {
         "penwidth": 1
     },
 
+    "CLUSTER": {
+        "visible": False
+    },
+
     "DEFAULT": {
         "shape": "box",
         "style": "rounded,filled",
@@ -520,16 +524,35 @@ def write_dot(graph, dot_file):
                     f'graph [{cluster_attrs}];\n'
                 )
 
+                # for tech_id in cluster_data["nodes"]:
+                #
+                #     node = graph["nodes"][tech_id]
+                #
+                #     if node["category"] == "CLUSTER":
+                #         continue
+                #
+                #     view = node["view"]
+                #
+                #     attrs = format_dot_attrs(view)
+                #
+                #     f.write(
+                #         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
+                #     )
                 for tech_id in cluster_data["nodes"]:
 
                     node = graph["nodes"][tech_id]
-
-                    if node["category"] == "CLUSTER":
-                        continue
-
                     view = node["view"]
 
-                    attrs = format_dot_attrs(view)
+                    if not view.get("visible", True):
+                        continue
+
+                    attrs = format_dot_attrs(
+                        {
+                            key: value
+                            for key, value in view.items()
+                            if key != "visible"
+                        }
+                    )
 
                     f.write(
                         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
@@ -543,7 +566,8 @@ def write_dot(graph, dot_file):
             visible_nodes = [
                 n
                 for n in node_ids
-                if graph["nodes"][n]["category"] != "CLUSTER"
+                # if graph["nodes"][n]["category"] != "CLUSTER"
+                if graph["nodes"][n]["view"].get("visible", True)
             ]
 
             if visible_nodes:
