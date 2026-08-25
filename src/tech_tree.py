@@ -104,6 +104,63 @@ def create_graph():
     }
 
 
+def create_node(
+    tech_id,
+    name,
+    domain_code,
+    domain,
+    tier,
+    cluster,
+    module,
+    category,
+    label,
+    path,
+    dependencies
+):
+
+    return {
+        "name": name,
+        "domain_code": domain_code,
+        "domain": domain,
+        "tier": tier,
+        "cluster": cluster,
+        "module": module,
+        "category": category,
+        "label": label,
+        "path": path,
+        "dependencies": dependencies,
+        "view": {}
+    }
+
+
+def create_domain(domain_code):
+
+    return {
+        "domain_code": domain_code,
+        "clusters": {}
+    }
+
+
+def create_cluster(tier, label):
+
+    return {
+        "tier": tier,
+        "label": label,
+        "nodes": [],
+        "view": {}
+    }
+
+
+def create_edge(src, dst, view, routing):
+
+    return {
+        "src": src,
+        "dst": dst,
+        "view": view,
+        "routing": routing
+    }
+
+
 def load_data(input_file):
 
     rows = []
@@ -138,45 +195,113 @@ def process_dependency(dep, target, or_color_index, graph):
         or_color_index += 1
 
     else:
+        # TODO - Variabalize AND-color
         color = "black"
 
+    # for p in parts:
+    #
+    #     # Dependency refers to a real technology node.
+    #     if p in graph["nodes"]:
+    #         src = p
+    #         src_type = "node"
+    #         src_id = p
+    #
+    #     # Dependency refers to a cluster.
+    #     elif p in graph["cluster_representatives"]:
+    #         src = graph["cluster_representatives"][p]
+    #         src_type = "cluster"
+    #         src_id = p
+    #
+    #     else:
+    #         raise ValueError(
+    #             f"Unknown dependency '{p}' for target '{target}'"
+    #         )
+    #
+    #     # graph["edges"].append({
+    #     #     "src": src,
+    #     #     "dst": target,
+    #     #
+    #     #     "view": {
+    #     #         "style": "dashed" if len(parts) > 1 else "solid",
+    #     #         "color": color,
+    #     #         "weight": 2
+    #     #     },
+    #     #
+    #     #     "routing": {
+    #     #         "source": routing_endpoint(src_type, src_id),
+    #     #         "target": routing_endpoint("node", target)
+    #     #     }
+    #     # })
+    #     graph["edges"].append(
+    #         create_edge(
+    #             src,
+    #             target,
+    #             {
+    #                 "style": "dashed" if len(parts) > 1 else "solid",
+    #                 "color": color,
+    #                 "weight": 2
+    #             },
+    #             {
+    #                 "source": routing_endpoint(src_type, src_id),
+    #                 "target": routing_endpoint("node", target)
+    #             }
+    #         )
+    #     )
+    #
+    #
     for p in parts:
 
         # Dependency refers to a real technology node.
-        if p in graph["nodes"]:
+        if p in graph["nodes"] and graph["nodes"][p]["category"] != "CLUSTER":
+
             src = p
             src_type = "node"
             src_id = p
 
         # Dependency refers to a cluster.
         elif p in graph["cluster_representatives"]:
+
             src = graph["cluster_representatives"][p]
             src_type = "cluster"
-            src_id = p
+            src_id = graph["nodes"][src]["cluster"]
 
         else:
             raise ValueError(
                 f"Unknown dependency '{p}' for target '{target}'"
             )
 
-        graph["edges"].append({
-            "src": src,
-            "dst": target,
+        # Determine the target endpoint.
+        target_node = graph["nodes"][target]
 
-            "view": {
-                "style": "dashed" if len(parts) > 1 else "solid",
-                "color": color,
-                "weight": 2
-            },
+        if target_node["category"] == "CLUSTER":
 
-            "routing": {
-                "source": routing_endpoint(src_type, src_id),
-                "target": routing_endpoint("node", target)
-            }
-        })
+            dst = graph["cluster_representatives"][target]
+            dst_type = "cluster"
+            dst_id = graph["nodes"][dst]["cluster"]
+
+        else:
+
+            dst = target
+            dst_type = "node"
+            dst_id = target
+
+        graph["edges"].append(
+            create_edge(
+                src,
+                dst,
+                {
+                    "style": "dashed" if len(parts) > 1 else "solid",
+                    "color": color,
+                    "weight": 2
+                },
+                {
+                    "source": routing_endpoint(src_type, src_id),
+                    "target": routing_endpoint(dst_type, dst_id)
+                }
+            )
+        )
 
     return or_color_index
-
 
 def process_path(path, tech_id, graph):
 
@@ -191,7 +316,7 @@ def process_path(path, tech_id, graph):
 
 def build_graph(rows):
 
-    # create tiers, domains, edges, etc.
+    # Create the canonical graph containers.
     graph = create_graph()
 
     or_color_index = 0
@@ -213,40 +338,65 @@ def build_graph(rows):
 
         cluster = f"{domain_code}_{tier}"
 
+        # if domain not in graph["domains"]:
+        #     graph["domains"][domain] = {
+        #         "domain_code": domain_code,
+        #         "clusters": {}
+        #     }
         if domain not in graph["domains"]:
-            graph["domains"][domain] = {
-                "domain_code": domain_code,
-                "clusters": {}
-            }
+            graph["domains"][domain] = create_domain(domain_code)
 
+        # if cluster not in graph["domains"][domain]["clusters"]:
+        #     graph["domains"][domain]["clusters"][cluster] = {
+        #         "tier": tier,
+        #         "label": f"{domain} - Tier {tier}",
+        #         "nodes": [],
+        #         "view": {}
+        #     }
         if cluster not in graph["domains"][domain]["clusters"]:
-            graph["domains"][domain]["clusters"][cluster] = {
-                "tier": tier,
-                "label": f"{domain} - Tier {tier}",
-                "nodes": [],
-                "view": {}
-            }
+            graph["domains"][domain]["clusters"][cluster] = create_cluster(
+                tier,
+                f"{domain} - Tier {tier}"
+        )
 
         label = f"{tech_id}\\n{name}"
 
-        graph["nodes"][tech_id] = {
-            "name": name,
-            "domain_code": domain_code,
-            "domain": domain,
-            "tier": tier,
-            "cluster": cluster,
-            "module": module,
-            "category": category,
-            "label": label,
-            "path": path,
-            "dependencies": [
+        # graph["nodes"][tech_id] = {
+        #     "name": name,
+        #     "domain_code": domain_code,
+        #     "domain": domain,
+        #     "tier": tier,
+        #     "cluster": cluster,
+        #     "module": module,
+        #     "category": category,
+        #     "label": label,
+        #     "path": path,
+        #     "dependencies": [
+        #         dep1,
+        #         dep2,
+        #         dep3,
+        #         dep4
+        #     ],
+        #     "view": {}
+        # }
+        graph["nodes"][tech_id] = create_node(
+            tech_id,
+            name,
+            domain_code,
+            domain,
+            tier,
+            cluster,
+            module,
+            category,
+            label,
+            path,
+            [
                 dep1,
                 dep2,
                 dep3,
                 dep4
-            ],
-            "view": {}
-        }
+                ]
+            )
 
         graph["tiers"][tier].append(tech_id)
 
@@ -431,9 +581,23 @@ def write_dot(graph, dot_file):
                     f'graph [{cluster_attrs}];\n'
                 )
 
+                # for tech_id in cluster_data["nodes"]:
+                #
+                #     node = graph["nodes"][tech_id]
+                #     view = node["view"]
+                #
+                #     attrs = format_dot_attrs(view)
+                #
+                #     f.write(
+                #         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
+                #     )
                 for tech_id in cluster_data["nodes"]:
 
                     node = graph["nodes"][tech_id]
+
+                    if node["category"] == "CLUSTER":
+                        continue
+
                     view = node["view"]
 
                     attrs = format_dot_attrs(view)
@@ -445,8 +609,22 @@ def write_dot(graph, dot_file):
                 f.write("}\n")
 
         # Tier alignment of nodes overall.
+        # for t, node_ids in graph["tiers"].items():
+        #     f.write("{ rank=same; " + " ".join(f'"{n}"' for n in node_ids) + "; }\n")
         for t, node_ids in graph["tiers"].items():
-            f.write("{ rank=same; " + " ".join(f'"{n}"' for n in node_ids) + "; }\n")
+
+            visible_nodes = [
+                n
+                for n in node_ids
+                if graph["nodes"][n]["category"] != "CLUSTER"
+            ]
+
+            if visible_nodes:
+                f.write(
+                    "{ rank=same; "
+                    + " ".join(f'"{n}"' for n in visible_nodes)
+                    + "; }\n"
+                )
 
         # Edges
         for edge in graph["edges"]:
@@ -494,6 +672,7 @@ write_dot(graph, dot_file)
 
 run_graphviz(dot_file, svg_file)
 
+# TODO - post-processing SVG
 
 
 
