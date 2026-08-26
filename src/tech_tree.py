@@ -240,6 +240,39 @@ def routing_endpoint(endpoint_type, endpoint_id):
     }
 
 
+def resolve_endpoint(endpoint_id, graph):
+
+    # Real technology node
+    if (
+        endpoint_id in graph["nodes"]
+        and graph["nodes"][endpoint_id]["category"] != "CLUSTER"
+    ):
+        return {
+            "node": endpoint_id,
+            "routing": routing_endpoint(
+                "node",
+                endpoint_id
+            )
+        }
+
+    # Cluster dependency node
+    if endpoint_id in graph["cluster_representatives"]:
+
+        representative = graph["cluster_representatives"][endpoint_id]
+
+        return {
+            "node": representative,
+            "routing": routing_endpoint(
+                "cluster",
+                graph["nodes"][representative]["cluster"]
+            )
+        }
+
+    raise ValueError(
+        f"Unknown endpoint '{endpoint_id}'"
+    )
+
+
 def process_dependency(dep, target, or_color_index, graph):
 
     if not dep:
@@ -247,66 +280,38 @@ def process_dependency(dep, target, or_color_index, graph):
 
     parts = [d.strip() for d in dep.split('|') if d.strip()]
 
-    # OR group
+    # Determine edge view.
     if len(parts) > 1:
         color = or_colors[or_color_index % len(or_colors)]
         or_color_index += 1
+
         view = edge_view["OR"].copy()
         view["color"] = color
 
-    # AND dependency
     else:
         view = edge_view["AND"].copy()
 
+    # Resolve target once.
+    target_endpoint = resolve_endpoint(target, graph)
+
     for p in parts:
 
-        # Dependency refers to a real technology node.
-        if p in graph["nodes"] and graph["nodes"][p]["category"] != "CLUSTER":
-
-            src = p
-            src_type = "node"
-            src_id = p
-
-        # Dependency refers to a cluster.
-        elif p in graph["cluster_representatives"]:
-
-            src = graph["cluster_representatives"][p]
-            src_type = "cluster"
-            src_id = graph["nodes"][src]["cluster"]
-
-        else:
-            raise ValueError(
-                f"Unknown dependency '{p}' for target '{target}'"
-            )
-
-        # Determine the target endpoint.
-        target_node = graph["nodes"][target]
-
-        if target_node["category"] == "CLUSTER":
-
-            dst = graph["cluster_representatives"][target]
-            dst_type = "cluster"
-            dst_id = graph["nodes"][dst]["cluster"]
-
-        else:
-
-            dst = target
-            dst_type = "node"
-            dst_id = target
+        source_endpoint = resolve_endpoint(p, graph)
 
         graph["edges"].append(
             create_edge(
-                src,
-                dst,
-                view,
+                source_endpoint["node"],
+                target_endpoint["node"],
+                view.copy(),
                 {
-                    "source": routing_endpoint(src_type, src_id),
-                    "target": routing_endpoint(dst_type, dst_id)
+                    "source": source_endpoint["routing"],
+                    "target": target_endpoint["routing"]
                 }
             )
         )
 
     return or_color_index
+
 
 def process_path(path, tech_id, graph):
 
@@ -524,20 +529,6 @@ def write_dot(graph, dot_file):
                     f'graph [{cluster_attrs}];\n'
                 )
 
-                # for tech_id in cluster_data["nodes"]:
-                #
-                #     node = graph["nodes"][tech_id]
-                #
-                #     if node["category"] == "CLUSTER":
-                #         continue
-                #
-                #     view = node["view"]
-                #
-                #     attrs = format_dot_attrs(view)
-                #
-                #     f.write(
-                #         f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
-                #     )
                 for tech_id in cluster_data["nodes"]:
 
                     node = graph["nodes"][tech_id]
