@@ -93,7 +93,7 @@ dot_view = {
 }
 
 
-edge_view = {
+edge_views = {
     "AND": {
         "style": "solid",
         "color": "black",
@@ -209,11 +209,12 @@ def create_cluster(tier, label):
     }
 
 
-def create_edge(source, target, view):
+def create_edge(source, target, edge_type, view):
 
     return {
         "source": source,
         "target": target,
+        "type": edge_type,
         "view": view
     }
 
@@ -289,15 +290,66 @@ def process_dependency(dep, target, or_color_index, graph):
     parts = [d.strip() for d in dep.split('|') if d.strip()]
 
     # Determine edge view.
+    # if len(parts) > 1:
+    #     color = or_colors[or_color_index % len(or_colors)]
+    #     or_color_index += 1
+    #
+    #     view = edge_view["OR"].copy()
+    #     view["color"] = color
+    #
+    # else:
+    #     view = edge_view["AND"].copy()
+    # if len(parts) > 1:
+    #     edge_type = "OR"
+    #
+    #     color = or_colors[or_color_index % len(or_colors)]
+    #     or_color_index += 1
+    #
+    # else:
+    #     edge_type = "AND"
+    #
+    # # Resolve target once.
+    # target_endpoint = resolve_endpoint(target, graph)
+    #
+    # for p in parts:
+    #
+    #     source_endpoint = resolve_endpoint(p, graph)
+    #
+    #     graph["edges"].append(
+    #         create_edge(
+    #             {
+    #                 "graph_node": source_endpoint,
+    #                 "routing": routing_endpoint(src_type, src_id)
+    #             },
+    #             {
+    #                 "graph_node": target_endpoint,
+    #                 "routing": routing_endpoint(dst_type, dst_id)
+    #             },
+    #             edge_type,
+    #             view
+    #         )
+    #     )
+    #     # graph["edges"].append(
+    #     #     create_edge(
+    #     #         source_endpoint,
+    #     #         target_endpoint,
+    #     #         view.copy()
+    #     #     )
+    #     # )
+    # Determine edge type and view.
     if len(parts) > 1:
+        edge_type = "OR"
+
         color = or_colors[or_color_index % len(or_colors)]
         or_color_index += 1
 
-        view = edge_view["OR"].copy()
+        view = edge_views["OR"].copy()
         view["color"] = color
 
     else:
-        view = edge_view["AND"].copy()
+        edge_type = "AND"
+
+        view = edge_views["AND"].copy()
 
     # Resolve target once.
     target_endpoint = resolve_endpoint(target, graph)
@@ -310,6 +362,7 @@ def process_dependency(dep, target, or_color_index, graph):
             create_edge(
                 source_endpoint,
                 target_endpoint,
+                edge_type,
                 view.copy()
             )
         )
