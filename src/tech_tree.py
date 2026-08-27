@@ -209,13 +209,12 @@ def create_cluster(tier, label):
     }
 
 
-def create_edge(src, dst, view, routing):
+def create_edge(source, target, view):
 
     return {
-        "src": src,
-        "dst": dst,
-        "view": view,
-        "routing": routing
+        "source": source,
+        "target": target,
+        "view": view
     }
 
 
@@ -230,6 +229,14 @@ def load_data(input_file):
             rows.append(row)
 
     return rows
+
+
+def create_endpoint(graph_node, routing):
+
+    return {
+        "graph_node": graph_node,
+        "routing": routing
+    }
 
 
 def routing_endpoint(endpoint_type, endpoint_id):
@@ -247,26 +254,27 @@ def resolve_endpoint(endpoint_id, graph):
         endpoint_id in graph["nodes"]
         and graph["nodes"][endpoint_id]["category"] != "CLUSTER"
     ):
-        return {
-            "node": endpoint_id,
-            "routing": routing_endpoint(
+
+        return create_endpoint(
+            endpoint_id,
+            routing_endpoint(
                 "node",
                 endpoint_id
             )
-        }
+        )
 
     # Cluster dependency node
     if endpoint_id in graph["cluster_representatives"]:
 
         representative = graph["cluster_representatives"][endpoint_id]
 
-        return {
-            "node": representative,
-            "routing": routing_endpoint(
+        return create_endpoint(
+            representative,
+            routing_endpoint(
                 "cluster",
                 graph["nodes"][representative]["cluster"]
             )
-        }
+        )
 
     raise ValueError(
         f"Unknown endpoint '{endpoint_id}'"
@@ -300,13 +308,9 @@ def process_dependency(dep, target, or_color_index, graph):
 
         graph["edges"].append(
             create_edge(
-                source_endpoint["node"],
-                target_endpoint["node"],
-                view.copy(),
-                {
-                    "source": source_endpoint["routing"],
-                    "target": target_endpoint["routing"]
-                }
+                source_endpoint,
+                target_endpoint,
+                view.copy()
             )
         )
 
@@ -459,10 +463,8 @@ def apply_view(graph):
 
 def apply_graphviz_routing(edge, attrs):
 
-    routing = edge["routing"]
-
-    source = routing["source"]
-    target = routing["target"]
+    source = edge["source"]["routing"]
+    target = edge["target"]["routing"]
 
     if source["type"] == "cluster":
         attrs.append(
@@ -571,8 +573,8 @@ def write_dot(graph, dot_file):
         # Edges
         for edge in graph["edges"]:
 
-            src = edge["src"]
-            dst = edge["dst"]
+            src = edge["source"]["graph_node"]
+            dst = edge["target"]["graph_node"]
 
             # Edge presentation
             edge_view = edge["view"]
