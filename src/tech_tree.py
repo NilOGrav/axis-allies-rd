@@ -7,15 +7,17 @@ input_file = sys.argv[1]
 dot_file = "tech_tree.dot"
 svg_file = "tech_tree.svg"
 
-
-#                CANONICAL
-#                  GRAPH
+#            ┌────────────────┐
+#            |      CSV       |
+#            └───────┼────────┘
 #                    │
 #                load_data()
 #                    │
 #               build_graph()
 #                    │
 #    ┌───────────────┼────────────────┐
+#    │               │                │
+#    │        CANONICAL GRAPH         │
 #    │               │                │
 #  nodes           edges            domains
 #    │               │                │
@@ -26,20 +28,25 @@ svg_file = "tech_tree.svg"
 #               apply_view()
 #                    │
 #     ┌──────────────┼──────────────┐
+#     |              |              |
+#     |        VIEWED GRAPH         |
+#     |              |              |
 #     ↓              ↓              ↓
 # node.view       edge.view     cluster.view
 #     │              │              │
 #     └──────────────┼──────────────┘
 #                    ↓
-#                write_dot()
+#              render_graph()
+#                    │
+#            ┌───────┼────────┐
+#            |      DOT       |
+#            └───────┼────────┘
 #                    │
 #            Graphviz translation
 #                    │
-#          routing → ltail/lhead
-#                    ↓
-#                   DOT
-#                    ↓
-#                   SVG
+#            ┌───────┼────────┐
+#            |      DOT       |
+#            └────────────────┘
 
 
 domain_colors = {
@@ -467,11 +474,6 @@ def apply_view(graph):
                 default_domain_color
             )
 
-    # for edge in graph["edges"]:
-    #
-    #     edge_type = edge["type"]
-    #
-    #     edge["view"] = edge_views[edge_type].copy()
     for edge in graph["edges"]:
 
         if edge["type"] == "AND":
@@ -528,104 +530,134 @@ def format_dot_attrs(attrs):
     return ", ".join(formatted)
 
 
+def write_dot_graph(f):
+
+    graph_attrs = format_dot_attrs(dot_view["graph"])
+
+    f.write(
+        f"graph [{graph_attrs}];\n"
+    )
+
+    node_attrs = format_dot_attrs(dot_view["node"])
+
+    f.write(
+        f"node [{node_attrs}];\n"
+    )
+
+
+def write_dot_clusters(f, graph):
+
+    for domain, domain_data in graph["domains"].items():
+
+        for cluster, cluster_data in domain_data["clusters"].items():
+
+            cluster_name = f'cluster_{cluster}'
+
+            f.write(
+                f'subgraph {cluster_name} {{\n'
+            )
+
+            f.write(
+                f'label="{cluster_data["label"]}";\n'
+            )
+
+            cluster_attrs = format_dot_attrs(
+                cluster_data["view"]
+            )
+
+            f.write(
+                f'graph [{cluster_attrs}];\n'
+            )
+
+            for tech_id in cluster_data["nodes"]:
+
+                node = graph["nodes"][tech_id]
+                view = node["view"]
+
+                if not view.get("visible", True):
+                    continue
+
+                attrs = format_dot_attrs(
+                    {
+                        key: value
+                        for key, value in view.items()
+                        if key != "visible"
+                    }
+                )
+
+                f.write(
+                    f'"{tech_id}" '
+                    f'[label="{node["label"]}", {attrs}];\n'
+                )
+
+            f.write("}\n")
+
+
+def write_dot_ranks(f, graph):
+
+    for tier, node_ids in graph["tiers"].items():
+
+        visible_nodes = [
+            node_id
+            for node_id in node_ids
+            if graph["nodes"][node_id]["view"].get(
+                "visible",
+                True
+            )
+        ]
+
+        if visible_nodes:
+
+            f.write(
+                "{ rank=same; "
+                + " ".join(
+                    f'"{node_id}"'
+                    for node_id in visible_nodes
+                )
+                + "; }\n"
+            )
+
+
+def write_dot_edges(f, graph):
+
+    for edge in graph["edges"]:
+
+        src = edge["source"]["graph_node"]
+        dst = edge["target"]["graph_node"]
+
+        attrs = []
+
+        edge_view_attrs = format_dot_attrs(
+            edge["view"]
+        )
+
+        if edge_view_attrs:
+            attrs.append(edge_view_attrs)
+
+        apply_graphviz_routing(
+            edge,
+            attrs
+        )
+
+        attr_str = ", ".join(attrs)
+
+        f.write(
+            f'"{src}" -> "{dst}" [{attr_str}];\n'
+        )
+
+
 def write_dot(graph, dot_file):
 
     with open(dot_file, "w", encoding="utf-8") as f:
 
-        # Set name of graph
-        f.write(f'digraph {dot_view["name"]} {{\n')
-
-        # Global Graphviz view settings
-        graph_attrs = format_dot_attrs(dot_view["graph"])
-
         f.write(
-            f"graph [{graph_attrs}];\n"
+            f'digraph {dot_view["name"]} {{\n'
         )
 
-        node_attrs = format_dot_attrs(dot_view["node"])
-
-        f.write(
-            f"node [{node_attrs}];\n"
-        )
-
-        # Domain together with tiers combined to clusters and place node within
-        for domain, domain_data in graph["domains"].items():
-
-            for cluster, cluster_data in domain_data["clusters"].items():
-
-                cluster_name = f'cluster_{cluster}'
-
-                f.write(f'subgraph {cluster_name} {{\n')
-                f.write(f'label="{cluster_data["label"]}";\n')
-
-                cluster_attrs = format_dot_attrs(cluster_data["view"])
-
-                f.write(
-                    f'graph [{cluster_attrs}];\n'
-                )
-
-                for tech_id in cluster_data["nodes"]:
-
-                    node = graph["nodes"][tech_id]
-                    view = node["view"]
-
-                    if not view.get("visible", True):
-                        continue
-
-                    attrs = format_dot_attrs(
-                        {
-                            key: value
-                            for key, value in view.items()
-                            if key != "visible"
-                        }
-                    )
-
-                    f.write(
-                        f'"{tech_id}" [label="{node["label"]}", {attrs}];\n'
-                    )
-
-                f.write("}\n")
-
-        # Tier alignment of nodes overall.
-        for t, node_ids in graph["tiers"].items():
-
-            visible_nodes = [
-                n
-                for n in node_ids
-                if graph["nodes"][n]["view"].get("visible", True)
-            ]
-
-            if visible_nodes:
-                f.write(
-                    "{ rank=same; "
-                    + " ".join(f'"{n}"' for n in visible_nodes)
-                    + "; }\n"
-                )
-
-        # Edges
-        for edge in graph["edges"]:
-
-            src = edge["source"]["graph_node"]
-            dst = edge["target"]["graph_node"]
-
-            # Edge presentation
-            edge_view = edge["view"]
-
-            attrs = []
-
-            edge_view_attrs = format_dot_attrs(edge_view)
-
-            if edge_view_attrs:
-                attrs.append(edge_view_attrs)
-
-            # Translate semantic routing into Graphviz routing.
-            apply_graphviz_routing(edge, attrs)
-
-            attr_str = ", ".join(attrs)
-
-            f.write(
-                f'"{src}" -> "{dst}" [{attr_str}];\n'
-            )
+        write_dot_graph(f)
+        write_dot_clusters(f, graph)
+        write_dot_ranks(f, graph)
+        write_dot_edges(f, graph)
 
         f.write("}\n")
 
@@ -638,14 +670,23 @@ def run_graphviz(dot_file, svg_file):
     )
 
 
+def render_graph(graph, dot_file, svg_file):
+
+    write_dot(graph, dot_file)
+
+    run_graphviz(dot_file, svg_file)
+
+
 rows = load_data(input_file)
 
 graph = build_graph(rows)
 
 graph = apply_view(graph)
 
-write_dot(graph, dot_file)
-
-run_graphviz(dot_file, svg_file)
+render_graph(
+    graph,
+    dot_file,
+    svg_file
+)
 
 # TODO - post-processing SVG
