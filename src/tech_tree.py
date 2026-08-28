@@ -8,46 +8,38 @@ dot_file = "tech_tree.dot"
 svg_file = "tech_tree.svg"
 
 
-# Sturcture of the code:
-#
-# CSV
-#  ↓
-# load_data()
-#  ↓
-# create_graph()
-#  ↓
-# build_graph()
-#  ↓
-# canonical graph model
-#  │
-#  ├── domains → clusters → nodes
-#  ├── edges
-#  │    ├── semantic endpoints
-#  │    ├── view
-#  │    └── routing
-#  ├── tiers
-#  ├── modules
-#  └── paths
-#  ↓
-# apply_view()
-#  │
-#  ├── node views
-#  ├── cluster views
-#  └── edge views
-#  ↓
-# write_dot()
-#  │
-#  └── global dot_view + object views + routing
-#  ↓
-# DOT / SVG generation
-#       ↓
-#     Graphviz
-#       ↓
-#     "good enough" graph geometry
-#       ↓
-#     SVG post-processing
-#       ↓
-# final aligned tech tree
+#                CANONICAL
+#                  GRAPH
+#                    │
+#                load_data()
+#                    │
+#               build_graph()
+#                    │
+#    ┌───────────────┼────────────────┐
+#    │               │                │
+#  nodes           edges            domains
+#    │               │                │
+#    │          type / OR-ID          │
+#    │               │                │
+#    └───────────────┼────────────────┘
+#                    ↓
+#               apply_view()
+#                    │
+#     ┌──────────────┼──────────────┐
+#     ↓              ↓              ↓
+# node.view       edge.view     cluster.view
+#     │              │              │
+#     └──────────────┼──────────────┘
+#                    ↓
+#                write_dot()
+#                    │
+#            Graphviz translation
+#                    │
+#          routing → ltail/lhead
+#                    ↓
+#                   DOT
+#                    ↓
+#                   SVG
 
 
 domain_colors = {
@@ -210,7 +202,7 @@ def create_cluster(tier, label):
     }
 
 
-def create_edge(source, target, edge_type, view, or_group_id=None):
+def create_edge(source, target, edge_type, or_group_id=None):
 
     return {
         "source": source,
@@ -446,6 +438,14 @@ def build_graph(rows):
     return graph
 
 
+def or_group_color(or_group_id):
+
+    return or_colors[
+        or_group_id % len(or_colors)
+    ]
+
+
+
 def apply_view(graph):
 
     for tech_id, node in graph["nodes"].items():
@@ -467,11 +467,29 @@ def apply_view(graph):
                 default_domain_color
             )
 
+    # for edge in graph["edges"]:
+    #
+    #     edge_type = edge["type"]
+    #
+    #     edge["view"] = edge_views[edge_type].copy()
     for edge in graph["edges"]:
 
-        edge_type = edge["type"]
+        if edge["type"] == "AND":
 
-        edge["view"] = edge_views[edge_type].copy()
+            edge["view"] = edge_views["AND"].copy()
+
+        elif edge["type"] == "OR":
+
+            edge["view"] = edge_views["OR"].copy()
+            edge["view"]["color"] = or_group_color(
+                edge["or_group_id"]
+            )
+
+        else:
+
+            raise ValueError(
+                f"Unknown edge type '{edge['type']}'"
+            )
 
     return graph
 
@@ -574,7 +592,6 @@ def write_dot(graph, dot_file):
             visible_nodes = [
                 n
                 for n in node_ids
-                # if graph["nodes"][n]["category"] != "CLUSTER"
                 if graph["nodes"][n]["view"].get("visible", True)
             ]
 
