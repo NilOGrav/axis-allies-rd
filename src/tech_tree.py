@@ -205,17 +205,27 @@ def create_cluster(tier, label):
         "tier": tier,
         "label": label,
         "nodes": [],
+        "representative": None,
         "view": {}
     }
 
 
-def create_edge(source, target, edge_type, view):
+def create_edge(source, target, edge_type, view, or_group_id=None):
 
     return {
         "source": source,
         "target": target,
         "type": edge_type,
-        "view": view
+        "or_group_id": or_group_id,
+        "view": {}
+    }
+
+
+def create_endpoint(graph_node, routing):
+
+    return {
+        "graph_node": graph_node,
+        "routing": routing
     }
 
 
@@ -230,14 +240,6 @@ def load_data(input_file):
             rows.append(row)
 
     return rows
-
-
-def create_endpoint(graph_node, routing):
-
-    return {
-        "graph_node": graph_node,
-        "routing": routing
-    }
 
 
 def routing_endpoint(endpoint_type, endpoint_id):
@@ -267,13 +269,20 @@ def resolve_endpoint(endpoint_id, graph):
     # Cluster dependency node
     if endpoint_id in graph["cluster_representatives"]:
 
-        representative = graph["cluster_representatives"][endpoint_id]
+        cluster_dependency = graph["nodes"][endpoint_id]
+
+        domain = cluster_dependency["domain"]
+        cluster_id = cluster_dependency["cluster"]
+
+        cluster = graph["domains"][domain]["clusters"][cluster_id]
+
+        representative = cluster["representative"]
 
         return create_endpoint(
             representative,
             routing_endpoint(
                 "cluster",
-                graph["nodes"][representative]["cluster"]
+                cluster_id
             )
         )
 
@@ -282,76 +291,22 @@ def resolve_endpoint(endpoint_id, graph):
     )
 
 
-def process_dependency(dep, target, or_color_index, graph):
+def process_dependency(dep, target, or_group_id, graph):
 
     if not dep:
-        return or_color_index
+        return or_group_id
 
     parts = [d.strip() for d in dep.split('|') if d.strip()]
 
-    # Determine edge view.
-    # if len(parts) > 1:
-    #     color = or_colors[or_color_index % len(or_colors)]
-    #     or_color_index += 1
-    #
-    #     view = edge_view["OR"].copy()
-    #     view["color"] = color
-    #
-    # else:
-    #     view = edge_view["AND"].copy()
-    # if len(parts) > 1:
-    #     edge_type = "OR"
-    #
-    #     color = or_colors[or_color_index % len(or_colors)]
-    #     or_color_index += 1
-    #
-    # else:
-    #     edge_type = "AND"
-    #
-    # # Resolve target once.
-    # target_endpoint = resolve_endpoint(target, graph)
-    #
-    # for p in parts:
-    #
-    #     source_endpoint = resolve_endpoint(p, graph)
-    #
-    #     graph["edges"].append(
-    #         create_edge(
-    #             {
-    #                 "graph_node": source_endpoint,
-    #                 "routing": routing_endpoint(src_type, src_id)
-    #             },
-    #             {
-    #                 "graph_node": target_endpoint,
-    #                 "routing": routing_endpoint(dst_type, dst_id)
-    #             },
-    #             edge_type,
-    #             view
-    #         )
-    #     )
-    #     # graph["edges"].append(
-    #     #     create_edge(
-    #     #         source_endpoint,
-    #     #         target_endpoint,
-    #     #         view.copy()
-    #     #     )
-    #     # )
-    # Determine edge type and view.
     if len(parts) > 1:
         edge_type = "OR"
-
-        color = or_colors[or_color_index % len(or_colors)]
-        or_color_index += 1
-
-        view = edge_views["OR"].copy()
-        view["color"] = color
+        current_or_group_id = or_group_id
+        or_group_id += 1
 
     else:
         edge_type = "AND"
+        current_or_group_id = None
 
-        view = edge_views["AND"].copy()
-
-    # Resolve target once.
     target_endpoint = resolve_endpoint(target, graph)
 
     for p in parts:
@@ -363,11 +318,11 @@ def process_dependency(dep, target, or_color_index, graph):
                 source_endpoint,
                 target_endpoint,
                 edge_type,
-                view.copy()
+                current_or_group_id
             )
         )
 
-    return or_color_index
+    return or_group_id
 
 
 def process_path(path, tech_id, graph):
@@ -386,6 +341,7 @@ def build_graph(rows):
     # Create the canonical graph containers.
     graph = create_graph()
 
+    or_group_id = 0
     or_color_index = 0
 
     for row in rows:
@@ -472,7 +428,7 @@ def build_graph(rows):
 
         # Temporary deterministic selection.
         # This selection rule will be refined later.
-        graph["cluster_representatives"][cluster_id] = real_nodes[0]
+        cluster_data["representative"] = real_nodes[0]
 
     # Now that all nodes and cluster representatives exist,
     # construct the dependency edges.
@@ -480,10 +436,10 @@ def build_graph(rows):
 
         for dep in node["dependencies"]:
 
-            or_color_index = process_dependency(
+            or_group_id = process_dependency(
                 dep,
                 tech_id,
-                or_color_index,
+                or_group_id,
                 graph
             )
 
@@ -510,6 +466,12 @@ def apply_view(graph):
                 domain,
                 default_domain_color
             )
+
+    for edge in graph["edges"]:
+
+        edge_type = edge["type"]
+
+        edge["view"] = edge_views[edge_type].copy()
 
     return graph
 
