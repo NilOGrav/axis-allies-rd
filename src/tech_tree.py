@@ -7,46 +7,42 @@ input_file = sys.argv[1]
 dot_file = "tech_tree.dot"
 svg_file = "tech_tree.svg"
 
-#            ┌────────────────┐
-#            |      CSV       |
-#            └───────┼────────┘
-#                    │
-#                load_data()
-#                    │
-#               build_graph()
-#                    │
-#    ┌───────────────┼────────────────┐
-#    │               │                │
-#    │        CANONICAL GRAPH         │
-#    │               │                │
-#  nodes           edges            domains
-#    │               │                │
-#    │          type / OR-ID          │
-#    │               │                │
-#    └───────────────┼────────────────┘
-#                    ↓
-#               apply_view()
-#                    │
-#     ┌──────────────┼──────────────┐
-#     |              |              |
-#     |        VIEWED GRAPH         |
-#     |              |              |
-#     ↓              ↓              ↓
-# node.view       edge.view     cluster.view
-#     │              │              │
-#     └──────────────┼──────────────┘
-#                    ↓
-#              render_graph()
-#                    │
-#            ┌───────┼────────┐
-#            |      DOT       |
-#            └───────┼────────┘
-#                    │
-#            Graphviz translation
-#                    │
-#            ┌───────┼────────┐
-#            |      DOT       |
-#            └────────────────┘
+        #                 DATA
+        #                    │
+        #                    ▼
+        #              build_graph()
+        #                    │
+        #                    ▼
+        #            ┌───────────────┐
+        #            │ CANONICAL     │
+        #            │ GRAPH         │
+        #            └───────┬───────┘
+        #                    │
+        #       ┌────────────┴────────────┐
+        #       ▼                         ▼
+        # apply_view()              resolve_layout()
+        #                                 │
+        #                           ┌─────┴─────┐
+        #                           │           │
+        #                     graph-derived   user/config
+        #                           │           │
+        #                     tier_to_column  domain_order
+        #                           │           │
+        #                           └─────┬─────┘
+        #                                 ▼
+        #                         RESOLVED LAYOUT
+        #                                 │
+        #                                 ▼
+        #                           apply_layout()
+        #                                 │
+        #                                 ▼
+        #                       VIRTUAL GRID POSITIONS
+        #                                 │
+        #                                 ▼
+        #                           write_dot()
+        #                                 │
+        #                                 ▼
+        #                            Graphviz
 
 
 domain_colors = {
@@ -67,6 +63,24 @@ or_colors = [
     "#984ea3", "#ff7f00", "#ffff33",
     "#a65628", "#f781bf"
 ]
+
+
+layout = {
+    "policy": "compact",
+    "row_offset": 1,
+
+    "domain_order": [
+        "Air",
+        "Land",
+        "Naval",
+        "Logistics And Industry",
+        "Intelligence",
+        "Energy And Physics",
+        "Programs",
+        "Resource",
+    ],
+}
+
 
 dot_view = {
     "name": "TechTree",
@@ -157,7 +171,11 @@ def create_graph():
         "modules": defaultdict(list),
         "path_items": defaultdict(list),
         "nodes": {},
-        "edges": []
+        "edges": [],
+        "layout": {
+            "tier_to_column": {},
+            "nodes": {}
+        }
     }
 
 
@@ -496,6 +514,180 @@ def apply_view(graph):
     return graph
 
 
+def create_tier_to_column(graph):
+
+    tiers = sorted(
+        graph["tiers"],
+        key=lambda tier: int(tier)
+    )
+
+    return {
+        tier: column
+        for column, tier in enumerate(tiers, start=1)
+    }
+
+
+def resolve_domain_order(graph, configured_order=None):
+
+    actual_domains = list(graph["domains"])
+
+    if configured_order is None:
+        return actual_domains
+
+    configured = [
+        domain
+        for domain in configured_order
+        if domain in graph["domains"]
+    ]
+
+    remaining = [
+        domain
+        for domain in actual_domains
+        if domain not in configured
+    ]
+
+    return configured + remaining
+
+
+def validate_layout(layout):
+
+    # TODO - Make this variable
+    valid_policies = {
+        "compact",
+        "uniform",
+        "aligned",
+        "fixed"
+    }
+
+    if layout["policy"] not in valid_policies:
+        raise ValueError(
+            f"Unknown layout policy '{layout['policy']}'"
+        )
+
+    if layout["row_offset"] < 0:
+        raise ValueError(
+            "row_offset must be >= 0"
+        )
+
+
+def resolve_layout(graph, layout):
+
+    validate_layout(layout)
+
+    return {
+        "policy": layout["policy"],
+        "row_offset": layout["row_offset"],
+        "domain_order": resolve_domain_order(
+            graph,
+            layout.get("domain_order")
+        ),
+        "tier_to_column": create_tier_to_column(graph)
+    }
+
+
+def clusters_for_tier(graph, domain, tier):
+    """Return the clusters for a domain that belong to a tier."""
+
+    domain_data = graph["domains"].get(domain)
+
+    if domain_data is None:
+        return []
+
+    return [
+        cluster_data
+        for cluster_data in domain_data["clusters"].values()
+        if cluster_data["tier"] == tier
+    ]
+
+
+def apply_layout(graph, resolved_layout):
+
+    tier_to_column = resolved_layout["tier_to_column"]
+
+    for tier, column in tier_to_column.items():
+
+        row = 0
+
+        for domain in resolved_layout["domain_order"]:
+
+            clusters = clusters_for_tier(
+                graph,
+                domain,
+                tier
+            )
+
+            for cluster in clusters:
+
+                visible_nodes = [
+                    tech_id
+                    for tech_id in cluster["nodes"]
+                    if graph["nodes"][tech_id]["view"].get(
+                        "visible",
+                        True
+                    )
+                ]
+
+                if not visible_nodes:
+                    continue
+
+                for tech_id in visible_nodes:
+
+                    row += 1
+
+                    graph["layout"]["nodes"][tech_id] = {
+                        "column": column,
+                        "row": row
+                    }
+
+                # Gap between clusters.
+                row += resolved_layout["row_offset"]
+
+    return graph
+
+
+def validate_layout_positions(graph):
+
+    occupied = {}
+
+    for tech_id, position in graph["layout"]["nodes"].items():
+
+        coordinate = (
+            position["column"],
+            position["row"]
+        )
+
+        if coordinate in occupied:
+            raise ValueError(
+                f"Layout collision: "
+                f"'{tech_id}' and "
+                f"'{occupied[coordinate]}' "
+                f"share position {coordinate}"
+            )
+
+        occupied[coordinate] = tech_id
+
+    for tech_id, node in graph["nodes"].items():
+
+        if not node["view"].get("visible", True):
+            continue
+
+        if tech_id not in graph["layout"]["nodes"]:
+            raise ValueError(
+                f"Visible node '{tech_id}' has no layout position"
+            )
+
+
+def print_layout(graph):
+
+    for tech_id, position in graph["layout"]["nodes"].items():
+
+        print(
+            tech_id,
+            "column=", position["column"],
+            "row=", position["row"]
+        )
+
+
 def apply_graphviz_routing(edge, attrs):
 
     source = edge["source"]["routing"]
@@ -662,6 +854,20 @@ def write_dot(graph, dot_file):
         f.write("}\n")
 
 
+def resolve_graphviz_layout(graph):
+
+    graphviz_layout = {}
+
+    for tech_id, position in graph["layout"]["nodes"].items():
+
+        graphviz_layout[tech_id] = {
+            "column": position["column"],
+            "row": position["row"]
+        }
+
+    return graphviz_layout
+
+
 def run_graphviz(dot_file, svg_file):
 
     subprocess.run(
@@ -682,6 +888,18 @@ rows = load_data(input_file)
 graph = build_graph(rows)
 
 graph = apply_view(graph)
+
+resolved_layout = resolve_layout(
+    graph,
+    layout
+)
+
+graph = apply_layout(
+    graph,
+    resolved_layout
+)
+
+# print_layout(graph)
 
 render_graph(
     graph,
