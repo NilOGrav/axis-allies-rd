@@ -41,7 +41,7 @@ svg_file = "tech_tree.svg"
 #                                      │
 #                 ┌────────────────────┼────────────────────┐
 #                 ▼                    ▼                    ▼
-#            Graphviz DOT          SVG/HTML           other renderer
+#            Graphviz DOT          SVG/HTML          render_terminal()
 #                 │
 #                 ▼
 #       resolve_graphviz_layout()
@@ -698,29 +698,101 @@ def calculate_node_positions(graph, resolved_layout):
     return node_positions
 
 
-def print_layout(resolved_layout):
+def build_graphviz_model(graph, resolved_layout):
 
-    for tech_id, position in resolved_layout["nodes"].items():
+    graphviz_model = {
+        "nodes": {},
+        "clusters": [],
+        "edges": [],
+        "layout_edges": []
+    }
 
-        print(
-            tech_id,
-            "column=", position["column"],
-            "row=", position["row"]
+    # ---------------------------------------------------------
+    # Pass 1: Graphviz nodes
+    # ---------------------------------------------------------
+
+    for tech_id, node in graph["nodes"].items():
+
+        if not node["view"].get("visible", True):
+            continue
+
+        position = resolved_layout["nodes"].get(
+            tech_id
         )
 
+        if position is None:
+            raise ValueError(
+                f"Visible node '{tech_id}' "
+                f"has no resolved layout position"
+            )
 
-def resolve_graphviz_layout(resolved_layout):
-
-    graphviz_layout = {}
-
-    for tech_id, position in resolved_layout["nodes"].items():
-
-        graphviz_layout[tech_id] = {
+        graphviz_model["nodes"][tech_id] = {
+            "id": tech_id,
+            "label": node["label"],
             "column": position["column"],
-            "row": position["row"]
+            "row": position["row"],
+            "type": "real",
+            "view": node["view"].copy()
         }
 
-    return graphviz_layout
+    # ---------------------------------------------------------
+    # Pass 2: Graphviz clusters
+    # ---------------------------------------------------------
+
+    for domain, domain_data in graph["domains"].items():
+
+        for cluster_id, cluster_data in (
+            domain_data["clusters"].items()
+        ):
+
+            cluster_nodes = [
+                tech_id
+                for tech_id in cluster_data["nodes"]
+                if tech_id in graphviz_model["nodes"]
+            ]
+
+            if not cluster_nodes:
+                continue
+
+            graphviz_model["clusters"].append(
+                {
+                    "id": cluster_id,
+                    "domain": domain,
+                    "tier": cluster_data["tier"],
+                    "label": cluster_data["label"],
+                    "nodes": cluster_nodes,
+                    "view": cluster_data["view"].copy()
+                }
+            )
+
+    # ---------------------------------------------------------
+    # Pass 3: Real dependency edges
+    # ---------------------------------------------------------
+
+    for edge in graph["edges"]:
+
+        source = edge["source"]["graph_node"]
+        target = edge["target"]["graph_node"]
+
+        if source not in graphviz_model["nodes"]:
+            continue
+
+        if target not in graphviz_model["nodes"]:
+            continue
+
+        graphviz_model["edges"].append(
+            {
+                "source": source,
+                "target": target,
+                "view": edge["view"].copy(),
+                "routing": {
+                    "source": edge["source"]["routing"].copy(),
+                    "target": edge["target"]["routing"].copy()
+                }
+            }
+        )
+
+    return graphviz_model
 
 
 def apply_graphviz_routing(edge, attrs):
@@ -772,73 +844,64 @@ def write_dot_graph(f):
     )
 
 
-def write_dot_clusters(f, graph):
+def write_dot_clusters(f, graphviz_model):
 
-    for domain, domain_data in graph["domains"].items():
+    for cluster in graphviz_model["clusters"]:
 
-        for cluster, cluster_data in domain_data["clusters"].items():
+        cluster_name = f'cluster_{cluster["id"]}'
 
-            cluster_name = f'cluster_{cluster}'
+        f.write(
+            f'subgraph {cluster_name} {{\n'
+        )
 
-            f.write(
-                f'subgraph {cluster_name} {{\n'
+        f.write(
+            f'label="{cluster["label"]}";\n'
+        )
+
+        cluster_attrs = format_dot_attrs(
+            cluster["view"]
+        )
+
+        f.write(
+            f'graph [{cluster_attrs}];\n'
+        )
+
+        for node_id in cluster["nodes"]:
+
+            node = graphviz_model["nodes"][node_id]
+
+            attrs = format_dot_attrs(
+                {
+                    key: value
+                    for key, value in node["view"].items()
+                    if key != "visible"
+                }
             )
 
             f.write(
-                f'label="{cluster_data["label"]}";\n'
+                f'"{node_id}" '
+                f'[label="{node["label"]}", '
+                f'{attrs}];\n'
             )
 
-            cluster_attrs = format_dot_attrs(
-                cluster_data["view"]
-            )
-
-            f.write(
-                f'graph [{cluster_attrs}];\n'
-            )
-
-            for tech_id in cluster_data["nodes"]:
-
-                node = graph["nodes"][tech_id]
-                view = node["view"]
-
-                if not view.get("visible", True):
-                    continue
-
-                attrs = format_dot_attrs(
-                    {
-                        key: value
-                        for key, value in view.items()
-                        if key != "visible"
-                    }
-                )
-
-                f.write(
-                    f'"{tech_id}" '
-                    f'[label="{node["label"]}", {attrs}];\n'
-                )
-
-            f.write("}\n")
+        f.write("}\n")
 
 
-def write_dot_ranks(f, graph, graphviz_layout):
+def write_dot_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
 
-    for tech_id, node in graph["nodes"].items():
+    for node_id, node in (
+        graphviz_model["nodes"].items()
+    ):
 
-        if not node["view"].get("visible", True):
-            continue
+        columns[node["column"]].append(
+            node_id
+        )
 
-        position = graphviz_layout.get(tech_id)
+    for column in sorted(columns):
 
-        if position is None:
-            raise ValueError(
-                f"Node '{tech_id}' has no Graphviz layout position"
-            )
-
-        columns[position["column"]].append(tech_id)
-
-    for node_ids in columns.values():
+        node_ids = columns[column]
 
         f.write(
             "{ rank=same; "
@@ -850,12 +913,9 @@ def write_dot_ranks(f, graph, graphviz_layout):
         )
 
 
-def write_dot_edges(f, graph):
+def write_dot_edges(f, graphviz_model):
 
-    for edge in graph["edges"]:
-
-        src = edge["source"]["graph_node"]
-        dst = edge["target"]["graph_node"]
+    for edge in graphviz_model["edges"]:
 
         attrs = []
 
@@ -864,32 +924,82 @@ def write_dot_edges(f, graph):
         )
 
         if edge_view_attrs:
-            attrs.append(edge_view_attrs)
+
+            attrs.append(
+                edge_view_attrs
+            )
+
+        routing_edge = {
+            "source": {
+                "routing": edge["routing"]["source"]
+            },
+            "target": {
+                "routing": edge["routing"]["target"]
+            }
+        }
 
         apply_graphviz_routing(
-            edge,
+            routing_edge,
             attrs
         )
 
         attr_str = ", ".join(attrs)
 
         f.write(
-            f'"{src}" -> "{dst}" [{attr_str}];\n'
+            f'"{edge["source"]}" '
+            f'-> "{edge["target"]}" '
+            f'[{attr_str}];\n'
         )
 
 
-def write_dot(graph, graphviz_layout, dot_file):
+def write_dot_layout_edges(f, graphviz_model):
 
-    with open(dot_file, "w", encoding="utf-8") as f:
+    for edge in graphviz_model["layout_edges"]:
+
+        attrs = format_dot_attrs(
+            edge["view"]
+        )
+
+        f.write(
+            f'"{edge["source"]}" '
+            f'-> "{edge["target"]}" '
+            f'[{attrs}];\n'
+        )
+
+
+def write_dot(graphviz_model, dot_file):
+
+    with open(
+        dot_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
 
         f.write(
             f'digraph {dot_view["name"]} {{\n'
         )
 
         write_dot_graph(f)
-        write_dot_clusters(f, graph)
-        write_dot_ranks(f, graph, graphviz_layout)
-        write_dot_edges(f, graph)
+
+        write_dot_clusters(
+            f,
+            graphviz_model
+        )
+
+        write_dot_ranks(
+            f,
+            graphviz_model
+        )
+
+        write_dot_layout_edges(
+            f,
+            graphviz_model
+        )
+
+        write_dot_edges(
+            f,
+            graphviz_model
+        )
 
         f.write("}\n")
 
@@ -902,15 +1012,45 @@ def run_graphviz(dot_file, svg_file):
     )
 
 
-def render_graph(graph, resolved_layout, dot_file, svg_file):
+# DEBUG Function
+def print_layout(resolved_layout):
 
-    graphviz_layout = resolve_graphviz_layout(
+    for tech_id, position in resolved_layout["nodes"].items():
+
+        print(
+            tech_id,
+            "column=", position["column"],
+            "row=", position["row"]
+        )
+
+
+# DEBUG Function
+def print_graphviz_model(graphviz_model):
+
+    print("\nGRAPHVIZ MODEL CLUSTERS")
+
+    for cluster in graphviz_model["clusters"]:
+
+        print(
+            f'{cluster["id"]}: '
+            f'{cluster["nodes"]}'
+        )
+
+
+def render_graph(
+    graph,
+    resolved_layout,
+    dot_file,
+    svg_file
+):
+
+    graphviz_model = build_graphviz_model(
+        graph,
         resolved_layout
     )
 
     write_dot(
-        graph,
-        graphviz_layout,
+        graphviz_model,
         dot_file
     )
 

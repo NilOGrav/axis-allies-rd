@@ -90,6 +90,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 "E.5.01" [label="E.5.01\nUranium Processing", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.02" [label="E.5.02\nRocket Development Program", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
 "E.5.03" [label="E.5.03\nStrategic Payload Integration", shape="doubleoctagon", style="rounded,filled", color="#fffdf2", penwidth=2];
+"E.5.04" [label="E.5.04\nRecycle Station", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_E_6 {
 label="Energy And Physics - Tier 6";
@@ -102,11 +103,6 @@ subgraph cluster_E_7 {
 label="Energy And Physics - Tier 7";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#f8d7da"];
 "E.7.01" [label="E.7.01\nCruise Missile Doctrine", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
-}
-subgraph cluster_E_5 {
-label="Logistics And Industry - Tier 5";
-graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#c4a6ff"];
-"E.5.04" [label="E.5.04\nRecycle Station", shape="box", style="rounded,filled", color="#fffdf2", penwidth=2];
 }
 subgraph cluster_F_1 {
 label="Logistics And Industry - Tier 1";
@@ -381,13 +377,13 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 "R.6.01" [label="R.6.01\nUranium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.6.02" [label="R.6.02\nHeavy Water", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
+{ rank=same; "E.0.01" "F.0.01"; }
 { rank=same; "A.1.01" "A.1.02" "A.1.03" "E.1.01" "E.1.02" "E.1.03" "E.1.04" "E.1.05" "F.1.01" "F.1.02" "F.1.03" "F.1.04" "F.1.05" "F.1.06" "I.1.01" "I.1.02" "I.1.03" "I.1.04" "L.1.01" "L.1.02" "L.1.03" "L.1.04" "L.1.05" "N.1.01" "N.1.02" "N.1.03" "N.1.04" "N.1.05" "R.1.01"; }
 { rank=same; "A.2.01" "A.2.02" "A.2.03" "A.2.04" "E.2.01" "E.2.02" "E.2.03" "E.2.04" "E.2.05" "F.2.01" "F.2.02" "F.2.03" "F.2.04" "F.2.05" "F.2.06" "F.2.07" "I.2.01" "I.2.02" "I.2.03" "I.2.04" "L.2.01" "L.2.02" "L.2.03" "L.2.04" "L.2.05" "L.2.06" "N.2.01" "N.2.02" "N.2.03" "N.2.04"; }
 { rank=same; "A.3.01" "E.3.01" "E.3.02" "F.3.01" "I.3.01" "L.3.01" "N.3.01" "P.3.GO"; }
 { rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "L.4.01" "L.4.02" "L.4.03" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "P.4.GO" "R.4.01" "R.4.02"; }
 { rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "P.5.GO" "R.5.01"; }
 { rank=same; "A.6.01" "A.6.02" "A.6.03" "A.6.04" "E.6.01" "E.6.02" "E.6.03" "F.6.01" "F.6.02" "F.6.03" "I.6.01" "I.6.02" "I.6.03" "I.6.04" "L.6.01" "L.6.02" "L.6.03" "L.6.04" "L.6.05" "L.6.06" "N.6.01" "N.6.02" "N.6.03" "N.6.04" "P.6.GO" "R.6.01" "R.6.02"; }
-{ rank=same; "E.0.01" "F.0.01"; }
 { rank=same; "E.7.01" "P.7.FI" "P.7.GA" "P.7.GL" "P.7.GO" "P.7.JP" "P.7.NU" "P.7.RU" "P.7.SG" "P.7.SU" "P.7.UK" "P.7.US"; }
 { rank=same; "P.8.FI" "P.8.GA" "P.8.GL" "P.8.GO" "P.8.JP" "P.8.NU" "P.8.RU" "P.8.SG" "P.8.SU" "P.8.UK" "P.8.US"; }
 { rank=same; "P.9.NU"; }
