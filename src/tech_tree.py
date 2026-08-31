@@ -8,41 +8,52 @@ dot_file = "tech_tree.dot"
 svg_file = "tech_tree.svg"
 
 
-      #                  CSV DATA
-      #                      │
-      #                      ▼
-      #                build_graph()
-      #                      │
-      #                      ▼
-      #               CANONICAL GRAPH
-      #                      │
-      #            ┌─────────┴─────────┐
-      #            ▼                   ▼
-      #       apply_view()       resolve_layout()
-      #                                │
-      #                                ▼
-      #                           VIRTUAL GRID
-      #                           column / row
-      #                                │
-      #                   ═════════════╪═════════════
-      #                           RENDERER API
-      #                   ═════════════╪═════════════
-      #                                │
-      #           ┌────────────────────┼────────────────────┐
-      #           ▼                    ▼                    ▼
-      #      Graphviz DOT          SVG/HTML           other renderer
-      #           │
-      #           ▼
-      # resolve_graphviz_layout()
-      #           │
-      #           ▼
-      #     GRAPHVIZ MODEL
-      #           │
-      #           ▼
-      #       write_dot()
-      #           │
-      #           ▼
-      #       Graphviz
+#                        CSV DATA
+#                            │
+#                            ▼
+#                      build_graph()
+#                            │
+#                            ▼
+# ┌────────────────────────────────────────────────────────┐
+# │                    CANONICAL GRAPH                     │
+# │                                                        │
+# │  What technologies exist and how are they related?     │
+# └──────────────────────────┬─────────────────────────────┘
+#                            │
+#                  ┌─────────┴─────────┐
+#                  ▼                   ▼
+#             apply_view()       resolve_layout()
+#                                      │
+#                                      ▼
+#           ┌────────────────────────────────────────────────────────┐
+#           │                    VIRTUAL GRID                        │
+#           │                                                        │
+#           │        Where should each visible technology be?        │
+#           │                                                        │
+#           │                    column / row                        │
+#           │                                                        │
+#           │          *** KNOWS NOTHING ABOUT GRAPHVIZ ***          │
+#           └──────────────────────────┬─────────────────────────────┘
+#                                      │
+#                         ═════════════╪═════════════
+#                                 RENDERER API
+#                         ═════════════╪═════════════
+#                                      │
+#                 ┌────────────────────┼────────────────────┐
+#                 ▼                    ▼                    ▼
+#            Graphviz DOT          SVG/HTML           other renderer
+#                 │
+#                 ▼
+#       resolve_graphviz_layout()
+#                 │
+#                 ▼
+#           GRAPHVIZ MODEL
+#                 │
+#                 ▼
+#             write_dot()
+#                 │
+#                 ▼
+#             Graphviz
 
 
 domain_colors = {
@@ -687,38 +698,6 @@ def calculate_node_positions(graph, resolved_layout):
     return node_positions
 
 
-# def validate_layout_positions(graph):
-#
-#     occupied = {}
-#
-#     for tech_id, position in graph["layout"]["nodes"].items():
-#
-#         coordinate = (
-#             position["column"],
-#             position["row"]
-#         )
-#
-#         if coordinate in occupied:
-#             raise ValueError(
-#                 f"Layout collision: "
-#                 f"'{tech_id}' and "
-#                 f"'{occupied[coordinate]}' "
-#                 f"share position {coordinate}"
-#             )
-#
-#         occupied[coordinate] = tech_id
-#
-#     for tech_id, node in graph["nodes"].items():
-#
-#         if not node["view"].get("visible", True):
-#             continue
-#
-#         if tech_id not in graph["layout"]["nodes"]:
-#             raise ValueError(
-#                 f"Visible node '{tech_id}' has no layout position"
-#             )
-
-
 def print_layout(resolved_layout):
 
     for tech_id, position in resolved_layout["nodes"].items():
@@ -730,19 +709,6 @@ def print_layout(resolved_layout):
         )
 
 
-
-# def resolve_graphviz_layout(graph):
-#
-#     graphviz_layout = {}
-#
-#     for tech_id, position in graph["layout"]["nodes"].items():
-#
-#         graphviz_layout[tech_id] = {
-#             "column": position["column"],
-#             "row": position["row"]
-#         }
-#
-#     return graphviz_layout
 def resolve_graphviz_layout(resolved_layout):
 
     graphviz_layout = {}
@@ -854,29 +820,34 @@ def write_dot_clusters(f, graph):
             f.write("}\n")
 
 
-def write_dot_ranks(f, graph):
+def write_dot_ranks(f, graph, graphviz_layout):
 
-    for tier, node_ids in graph["tiers"].items():
+    columns = defaultdict(list)
 
-        visible_nodes = [
-            node_id
-            for node_id in node_ids
-            if graph["nodes"][node_id]["view"].get(
-                "visible",
-                True
+    for tech_id, node in graph["nodes"].items():
+
+        if not node["view"].get("visible", True):
+            continue
+
+        position = graphviz_layout.get(tech_id)
+
+        if position is None:
+            raise ValueError(
+                f"Node '{tech_id}' has no Graphviz layout position"
             )
-        ]
 
-        if visible_nodes:
+        columns[position["column"]].append(tech_id)
 
-            f.write(
-                "{ rank=same; "
-                + " ".join(
-                    f'"{node_id}"'
-                    for node_id in visible_nodes
-                )
-                + "; }\n"
+    for node_ids in columns.values():
+
+        f.write(
+            "{ rank=same; "
+            + " ".join(
+                f'"{node_id}"'
+                for node_id in node_ids
             )
+            + "; }\n"
+        )
 
 
 def write_dot_edges(f, graph):
@@ -917,7 +888,7 @@ def write_dot(graph, graphviz_layout, dot_file):
 
         write_dot_graph(f)
         write_dot_clusters(f, graph)
-        write_dot_ranks(f, graph)
+        write_dot_ranks(f, graph, graphviz_layout)
         write_dot_edges(f, graph)
 
         f.write("}\n")
@@ -931,11 +902,61 @@ def run_graphviz(dot_file, svg_file):
     )
 
 
-def render_graph(graph, dot_file, svg_file):
+def render_graph(graph, resolved_layout, dot_file, svg_file):
 
-    write_dot(graph, dot_file)
+    graphviz_layout = resolve_graphviz_layout(
+        resolved_layout
+    )
 
-    run_graphviz(dot_file, svg_file)
+    write_dot(
+        graph,
+        graphviz_layout,
+        dot_file
+    )
+
+    run_graphviz(
+        dot_file,
+        svg_file
+    )
+
+    # TODO - post-processing SVG
+
+
+def render_terminal(graph, resolved_layout):
+
+    columns = defaultdict(list)
+
+    for tech_id, position in resolved_layout["nodes"].items():
+
+        columns[position["column"]].append(
+            (
+                position["row"],
+                tech_id
+            )
+        )
+
+    print()
+    print("VIRTUAL GRID")
+    print("============")
+
+    for column in sorted(columns):
+
+        print()
+        print(f"Column {column}")
+
+        nodes = sorted(
+            columns[column],
+            key=lambda item: item[0]
+        )
+
+        for row, tech_id in nodes:
+
+            node = graph["nodes"][tech_id]
+
+            print(
+                f"  row {row:>3}: "
+                f"{tech_id} - {node['name']}"
+            )
 
 
 rows = load_data(input_file)
@@ -949,21 +970,18 @@ resolved_layout = resolve_layout(
     layout
 )
 
-graphviz_layout = resolve_graphviz_layout(
+# print_layout(resolved_layout)
+
+render_terminal(
+    graph,
     resolved_layout
 )
 
-# print_layout(resolved_layout)
-
-write_dot(
+render_graph(
     graph,
-    graphviz_layout,
-    dot_file
-)
-
-run_graphviz(
+    resolved_layout,
     dot_file,
     svg_file
 )
 
-# TODO - post-processing SVG
+
