@@ -4,8 +4,11 @@ import subprocess
 from collections import defaultdict
 
 input_file = sys.argv[1]
-dot_file = "tech_tree.dot"
-svg_file = "tech_tree.svg"
+
+simple_dot_file = "tech_tree_simple.dot"
+simple_svg_file = "tech_tree_simple.svg"
+grig_dot_file = "tech_tree_grid.dot"
+grid_svg_file = "tech_tree_grid.svg"
 
 
 #                        CSV DATA
@@ -121,12 +124,12 @@ edge_views = {
     "AND": {
         "style": "solid",
         "color": "black",
-        "weight": 2,
+        "weight": 5,
     },
 
     "OR": {
         "style": "dashed",
-        "weight": 2,
+        "weight": 5,
     }
 }
 
@@ -1037,31 +1040,6 @@ def print_graphviz_model(graphviz_model):
         )
 
 
-def render_graph(
-    graph,
-    resolved_layout,
-    dot_file,
-    svg_file
-):
-
-    graphviz_model = build_graphviz_model(
-        graph,
-        resolved_layout
-    )
-
-    write_dot(
-        graphviz_model,
-        dot_file
-    )
-
-    run_graphviz(
-        dot_file,
-        svg_file
-    )
-
-    # TODO - post-processing SVG
-
-
 def render_terminal(graph, resolved_layout):
 
     columns = defaultdict(list)
@@ -1099,6 +1077,31 @@ def render_terminal(graph, resolved_layout):
             )
 
 
+def render_simple_svg(
+    graph,
+    resolved_layout,
+    dot_file,
+    svg_file
+):
+
+    graphviz_model = build_graphviz_model(
+        graph,
+        resolved_layout
+    )
+
+    write_dot(
+        graphviz_model,
+        dot_file
+    )
+
+    run_graphviz(
+        dot_file,
+        svg_file
+    )
+
+    # TODO - post-processing SVG
+
+
 rows = load_data(input_file)
 
 graph = build_graph(rows)
@@ -1117,11 +1120,11 @@ render_terminal(
     resolved_layout
 )
 
-render_graph(
+render_simple_svg(
     graph,
     resolved_layout,
-    dot_file,
-    svg_file
+    simple_dot_file,
+    simple_svg_file
 )
 
 
