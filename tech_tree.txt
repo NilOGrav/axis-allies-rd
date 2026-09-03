@@ -1,0 +1,189 @@
+row   1: E.0.01 - Basic Research Facility
+row   2: F.0.01 - Oil Derrick
+
+row   1: A.1.01 - Improved Airframes
+row   2: A.1.02 - Air Transport Doctrine
+row   3: A.1.03 - Zeppelin development
+row   5: L.1.01 - Morale Systems
+row   6: L.1.02 - Barbed wire
+row   7: L.1.03 - Entrenchment Doctrine
+row   8: L.1.04 - Barracks
+row   9: L.1.05 - Mechanized Logistics
+row  11: N.1.01 - Improved Transport Capacity
+row  12: N.1.02 - Extended Range Submarines
+row  13: N.1.03 - Sea mines
+row  14: N.1.04 - Secret submarine harbour
+row  15: N.1.05 - Jet Propulsion
+row  17: F.1.01 - Seaplane base
+row  18: F.1.02 - War Bonds Campaign
+row  19: F.1.03 - Port Efficiency
+row  20: F.1.04 - Lendlease
+row  21: F.1.05 - Supply Chain Optimization
+row  22: F.1.06 - Fuel Efficiency
+row  24: I.1.01 - Germany: Enigma
+row  25: I.1.02 - Basic Espionage
+row  26: I.1.03 - Codebreaking
+row  27: I.1.04 - Propaganda Campaign
+row  29: E.1.01 - Early Radar
+row  30: E.1.02 - Heavy Water Chemistry
+row  31: E.1.03 - Improved AA Procedures
+row  32: E.1.04 - Basic Drilling
+row  33: E.1.05 - Improved Refining
+row  35: R.1.01 - Oil
+
+row   1: A.2.01 - Defensive Turrets
+row   2: A.2.02 - Improved scramble (ATC)
+row   3: A.2.03 - Bombing Calibration
+row   4: A.2.04 - Strategic Airship Movement
+row   6: L.2.01 - Czech hedgehogs
+row   7: L.2.02 - Improved Training
+row   8: L.2.03 - Land mine (field)
+row   9: L.2.04 - Tank Destroyers
+row  10: L.2.05 - Urban Warfare Training
+row  11: L.2.06 - Field hospital
+row  13: N.2.01 - Advanced Submarine Hulls
+row  14: N.2.02 - Advanced ASW
+row  15: N.2.03 - Torpedos
+row  16: N.2.04 - Gatekeeper systems
+row  18: F.2.01 - Standardized Parts
+row  19: F.2.02 - Rail Coordination
+row  20: F.2.03 - Increased Factory Production
+row  21: F.2.04 - Civil Defense Planning
+row  22: F.2.05 - Fuel Logistics
+row  23: F.2.06 - Protected Oil Infrastructure
+row  24: F.2.07 - Oil Platform
+row  26: I.2.01 - UK: Alan Turing
+row  27: I.2.02 - Cryptographic Systems
+row  28: I.2.03 - Propaganda Effect on Mobilization
+row  29: I.2.04 - Camouflage
+row  31: E.2.01 - Integrated Air Defense Network
+row  32: E.2.02 - Reactor Theory
+row  33: E.2.03 - Radar Wave Theory
+row  34: E.2.04 - Synthetic Fuel Production
+row  35: E.2.05 - Advanced Drilling
+
+row   1: A.3.01 - Air Research Center
+row   3: L.3.01 - Land Warfare Research Center
+row   5: N.3.01 - Naval Research Center
+row   7: F.3.01 - Industrial & Logistics Bureau
+row   9: I.3.01 - Intelligence Directorate
+row  11: E.3.01 - Energy & Physics Institute
+row  12: E.3.02 - Advanced Metallurgy
+row  14: P.3.GO - Germany: Occultism: The Ahnenerbe Institute
+
+row   1: A.4.01 - Long-Range Aircraft
+row   2: A.4.02 - Advanced Fighter Development
+row   3: A.4.03 - Paratroopers
+row   4: A.4.05 - Carpet Bombing
+row   6: L.4.01 - Bunkers
+row   7: L.4.02 - Mechanized Warfare Doctrine
+row   8: L.4.03 - Advanced Artillery
+row  10: N.4.01 - Submarine Fleet Coordination
+row  11: N.4.02 - Surface Fleet doctrine
+row  12: N.4.03 - Sonar
+row  13: N.4.04 - Armed transports
+row  15: F.4.01 - Strategic Rail Network
+row  16: F.4.02 - Industrial Relocation
+row  17: F.4.03 - Mass Production
+row  18: F.4.04 - War Economy Planning
+row  19: F.4.05 - Advanced Fuel Efficiency
+row  20: F.4.06 - Strategic Fuel Reserves
+row  22: I.4.01 - Espionage Networks
+row  23: I.4.02 - Signals Interception
+row  24: I.4.03 - Stealth Techniques
+row  25: I.4.04 - Resistance Coordination
+row  27: E.4.01 - Reactor Engineering
+row  28: E.4.02 - Rocket Propulsion Theory
+row  29: E.4.03 - Synthetic Oil Expansion
+row  30: E.4.04 - Offshore Extraction
+row  31: E.4.05 - Heavy Armor Production
+row  33: P.4.GO - Germany: Occultism: Expedition to Tibet
+row  35: R.4.01 - Aluminium
+row  36: R.4.02 - Vril
+
+row   1: A.5.01 - Jet Engine Theory
+row   2: A.5.02 - Engine Optimization
+row   3: A.5.03 - Heavy Bomber Design
+row   4: A.5.04 - Heavy Strategic Bombing Doctrine
+row   6: L.5.01 - Concrete bunkers
+row   7: L.5.02 - Enforced bunkers
+row   8: L.5.03 - Self-Propelled Artillery
+row   9: L.5.04 - Improved Artillery
+row  10: L.5.05 - Improved Mechanized Infantry
+row  11: L.5.06 - Marines
+row  12: L.5.07 - Breakthrough Doctrine
+row  14: N.5.01 - Mobile submarines
+row  15: N.5.02 - Silent Running
+row  16: N.5.03 - Super battleships
+row  17: N.5.04 - Fleet Screening Doctrine
+row  18: N.5.05 - Heavy Transport Capacity
+row  20: F.5.01 - Armoured Trains
+row  21: F.5.02 - Industrial Mobilization
+row  22: F.5.03 - Improved Shipyards
+row  23: F.5.04 - Mobile factories
+row  24: F.5.05 - Industrial Expansion
+row  26: I.5.01 - Counterintelligence
+row  27: I.5.02 - Scientific Espionage
+row  28: I.5.03 - Political Influence Operations
+row  29: I.5.04 - Mustering locals
+row  31: E.5.01 - Uranium Processing
+row  32: E.5.02 - Rocket Development Program
+row  33: E.5.03 - Strategic Payload Integration
+row  34: E.5.04 - Recycle Station
+row  36: P.5.GO - Germany: Occultism: Thule Society
+row  38: R.5.01 - Steel
+
+row   1: A.6.01 - Early Jet Fighters
+row   2: A.6.02 - Under the cover of the night
+row   3: A.6.03 - Under the Radar
+row   4: A.6.04 - Flying Fortress Capability
+row   6: L.6.01 - Nuclear bunkers
+row   7: L.6.02 - Defensive Fortifications
+row   8: L.6.03 - Artillery Fire Control
+row   9: L.6.04 - Mobile Mechanized infantry
+row  10: L.6.05 - Improved Tanks
+row  11: L.6.06 - Commandos
+row  13: N.6.01 - Nuclear Propulsion Doctrine
+row  14: N.6.02 - Advanced Submarine Propulsion
+row  15: N.6.03 - Heavy battleship
+row  16: N.6.04 - Heavy carriers
+row  18: F.6.01 - Express Railway
+row  19: F.6.02 - Megafactories
+row  20: F.6.03 - Advanced Assembly Lines
+row  22: I.6.01 - Counter sabotage
+row  23: I.6.02 - Espionage
+row  24: I.6.03 - Sabotage
+row  25: I.6.04 - Reduced Bombing effect
+row  27: E.6.01 - Advanced Ballistics
+row  28: E.6.02 - Nuclear Delivery
+row  29: E.6.03 - Nuclear Reactor
+row  31: P.6.GO - Germany: Occultism: Spear of Longinus
+row  33: R.6.01 - Uranium
+row  34: R.6.02 - Heavy Water
+
+row   1: E.7.01 - Cruise Missile Doctrine
+row   3: P.7.FI - Fighter Jets
+row   4: P.7.GA - Germany: Atlantik Wall
+row   5: P.7.GL - Germany: Wunderwaffen: LandKreuzer P. 1500
+row   6: P.7.GO - Germany: Occultism: Die Glocke
+row   7: P.7.JP - Japan: Kido Butai Doctrine
+row   8: P.7.NU - Project Manhattan – Development
+row   9: P.7.RU - Russia: Deep Battle Doctrine
+row  10: P.7.SG - Rail Super Gun -  Schwerer Gustav
+row  11: P.7.SU - The Wolfpack: Super Submarines
+row  12: P.7.UK - UK: Global Intelligence Network
+row  13: P.7.US - US: Industrial capacity
+
+row   1: P.8.FI - Fighter Jets
+row   2: P.8.GA - Germany: Atlantic Wall Pt. 2
+row   3: P.8.GL - Germany: Wunderwaffen: LandKreuzer P. 1500
+row   4: P.8.GO - Germany: Occultism: Die Glocke
+row   5: P.8.JP - Japan: Kido Butai Doctrine
+row   6: P.8.NU - Project Manhattan – Production
+row   7: P.8.RU - Russia: Deep Battle Doctrine
+row   8: P.8.SG - Rail Super Gun – Langer Gustav
+row   9: P.8.SU - The Wolfpack: Suprise Tactics
+row  10: P.8.UK - UK: Global Intelligence Network
+row  11: P.8.US - US: Industrial powerhouse
+
+row   1: P.9.NU - Project Manhattan – Dropping The Bomb

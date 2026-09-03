@@ -5,11 +5,13 @@ from collections import defaultdict
 
 input_file = sys.argv[1]
 
+terminal_file = "tech_tree.txt"
 simple_dot_file = "tech_tree_simple.dot"
 simple_svg_file = "tech_tree_simple.svg"
 grig_dot_file = "tech_tree_grid.dot"
 grid_svg_file = "tech_tree_grid.svg"
 
+WRITE_TERMINAL_FILE = True
 
 #                        CSV DATA
 #                            │
@@ -70,7 +72,7 @@ domain_colors = {
     "Resource": "#eeeeee",
 }
 
-default_domain_color = "black"
+DEFAULT_DOMAIN_COLOR = "black"
 
 or_colors = [
     "#e41a1c", "#377eb8", "#4daf4a",
@@ -498,7 +500,7 @@ def apply_view(graph):
             cluster_data["view"] = cluster_view.copy()
             cluster_data["view"]["fillcolor"] = domain_colors.get(
                 domain,
-                default_domain_color
+                DEFAULT_DOMAIN_COLOR
             )
 
     for edge in graph["edges"]:
@@ -1042,39 +1044,64 @@ def print_graphviz_model(graphviz_model):
 
 def render_terminal(graph, resolved_layout):
 
-    columns = defaultdict(list)
+    lines = []
 
-    for tech_id, position in resolved_layout["nodes"].items():
+    nodes_by_position = sorted(
+        resolved_layout["nodes"].items(),
+        key=lambda item: (
+            item[1]["column"],
+            item[1]["row"]
+        )
+    )
 
-        columns[position["column"]].append(
-            (
-                position["row"],
-                tech_id
-            )
+    current_column = None
+
+    for tech_id, position in nodes_by_position:
+
+        column = position["column"]
+
+        if current_column is not None and column != current_column:
+            lines.append("")
+
+        current_column = column
+
+        node = graph["nodes"][tech_id]
+
+        lines.append(
+            f"row {position['row']:>3}: "
+            f"{tech_id} - {node['name']}"
         )
 
-    print()
-    print("VIRTUAL GRID")
-    print("============")
+    return "\n".join(lines)
 
-    for column in sorted(columns):
 
-        print()
-        print(f"Column {column}")
+def write_text_file(text, output_file):
 
-        nodes = sorted(
-            columns[column],
-            key=lambda item: item[0]
+    with open(
+        output_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(text)
+        f.write("\n")
+
+
+def render_text(graph, resolved_layout, terminal_file):
+
+    terminal_output = render_terminal(
+        graph,
+        resolved_layout
+    )
+
+    print(terminal_output)
+
+    if WRITE_TERMINAL_FILE:
+
+        write_text_file(
+            terminal_output,
+            terminal_file
         )
-
-        for row, tech_id in nodes:
-
-            node = graph["nodes"][tech_id]
-
-            print(
-                f"  row {row:>3}: "
-                f"{tech_id} - {node['name']}"
-            )
 
 
 def render_simple_svg(
@@ -1113,11 +1140,10 @@ resolved_layout = resolve_layout(
     layout
 )
 
-# print_layout(resolved_layout)
-
-render_terminal(
+render_text(
     graph,
-    resolved_layout
+    resolved_layout,
+    terminal_file
 )
 
 render_simple_svg(
