@@ -8,7 +8,7 @@ input_file = sys.argv[1]
 terminal_file = "tech_tree.txt"
 simple_dot_file = "tech_tree_simple.dot"
 simple_svg_file = "tech_tree_simple.svg"
-grig_dot_file = "tech_tree_grid.dot"
+grid_dot_file = "tech_tree_grid.dot"
 grid_svg_file = "tech_tree_grid.svg"
 
 WRITE_TERMINAL_FILE = True
@@ -175,6 +175,11 @@ cluster_view = {
     "color": "blue",
     "penwidth": 1.5,
     "margin": 30
+}
+
+
+grid_experiment = {
+    "row_ordering": False,
 }
 
 
@@ -800,6 +805,101 @@ def build_graphviz_model(graph, resolved_layout):
     return graphviz_model
 
 
+def add_row_ordering_edges(graphviz_model):
+    """Add invisible edges that preserve virtual row order
+    within each Graphviz column.
+    """
+
+    columns = defaultdict(list)
+
+    for node_id, node in graphviz_model["nodes"].items():
+
+        columns[node["column"]].append(
+            (
+                node["row"],
+                node_id
+            )
+        )
+
+    for column in sorted(columns):
+
+        nodes = sorted(
+            columns[column],
+            key=lambda item: item[0]
+        )
+
+        node_ids = [
+            node_id
+            for row, node_id in nodes
+        ]
+
+        for source, target in zip(
+            node_ids,
+            node_ids[1:]
+        ):
+
+            graphviz_model["layout_edges"].append(
+                {
+                    "source": source,
+                    "target": target,
+                    "view": {
+                        "style": "invis",
+                        "constraint": False,
+                        "weight": 100
+                    }
+                }
+            )
+
+
+def apply_grid_experiment(
+    graphviz_model,
+    grid_experiment
+):
+
+    if grid_experiment.get(
+        "row_ordering",
+        False
+    ):
+
+        add_row_ordering_edges(
+            graphviz_model
+        )
+
+    return graphviz_model
+
+
+# def build_grid_graphviz_model(
+#     graph,
+#     resolved_layout,
+#     grid_experiment
+# ):
+#
+#     graphviz_model = build_graphviz_model(
+#         graph,
+#         resolved_layout
+#     )
+#
+#     if grid_experiment["cluster_fillers"]:
+#
+#         add_cluster_fillers(
+#             graphviz_model
+#         )
+#
+#     if grid_experiment["horizontal_edges"]:
+#
+#         add_horizontal_grid_edges(
+#             graphviz_model
+#         )
+#
+#     if grid_experiment["vertical_edges"]:
+#
+#         add_vertical_grid_edges(
+#             graphviz_model
+#         )
+#
+#     return graphviz_model
+
+
 def apply_graphviz_routing(edge, attrs):
 
     source = edge["source"]["routing"]
@@ -892,6 +992,65 @@ def write_dot_clusters(f, graphviz_model):
         f.write("}\n")
 
 
+# def write_dot_ranks(f, graphviz_model):
+#
+#     columns = defaultdict(list)
+#
+#     for node_id, node in (
+#         graphviz_model["nodes"].items()
+#     ):
+#
+#         columns[node["column"]].append(
+#             node_id
+#         )
+#
+#     for column in sorted(columns):
+#
+#         node_ids = columns[column]
+#
+#         f.write(
+#             "{ rank=same; "
+#             + " ".join(
+#                 f'"{node_id}"'
+#                 for node_id in node_ids
+#             )
+#             + "; }\n"
+#         )
+# def write_dot_ranks(f, graphviz_model):
+#
+#     columns = defaultdict(list)
+#
+#     for node_id, node in (
+#         graphviz_model["nodes"].items()
+#     ):
+#
+#         columns[node["column"]].append(
+#             (
+#                 node["row"],
+#                 node_id
+#             )
+#         )
+#
+#     for column in sorted(columns):
+#
+#         nodes = sorted(
+#             columns[column],
+#             key=lambda item: item[0]
+#         )
+#
+#         node_ids = [
+#             node_id
+#             for row, node_id in nodes
+#         ]
+#
+#         f.write(
+#             "{ rank=same; "
+#             + " ".join(
+#                 f'"{node_id}"'
+#                 for node_id in node_ids
+#             )
+#             + "; }\n"
+#         )
 def write_dot_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -907,6 +1066,43 @@ def write_dot_ranks(f, graphviz_model):
     for column in sorted(columns):
 
         node_ids = columns[column]
+
+        f.write(
+            "{ rank=same; "
+            + " ".join(
+                f'"{node_id}"'
+                for node_id in node_ids
+            )
+            + "; }\n"
+        )
+
+
+def write_dot_grid_ranks(f, graphviz_model):
+
+    columns = defaultdict(list)
+
+    for node_id, node in (
+        graphviz_model["nodes"].items()
+    ):
+
+        columns[node["column"]].append(
+            (
+                node["row"],
+                node_id
+            )
+        )
+
+    for column in sorted(columns):
+
+        nodes = sorted(
+            columns[column],
+            key=lambda item: item[0]
+        )
+
+        node_ids = [
+            node_id
+            for row, node_id in nodes
+        ]
 
         f.write(
             "{ rank=same; "
@@ -1009,6 +1205,43 @@ def write_dot(graphviz_model, dot_file):
         f.write("}\n")
 
 
+def write_grid_dot(graphviz_model, dot_file):
+
+    with open(
+        dot_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(
+            f'digraph {dot_view["name"]} {{\n'
+        )
+
+        write_dot_graph(f)
+
+        write_dot_clusters(
+            f,
+            graphviz_model
+        )
+
+        write_dot_grid_ranks(
+            f,
+            graphviz_model
+        )
+
+        write_dot_layout_edges(
+            f,
+            graphviz_model
+        )
+
+        write_dot_edges(
+            f,
+            graphviz_model
+        )
+
+        f.write("}\n")
+
+
 def run_graphviz(dot_file, svg_file):
 
     subprocess.run(
@@ -1030,7 +1263,35 @@ def print_layout(resolved_layout):
 
 
 # DEBUG Function
+# def print_graphviz_model(graphviz_model):
+#
+#     print("\nGRAPHVIZ MODEL CLUSTERS")
+#
+#     for cluster in graphviz_model["clusters"]:
+#
+#         print(
+#             f'{cluster["id"]}: '
+#             f'{cluster["nodes"]}'
+#         )
 def print_graphviz_model(graphviz_model):
+
+    print("\nGRAPHVIZ MODEL NODES")
+
+    nodes = sorted(
+        graphviz_model["nodes"].items(),
+        key=lambda item: (
+            item[1]["column"],
+            item[1]["row"]
+        )
+    )
+
+    for node_id, node in nodes:
+
+        print(
+            f'{node_id}: '
+            f'column={node["column"]}, '
+            f'row={node["row"]}'
+        )
 
     print("\nGRAPHVIZ MODEL CLUSTERS")
 
@@ -1126,6 +1387,58 @@ def render_simple_svg(
         svg_file
     )
 
+
+# def render_grid_svg(
+#     graph,
+#     resolved_layout,
+#     dot_file,
+#     svg_file,
+#     grid_experiment
+# ):
+#
+#     graphviz_model = build_grid_graphviz_model(
+#         graph,
+#         resolved_layout,
+#         grid_experiment
+#     )
+#
+#     write_dot(
+#         graphviz_model,
+#         dot_file
+#     )
+#
+#     run_graphviz(
+#         dot_file,
+#         svg_file
+#     )
+def render_grid_svg(
+    graph,
+    resolved_layout,
+    dot_file,
+    svg_file,
+    grid_experiment
+):
+
+    graphviz_model = build_graphviz_model(
+        graph,
+        resolved_layout
+    )
+
+    graphviz_model = apply_grid_experiment(
+        graphviz_model,
+        grid_experiment
+    )
+
+    write_grid_dot(
+        graphviz_model,
+        dot_file
+    )
+
+    run_graphviz(
+        dot_file,
+        svg_file
+    )
+
     # TODO - post-processing SVG
 
 
@@ -1153,4 +1466,10 @@ render_simple_svg(
     simple_svg_file
 )
 
-
+render_grid_svg(
+    graph,
+    resolved_layout,
+    grid_dot_file,
+    grid_svg_file,
+    grid_experiment
+)
