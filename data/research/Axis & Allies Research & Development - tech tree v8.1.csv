@@ -11,11 +11,11 @@ A.4.01;A;4;Air;Long-Range Aircraft;All aircraft gain +1 movement.;Upgrade;CORE;K
 A.4.02;A;4;Air;Advanced Fighter Development;"During bombing raids your escorting or intercepting fighters now hit on a “1” or “2” instead of just a “1”.
 Optional OIL: if fighters are present in battle first battle costs no oil.";Upgrade;CORE;;FIGHTER;Fighters;;A.2.02;E.3.02;;;
 A.4.03;A;4;Air;Paratroopers;Up to two infantry can be picked up by a Tactical bomber and dropped off to join combat even if the Tactical bomber is joining this or another combat (limited only by the legal move of the Tactical Bomber);Upgrade;CORE;;TBOMBER, INFANTRY;Tactical Bombers;;A.1.02;;;;
-A.4.05;A;4;Air;Carpet Bombing;Bombing on troops: If the attacking army has AAA, they will defend. Every hit removes one troop from the battle.;Upgrade;CORE;;SBOMBER, TBOMBER, AIRSHIP;Tactical Bombers, Strategic Bombers;;A.2.03;;;;
+A.4.04;A;4;Air;Carpet Bombing;Bombing on troops: If the attacking army has AAA, they will defend. Every hit removes one troop from the battle.;Upgrade;CORE;;SBOMBER, TBOMBER, AIRSHIP;Tactical Bombers, Strategic Bombers;;A.2.03;;;;
 A.5.01;A;5;Air;Jet Engine Theory;Fighters attack at +1.;Upgrade;CORE;;FIGHTER;Fighters;High-risk spike.;I.4.02;A.4.02;;;
-A.5.02;A;5;Air;Engine Optimization;Tactical bombers may perform bombing + combat in same turn if movement allows.;Upgrade;CORE;;TBOMBER;Tactical Bombers;Operational flexibility.;A.4.01|A.4.05;;;;
+A.5.02;A;5;Air;Engine Optimization;Tactical bombers may perform bombing + combat in same turn if movement allows.;Upgrade;CORE;;TBOMBER;Tactical Bombers;Operational flexibility.;A.4.01|A.4.04;;;;
 A.5.03;A;5;Air;Heavy Bomber Design;Your strategic bombers are now heavy bombers. When attacking, whether in a battle or a strategic bombing raid, roll two dice for each bomber and select the best result.;Upgrade;NUCLEAR;;NUCLEAR;Flying Fortress;Controlled power.;F.4.03;A.4.01;;;
-A.5.04;A;5;Air;Heavy Strategic Bombing Doctrine;Strategic Bombing now hits on a +1;Upgrade;CORE;;SBOMBER, AIRSHIP;Strategic Bombers;;A.4.01|A.4.05;;;;
+A.5.04;A;5;Air;Heavy Strategic Bombing Doctrine;Strategic Bombing now hits on a +1;Upgrade;CORE;;SBOMBER, AIRSHIP;Strategic Bombers;;A.4.01|A.4.04;;;;
 A.6.01;A;6;Air;Early Jet Fighters;The attack value of your fighters is now 4 instead of 3. ;Upgrade;CORE;;FIGHTER;Jet Fighters;;A.5.01;F.5.02;;;
 A.6.02;A;6;Air;Under the cover of the night;Strategic Bombing Raids now have two rolls for Strategic bombers;Upgrade;CORE;;SBOMBER, AIRSHIP;Strategic Bombers;;A.5.04;;;;
 A.6.03;A;6;Air;Under the Radar;Tactical bombing raids now have two dice per plane.;Upgrade;CORE;;TBOMBER, AIRSHIP;Tactical Bombers;;A.5.02;;;;

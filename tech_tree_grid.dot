@@ -377,14 +377,53 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 "R.6.01" [label="R.6.01\nUranium", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 "R.6.02" [label="R.6.02\nHeavy Water", shape="box", style="rounded,filled,dotted,bold", color="#fffdf2", penwidth=1];
 }
+"__filler_2_4_0" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_2_10_1" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_2_16_2" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_2_23_3" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_2_28_4" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_2_34_5" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_3_5_6" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_3_12_7" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_3_17_8" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_3_25_9" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_3_30_10" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_2_11" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_4_12" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_6_13" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_8_14" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_10_15" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_4_13_16" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_5_17" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_9_18" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_14_19" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_21_20" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_26_21" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_32_22" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_5_34_23" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_5_24" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_13_25" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_19_26" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_25_27" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_30_28" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_35_29" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_6_37_30" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_5_31" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_12_32" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_17_33" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_21_34" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_26_35" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_30_36" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_7_32_37" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
+"__filler_8_2_38" [label="", shape="box", style="invis", width=3.5, height=1.0, fixedsize=true];
 { rank=same; "E.0.01" "F.0.01"; }
-{ rank=same; "A.1.01" "A.1.02" "A.1.03" "L.1.01" "L.1.02" "L.1.03" "L.1.04" "L.1.05" "N.1.01" "N.1.02" "N.1.03" "N.1.04" "N.1.05" "F.1.01" "F.1.02" "F.1.03" "F.1.04" "F.1.05" "F.1.06" "I.1.01" "I.1.02" "I.1.03" "I.1.04" "E.1.01" "E.1.02" "E.1.03" "E.1.04" "E.1.05" "R.1.01"; }
-{ rank=same; "A.2.01" "A.2.02" "A.2.03" "A.2.04" "L.2.01" "L.2.02" "L.2.03" "L.2.04" "L.2.05" "L.2.06" "N.2.01" "N.2.02" "N.2.03" "N.2.04" "F.2.01" "F.2.02" "F.2.03" "F.2.04" "F.2.05" "F.2.06" "F.2.07" "I.2.01" "I.2.02" "I.2.03" "I.2.04" "E.2.01" "E.2.02" "E.2.03" "E.2.04" "E.2.05"; }
-{ rank=same; "A.3.01" "L.3.01" "N.3.01" "F.3.01" "I.3.01" "E.3.01" "E.3.02" "P.3.GO"; }
-{ rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "L.4.01" "L.4.02" "L.4.03" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "P.4.GO" "R.4.01" "R.4.02"; }
-{ rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "P.5.GO" "R.5.01"; }
-{ rank=same; "A.6.01" "A.6.02" "A.6.03" "A.6.04" "L.6.01" "L.6.02" "L.6.03" "L.6.04" "L.6.05" "L.6.06" "N.6.01" "N.6.02" "N.6.03" "N.6.04" "F.6.01" "F.6.02" "F.6.03" "I.6.01" "I.6.02" "I.6.03" "I.6.04" "E.6.01" "E.6.02" "E.6.03" "P.6.GO" "R.6.01" "R.6.02"; }
-{ rank=same; "E.7.01" "P.7.FI" "P.7.GA" "P.7.GL" "P.7.GO" "P.7.JP" "P.7.NU" "P.7.RU" "P.7.SG" "P.7.SU" "P.7.UK" "P.7.US"; }
+{ rank=same; "A.1.01" "A.1.02" "A.1.03" "__filler_2_4_0" "L.1.01" "L.1.02" "L.1.03" "L.1.04" "L.1.05" "__filler_2_10_1" "N.1.01" "N.1.02" "N.1.03" "N.1.04" "N.1.05" "__filler_2_16_2" "F.1.01" "F.1.02" "F.1.03" "F.1.04" "F.1.05" "F.1.06" "__filler_2_23_3" "I.1.01" "I.1.02" "I.1.03" "I.1.04" "__filler_2_28_4" "E.1.01" "E.1.02" "E.1.03" "E.1.04" "E.1.05" "__filler_2_34_5" "R.1.01"; }
+{ rank=same; "A.2.01" "A.2.02" "A.2.03" "A.2.04" "__filler_3_5_6" "L.2.01" "L.2.02" "L.2.03" "L.2.04" "L.2.05" "L.2.06" "__filler_3_12_7" "N.2.01" "N.2.02" "N.2.03" "N.2.04" "__filler_3_17_8" "F.2.01" "F.2.02" "F.2.03" "F.2.04" "F.2.05" "F.2.06" "F.2.07" "__filler_3_25_9" "I.2.01" "I.2.02" "I.2.03" "I.2.04" "__filler_3_30_10" "E.2.01" "E.2.02" "E.2.03" "E.2.04" "E.2.05"; }
+{ rank=same; "A.3.01" "__filler_4_2_11" "L.3.01" "__filler_4_4_12" "N.3.01" "__filler_4_6_13" "F.3.01" "__filler_4_8_14" "I.3.01" "__filler_4_10_15" "E.3.01" "E.3.02" "__filler_4_13_16" "P.3.GO"; }
+{ rank=same; "A.4.01" "A.4.02" "A.4.03" "A.4.05" "__filler_5_5_17" "L.4.01" "L.4.02" "L.4.03" "__filler_5_9_18" "N.4.01" "N.4.02" "N.4.03" "N.4.04" "__filler_5_14_19" "F.4.01" "F.4.02" "F.4.03" "F.4.04" "F.4.05" "F.4.06" "__filler_5_21_20" "I.4.01" "I.4.02" "I.4.03" "I.4.04" "__filler_5_26_21" "E.4.01" "E.4.02" "E.4.03" "E.4.04" "E.4.05" "__filler_5_32_22" "P.4.GO" "__filler_5_34_23" "R.4.01" "R.4.02"; }
+{ rank=same; "A.5.01" "A.5.02" "A.5.03" "A.5.04" "__filler_6_5_24" "L.5.01" "L.5.02" "L.5.03" "L.5.04" "L.5.05" "L.5.06" "L.5.07" "__filler_6_13_25" "N.5.01" "N.5.02" "N.5.03" "N.5.04" "N.5.05" "__filler_6_19_26" "F.5.01" "F.5.02" "F.5.03" "F.5.04" "F.5.05" "__filler_6_25_27" "I.5.01" "I.5.02" "I.5.03" "I.5.04" "__filler_6_30_28" "E.5.01" "E.5.02" "E.5.03" "E.5.04" "__filler_6_35_29" "P.5.GO" "__filler_6_37_30" "R.5.01"; }
+{ rank=same; "A.6.01" "A.6.02" "A.6.03" "A.6.04" "__filler_7_5_31" "L.6.01" "L.6.02" "L.6.03" "L.6.04" "L.6.05" "L.6.06" "__filler_7_12_32" "N.6.01" "N.6.02" "N.6.03" "N.6.04" "__filler_7_17_33" "F.6.01" "F.6.02" "F.6.03" "__filler_7_21_34" "I.6.01" "I.6.02" "I.6.03" "I.6.04" "__filler_7_26_35" "E.6.01" "E.6.02" "E.6.03" "__filler_7_30_36" "P.6.GO" "__filler_7_32_37" "R.6.01" "R.6.02"; }
+{ rank=same; "E.7.01" "__filler_8_2_38" "P.7.FI" "P.7.GA" "P.7.GL" "P.7.GO" "P.7.JP" "P.7.NU" "P.7.RU" "P.7.SG" "P.7.SU" "P.7.UK" "P.7.US"; }
 { rank=same; "P.8.FI" "P.8.GA" "P.8.GL" "P.8.GO" "P.8.JP" "P.8.NU" "P.8.RU" "P.8.SG" "P.8.SU" "P.8.UK" "P.8.US"; }
 { rank=same; "P.9.NU"; }
 "A.1.01" -> "A.2.02" [style="solid", color="black", weight=5];

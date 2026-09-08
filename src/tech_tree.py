@@ -179,7 +179,7 @@ cluster_view = {
 
 
 grid_experiment = {
-    "row_ordering": False,
+    "fillers": True,
 }
 
 
@@ -805,6 +805,75 @@ def build_graphviz_model(graph, resolved_layout):
     return graphviz_model
 
 
+def add_grid_fillers(graphviz_model):
+    """Add invisible filler nodes to empty positions
+    inside the occupied vertical span of each column.
+    """
+
+    occupied = {}
+
+    columns = defaultdict(list)
+
+    for node_id, node in (
+        graphviz_model["nodes"].items()
+    ):
+
+        column = node["column"]
+        row = node["row"]
+
+        occupied[
+            (column, row)
+        ] = node_id
+
+        columns[column].append(
+            row
+        )
+
+    filler_index = 0
+
+    for column, rows in columns.items():
+
+        first_row = min(rows)
+        last_row = max(rows)
+
+        for row in range(
+            first_row,
+            last_row + 1
+        ):
+
+            coordinate = (
+                column,
+                row
+            )
+
+            if coordinate in occupied:
+                continue
+
+            filler_id = (
+                f"__filler_{column}_{row}_"
+                f"{filler_index}"
+            )
+
+            filler_index += 1
+
+            graphviz_model["nodes"][filler_id] = {
+                "id": filler_id,
+                "label": "",
+                "column": column,
+                "row": row,
+                "type": "filler",
+                "view": {
+                    "shape": "box",
+                    "style": "invis",
+                    "width": dot_view["node"]["width"],
+                    "height": dot_view["node"]["height"],
+                    "fixedsize": True
+                }
+            }
+
+    return graphviz_model
+
+
 def add_row_ordering_edges(graphviz_model):
     """Add invisible edges that preserve virtual row order
     within each Graphviz column.
@@ -851,22 +920,36 @@ def add_row_ordering_edges(graphviz_model):
             )
 
 
+# def apply_grid_experiment(
+#     graphviz_model,
+#     grid_experiment
+# ):
+#
+#     if grid_experiment.get(
+#         "row_ordering",
+#         False
+#     ):
+#
+#         add_row_ordering_edges(
+#             graphviz_model
+#         )
+#
+#     return graphviz_model
 def apply_grid_experiment(
     graphviz_model,
     grid_experiment
 ):
 
     if grid_experiment.get(
-        "row_ordering",
+        "fillers",
         False
     ):
 
-        add_row_ordering_edges(
+        add_grid_fillers(
             graphviz_model
         )
 
     return graphviz_model
-
 
 # def build_grid_graphviz_model(
 #     graph,
@@ -990,6 +1073,26 @@ def write_dot_clusters(f, graphviz_model):
             )
 
         f.write("}\n")
+
+
+def write_dot_filler_nodes(f, graphviz_model):
+
+    for node_id, node in (
+        graphviz_model["nodes"].items()
+    ):
+
+        if node["type"] != "filler":
+            continue
+
+        attrs = format_dot_attrs(
+            node["view"]
+        )
+
+        f.write(
+            f'"{node_id}" '
+            f'[label="{node["label"]}", '
+            f'{attrs}];\n'
+        )
 
 
 # def write_dot_ranks(f, graphviz_model):
@@ -1220,6 +1323,11 @@ def write_grid_dot(graphviz_model, dot_file):
         write_dot_graph(f)
 
         write_dot_clusters(
+            f,
+            graphviz_model
+        )
+
+        write_dot_filler_nodes(
             f,
             graphviz_model
         )
