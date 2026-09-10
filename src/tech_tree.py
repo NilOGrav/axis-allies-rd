@@ -179,7 +179,10 @@ cluster_view = {
 
 
 grid_experiment = {
-    "fillers": True,
+    "cluster_fillers": True,
+    "visible_fillers": True,
+    "horizontal_edges": False,
+    "vertical_edges": False,
 }
 
 
@@ -805,73 +808,140 @@ def build_graphviz_model(graph, resolved_layout):
     return graphviz_model
 
 
-def add_grid_fillers(graphviz_model):
-    """Add invisible filler nodes to empty positions
-    inside the occupied vertical span of each column.
+# def largest_cluster_size_by_tier(graphviz_model):
+#     """Return the largest cluster node count per tier.
+#
+#     Used to determine the target size when equalizing
+#     cluster heights within each tier.
+#     """
+#
+#     largest = {}
+#
+#     for cluster in graphviz_model["clusters"]:
+#
+#         tier = cluster["tier"]
+#         size = len(cluster["nodes"])
+#
+#         if tier not in largest:
+#             largest[tier] = size
+#         else:
+#             largest[tier] = max(largest[tier], size)
+#
+#     return largest
+def largest_cluster_size_by_domain(graphviz_model):
+    """Return the largest cluster node count per domain.
+
+    Used to give every cluster in a domain a consistent
+    height, creating stable horizontal domain bands
+    across the full width of the tree.
     """
 
-    occupied = {}
+    largest = {}
 
-    columns = defaultdict(list)
+    for cluster in graphviz_model["clusters"]:
 
-    for node_id, node in (
-        graphviz_model["nodes"].items()
-    ):
+        domain = cluster["domain"]
+        size = len(cluster["nodes"])
 
-        column = node["column"]
-        row = node["row"]
+        if domain not in largest:
+            largest[domain] = size
+        else:
+            largest[domain] = max(largest[domain], size)
 
-        occupied[
-            (column, row)
-        ] = node_id
+    return largest
 
-        columns[column].append(
-            row
-        )
+
+def add_cluster_fillers(graphviz_model, grid_experiment):
+    """Pad clusters within each tier to match the largest
+    cluster in that tier.
+
+    Fillers are added to both graphviz_model["nodes"] and
+    cluster["nodes"] so Graphviz treats them as genuine
+    cluster members, giving each cluster a consistent height.
+
+    Type "cluster_filler" distinguishes these from any future
+    gap-filler nodes, preventing double-writing in
+    write_dot_filler_nodes().
+    """
+
+    largest_sizes = largest_cluster_size_by_domain(graphviz_model)
 
     filler_index = 0
 
-    for column, rows in columns.items():
+    for cluster in graphviz_model["clusters"]:
 
-        first_row = min(rows)
-        last_row = max(rows)
+        domain = cluster["domain"]
+        target_size = largest_sizes[domain]
+        current_size = len(cluster["nodes"])
+        filler_count = target_size - current_size
 
-        for row in range(
-            first_row,
-            last_row + 1
-        ):
+        if filler_count == 0:
+            continue
 
-            coordinate = (
-                column,
-                row
-            )
+        # All real nodes in a cluster share the same column
+        # (same tier). Read it from the first real node so
+        # fillers can be placed in the correct rank group.
+        cluster_column = next(
+            graphviz_model["nodes"][nid]["column"]
+            for nid in cluster["nodes"]
+            if graphviz_model["nodes"][nid]["type"] == "real"
+        )
 
-            if coordinate in occupied:
-                continue
+        for filler_row in range(filler_count):
 
             filler_id = (
-                f"__filler_{column}_{row}_"
+                f"__filler_"
+                f"{cluster['id']}_"
+                f"{filler_row}_"
                 f"{filler_index}"
             )
 
             filler_index += 1
 
-            graphviz_model["nodes"][filler_id] = {
-                "id": filler_id,
-                "label": "",
-                "column": column,
-                "row": row,
-                "type": "filler",
-                "view": {
+            if grid_experiment.get("visible_fillers", False):
+
+                filler_view = {
+                    "shape": "box",
+                    "style": "rounded,dashed",
+                    "color": "gray",
+                    "penwidth": 1,
+                    "width": dot_view["node"]["width"],
+                    "height": dot_view["node"]["height"],
+                    "fixedsize": True,
+                }
+
+                filler_label = "FILLER"
+
+            else:
+
+                filler_view = {
                     "shape": "box",
                     "style": "invis",
                     "width": dot_view["node"]["width"],
                     "height": dot_view["node"]["height"],
-                    "fixedsize": True
+                    "fixedsize": True,
                 }
+
+                filler_label = ""
+
+            # Add to the global node registry.
+            # column is set to the cluster's tier column so
+            # write_dot_grid_ranks() can include this filler
+            # in the correct rank=same group.
+            # row remains None — fillers have no specific
+            # virtual grid row within the cluster.
+            graphviz_model["nodes"][filler_id] = {
+                "id": filler_id,
+                "label": filler_label,
+                "column": cluster_column,
+                "row": None,
+                "type": "cluster_filler",
+                "view": filler_view,
             }
 
-    return graphviz_model
+            # Add to the cluster so Graphviz places it
+            # inside the subgraph — this is the essential step.
+            cluster["nodes"].append(filler_id)
 
 
 def add_row_ordering_edges(graphviz_model):
@@ -941,13 +1011,17 @@ def apply_grid_experiment(
 ):
 
     if grid_experiment.get(
-        "fillers",
+        "cluster_fillers",
         False
     ):
 
-        add_grid_fillers(
-            graphviz_model
+        add_cluster_fillers(
+            graphviz_model,
+            grid_experiment
         )
+
+    # horizontal_edges and vertical_edges branches
+    # will be added here when those functions are implemented.
 
     return graphviz_model
 
@@ -1180,6 +1254,48 @@ def write_dot_ranks(f, graphviz_model):
         )
 
 
+# def write_dot_grid_ranks(f, graphviz_model):
+#
+#     columns = defaultdict(list)
+#
+#     for node_id, node in (
+#         graphviz_model["nodes"].items()
+#     ):
+#
+#         # Cluster fillers have column=None and row=None.
+#         # They belong to their cluster structurally but
+#         # have no virtual grid position, so exclude them
+#         # from rank declarations.
+#         if node["type"] != "real":
+#             continue
+#
+#         columns[node["column"]].append(
+#             (
+#                 node["row"],
+#                 node_id
+#             )
+#         )
+#
+#     for column in sorted(columns):
+#
+#         nodes = sorted(
+#             columns[column],
+#             key=lambda item: item[0]
+#         )
+#
+#         node_ids = [
+#             node_id
+#             for row, node_id in nodes
+#         ]
+#
+#         f.write(
+#             "{ rank=same; "
+#             + " ".join(
+#                 f'"{node_id}"'
+#                 for node_id in node_ids
+#             )
+#             + "; }\n"
+#         )
 def write_dot_grid_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -1187,6 +1303,12 @@ def write_dot_grid_ranks(f, graphviz_model):
     for node_id, node in (
         graphviz_model["nodes"].items()
     ):
+
+        # Skip nodes with no column assignment.
+        # Any node with a column participates in rank
+        # declarations, including cluster fillers.
+        if node["column"] is None:
+            continue
 
         columns[node["column"]].append(
             (
@@ -1197,9 +1319,14 @@ def write_dot_grid_ranks(f, graphviz_model):
 
     for column in sorted(columns):
 
+        # Sort real nodes by row; fillers have row=None
+        # and sort after all real nodes.
         nodes = sorted(
             columns[column],
-            key=lambda item: item[0]
+            key=lambda item: (
+                item[0] is None,
+                item[0] if item[0] is not None else 0
+            )
         )
 
         node_ids = [
@@ -1519,35 +1646,270 @@ def render_simple_svg(
 #         dot_file,
 #         svg_file
 #     )
+# def render_grid_svg(
+#     graph,
+#     resolved_layout,
+#     dot_file,
+#     svg_file,
+#     grid_experiment
+# ):
+#
+#     graphviz_model = build_graphviz_model(
+#         graph,
+#         resolved_layout
+#     )
+#
+#     graphviz_model = apply_grid_experiment(
+#         graphviz_model,
+#         grid_experiment
+#     )
+#
+#     write_grid_dot(
+#         graphviz_model,
+#         dot_file
+#     )
+#
+#     run_graphviz(
+#         dot_file,
+#         svg_file
+#     )
+#
+#     # TODO - post-processing SVG
+#
+#
+# rows = load_data(input_file)
+#
+# graph = build_graph(rows)
+#
+# graph = apply_view(graph)
+#
+# resolved_layout = resolve_layout(
+#     graph,
+#     layout
+# )
+#
+# render_text(
+#     graph,
+#     resolved_layout,
+#     terminal_file
+# )
+#
+# render_simple_svg(
+#     graph,
+#     resolved_layout,
+#     simple_dot_file,
+#     simple_svg_file
+# )
+#
+# render_grid_svg(
+#     graph,
+#     resolved_layout,
+#     grid_dot_file,
+#     grid_svg_file,
+#     grid_experiment
+# )
+
+def build_neato_model(graph, resolved_layout):
+    """Build a neato-compatible model from the canonical graph.
+
+    Unlike the dot model:
+    - No subgraph clusters (neato ignores them anyway)
+    - Every visible node gets a pos="x,y!" from the virtual grid
+    - X. cluster proxy nodes are excluded (not visible)
+    - ltail/lhead cluster routing is dropped — edges go directly
+      between real nodes
+
+    Coordinates are in points (72pt = 1 inch), derived from the
+    same dot_view width/height/ranksep/nodesep values used by the
+    simple renderer, so horizontal spacing matches.
+    """
+
+    col_spacing = (
+        dot_view["node"]["width"]
+        + dot_view["graph"]["ranksep"]
+    ) * 72
+
+    row_spacing = (
+        dot_view["node"]["height"]
+        + dot_view["graph"]["nodesep"]
+    ) * 72
+
+    # --- Nodes ---
+
+    neato_nodes = {}
+
+    for tech_id, node in graph["nodes"].items():
+
+        if not node["view"].get("visible", True):
+            continue
+
+        position = resolved_layout["nodes"].get(tech_id)
+
+        if position is None:
+            continue
+
+        x = position["column"] * col_spacing
+        y = -position["row"] * row_spacing
+
+        neato_nodes[tech_id] = {
+            "id": tech_id,
+            "label": node["label"],
+            "pos": f"{x:.1f},{y:.1f}",
+            "view": {
+                k: v
+                for k, v in node["view"].items()
+                if k != "visible"
+            },
+        }
+
+    # --- Edges ---
+    # Read directly from graph["edges"] so we get the original
+    # source/target pairs before any cluster-routing substitution.
+    # Edges whose source or target is invisible (e.g. X. proxies)
+    # are skipped — both endpoints must be rendered nodes.
+
+    neato_edges = []
+    seen = set()
+
+    for edge in graph["edges"]:
+
+        source = edge["source"]["graph_node"]
+        target = edge["target"]["graph_node"]
+
+        if source not in neato_nodes:
+            continue
+
+        if target not in neato_nodes:
+            continue
+
+        key = (source, target)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        neato_edges.append(
+            {
+                "source": source,
+                "target": target,
+                "view": edge["view"].copy(),
+            }
+        )
+
+    return {
+        "nodes": neato_nodes,
+        "edges": neato_edges,
+    }
+
+
+def write_neato_dot(neato_model, dot_file):
+    """Write a DOT file for neato -n rendering.
+
+    Omits dot-specific attributes (rankdir, compound, clusterrank,
+    newrank) and rank=same groups. Adds pos="x,y!" to every node
+    so neato uses virtual grid positions directly and only computes
+    edge routing.
+    """
+
+    neato_graph_attrs = format_dot_attrs(
+        {
+            "splines": "spline",
+            "outputorder": "edgesfirst",
+            "pad": dot_view["graph"]["pad"],
+        }
+    )
+
+    neato_node_attrs = format_dot_attrs(dot_view["node"])
+
+    with open(dot_file, "w", encoding="utf-8") as f:
+
+        f.write(f'digraph {dot_view["name"]} {{\n')
+
+        f.write(f"graph [{neato_graph_attrs}];\n")
+
+        f.write(f"node [{neato_node_attrs}];\n\n")
+
+        for node_id, node in neato_model["nodes"].items():
+
+            node_attrs = format_dot_attrs(node["view"])
+
+            f.write(
+                f'"{node_id}" '
+                f'[label="{node["label"]}", '
+                f'pos="{node["pos"]}!", '
+                f'{node_attrs}];\n'
+            )
+
+        f.write("\n")
+
+        for edge in neato_model["edges"]:
+
+            edge_attrs = format_dot_attrs(edge["view"])
+
+            if edge_attrs:
+                f.write(
+                    f'"{edge["source"]}" -> "{edge["target"]}" '
+                    f'[{edge_attrs}];\n'
+                )
+            else:
+                f.write(
+                    f'"{edge["source"]}" -> "{edge["target"]}";\n'
+                )
+
+        f.write("}\n")
+
+
+def run_neato(dot_file, svg_file):
+    """Run neato with -n to fix node positions and only route edges.
+
+    -n tells neato: use the pos attributes as given, do not run
+    the spring-model layout, only compute edge paths.
+    """
+
+    subprocess.run(
+        [
+            "neato",
+            "-n",
+            "-Tsvg",
+            dot_file,
+            "-o",
+            svg_file,
+        ],
+        check=True,
+    )
+
+
 def render_grid_svg(
     graph,
     resolved_layout,
     dot_file,
     svg_file,
-    grid_experiment
+    grid_experiment,
 ):
+    """Render the grid view via neato with explicit node positions.
 
-    graphviz_model = build_graphviz_model(
+    The grid_experiment parameter is retained for signature
+    compatibility but is not used in the neato path.
+    Visual enhancements (domain bands, cluster outlines, tier
+    labels) will be added here as SVG post-processing.
+    """
+
+    neato_model = build_neato_model(
         graph,
-        resolved_layout
+        resolved_layout,
     )
 
-    graphviz_model = apply_grid_experiment(
-        graphviz_model,
-        grid_experiment
-    )
-
-    write_grid_dot(
-        graphviz_model,
-        dot_file
-    )
-
-    run_graphviz(
+    write_neato_dot(
+        neato_model,
         dot_file,
-        svg_file
     )
 
-    # TODO - post-processing SVG
+    run_neato(
+        dot_file,
+        svg_file,
+    )
+
+    # TODO: SVG post-processing — domain background bands,
+    # cluster outlines, tier column headers, legend.
 
 
 rows = load_data(input_file)
@@ -1581,3 +1943,4 @@ render_grid_svg(
     grid_svg_file,
     grid_experiment
 )
+

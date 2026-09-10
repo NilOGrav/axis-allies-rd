@@ -70,11 +70,12 @@ row   9: I.3.01 - Intelligence Directorate
 row  11: E.3.01 - Energy & Physics Institute
 row  12: E.3.02 - Advanced Metallurgy
 row  14: P.3.GO - Germany: Occultism: The Ahnenerbe Institute
+row  16: R.3.01 - University
 
 row   1: A.4.01 - Long-Range Aircraft
 row   2: A.4.02 - Advanced Fighter Development
 row   3: A.4.03 - Paratroopers
-row   4: A.4.05 - Carpet Bombing
+row   4: A.4.04 - Carpet Bombing
 row   6: L.4.01 - Bunkers
 row   7: L.4.02 - Mechanized Warfare Doctrine
 row   8: L.4.03 - Advanced Artillery
