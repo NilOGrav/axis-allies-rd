@@ -27,7 +27,8 @@ The project uses:
 - Python
 - Graphviz
 - LibreOffice Calc
-- SVG
+- neato
+- SVG, CSV, DOT
 
 ## Development
 
