@@ -1,0 +1,74 @@
+Name;Type;Ability;Description;Attack;Defense;Move;Cost;Generic;Germany;Japan;Italy;US;UK;ANZAC;Russia;France;China;Total
+AAA;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Aircraft Carrier;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Fleet Carrier;Unit;Aircraft carrier w/ special abilities;;;;;;0;0;20;0;0;0;0;0;0;0;20
+Airship;Unit;Aircrapt able to perform bombing but not attacking;;;;;;0;10;10;5;10;10;5;10;5;0;65
+Aluminium;Resource;Needed to build specific units;;;;;;50;0;0;0;0;0;0;0;0;0;50
+Aluminium factory;Facility;Produces Aluminium;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Artillery;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Atomic bomb;Unit;Atomic attack on a 1-5 d6 roll permanently destroys  all units and maximizes damage on facilities in territory (one-use weapon) and reduces production value of territory to 1 IPC for the duration of 5 years. Place radiation markers (10) in territory accordingly, remove one every round.;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Mushroom;Marker;Signifies the Atomic Blast;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Radiation;Marker;Signifies the amount of radiation;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Barbed wire;Unit;Infantry movement penalty -1 => can be zero!. Purchase cost per barbed wire is 1 IPC.;;;;;1;30;0;0;0;0;0;0;0;0;0;30
+Barracks;Base;Produce regular infantry (not specialized units) at the cost of 3 IPC.;;;;;3;8;0;0;0;0;0;0;0;0;0;8
+Battleship;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Bunkers;Base;Absorbs 1 hit every round in battle as long as at least one infantry unit present. Can be destroyed by 5 damage from (tactical) bombing.;;;;;;10;20;10;5;10;10;5;20;5;0;95
+Commando;Unit;Infantry can be dropped in enemy territories behind enemy lines and occupy territory, need to be dropped by transport planes or tactical bombers capable of dropping paratroopers.;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Cruiser;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Czech hedgehog;Unit;Tanks movement penalty -1. Cost is 2 IPC.;;;;;2;30;0;0;0;0;0;0;0;0;0;30
+Destroyer;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Die Glocke;Unit;Once per round you can reset the turn of a power (self, enemy or ally). That turn starts all over. ;;;;;;0;3;0;0;0;0;0;0;0;0;3
+Fighter;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Flying Fortress;Unit;Special kind of Strategic bomber. Flying Fortresses ignore first interceptor hit. Enables atomic delivery: A5/D2/M8/C15;;5;2;8;15;0;5;5;5;5;5;5;5;5;0;40
+Gustav;Unit;The armoured train artillry. Can move to all rail connected sections in one move and participate in combat 2 territories away. Stays in combat until all friendly land units are out of combat.  Can only be targeted by bombings (like a facility without AAA) A3/Dx/M1/C?;;3;;;;10;10;0;0;0;0;0;10;0;0;30
+Heavy Water;Resource;Needed for production of Atomic Bomb;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Heavy Water Facility;Facility;Produces Heavy Water;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Hospital;Base;By a 1 by D6 infantry casualty return to nearest field hospital and “respawn” there (but cannot participate in movement phase). If two Field hospitals are at the same distance: owner chooses.;;;;*;;8;0;0;0;0;0;0;0;0;0;8
+Major Industrial Complex;Facility;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Minor Industrial Complex;Facility;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Naval Port;Base;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Infantry;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Jet fighter;Unit;Jet fighters defend at 5 and move +1. All fighter bonuses apply.;;;5;;;20;20;20;10;20;10;10;20;10;0;140
+Land Mine;Unit;Cost 3 IPC, defend 2 times @ 2 before first round of battle against Land units but tanks, will be removed when it hits, changes owner in case territory is captured and survives battle. In case of multiple: roll all at once and distribute hits over land mines in any way: 2 hits on a 4 die roll can be appointed to one and the same land mine.;;;;;3;20;20;20;10;20;10;10;20;10;0;140
+LandKreuzer;Unit;Super Heavy Armor: Landkreuzer P. 1500 Monster: attacks at 5 A5/D5/M2/C14;;5;5;2;14;0;10;0;0;0;0;0;0;0;0;10
+Marine;Unit;Marines on transport “arm” the transport +1 attack and +2 defense for every marine aboard add 1 hitpoint to transport. Attack is same as Infantry + 1.;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Mechanized Infantry;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Mega-factory;Facility;Industrial Complex w/ special abilities;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Nuclear Power Plant;Facility;Produces 1 IPC per turn.;;;;;;;;;;;;;;;;
+Nuclear Reactor;Facility;"1. Increases Nuclear Power Plant production within the same territory to +2 IPC/turn.
+2. Gains uranium-production capability 3 IPC = 1 Uranium.
+3. Is able to produce the Atomic Bomb (you have to choose between 2 en 3 per turn).";;;;;;8;0;0;0;0;0;0;0;0;0;8
+Nuke;Unit;Rocket that delivers the Atomic Bomb. Nuclear warheads capability on rockets. Buy unarmed Nukes for 15 IPC. M8;;;;8;15;0;20;20;0;20;0;0;20;0;0;80
+Oil;Resource;Oil acts as a second currency (like IPCs), but it is mainly used for operations (movement/combat).;;;;;;60;0;0;0;0;0;0;0;0;0;60
+Oil Derrick;Facility;Produces the amount of oil of the territory per turn;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Oil Platform;Facility;Produces the amount of oil of the sea zone per turn;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Radar;Facility;When base is built: AAA (both from facilities and units) hit on 1–2 instead of 1.;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Rails;Base;You may move newly mobilized land units from an Industrial Complex along rail-connected territories as if they where produced in the designated territory. One Railway section costs 2IPC and counts as base.;;;;;2;60;0;0;0;0;0;0;0;0;0;60
+Air Research Center;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Basic Research Facility;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Energy & Physics Institute;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Intelligence Directorate;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Land Warfare Research Center;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Rocket Site;Base;May build Rocket sites (counts as base), which is able to build rockets. During the Strategic and Tactical Bombing Raids step of your Conduct Combat phase each turn, each of your operative rocket sites can make a single rocket attack against an enemy facility within 4 spaces of it. This attack does one die roll of damage to that facility. Rockets may not be fired over neutral territories.;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Rocket;Unit;To be matched with Rocket Site;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Sea Mine;Unit;When entering a seazone with seamines roll a d6 on a 1 resolve a hit anywhere on the fleet entering the seazone.;;;;;;20;20;20;10;20;10;10;20;10;0;140
+Seaplane base;Base;Acts simulaniously as Naval Port and Airbase;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Spy;Unit;Spy spawns in capital (A0/D0/M2/C8) and is able to sabotage facilities, steal or cancel tech (while in enemy capital) or cancel one battle this round from the power it is currently residing (play as interrupt in enemy’s combat phase, while not having performed one of your earlier options this round.;;0;0;2;8;10;0;0;0;0;0;0;0;0;0;10
+Steel;Resource;Needed to build specific units;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Steel Factory;Facility;Produces 1 Steel per turn;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Strategic Bomber;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Submarine Port;Base;Submarine secret harbours may be built in Neutral and enemy territories. To do so pay 10 IPC while at least one naval unit is present in the seazone during mobilization phase. If territory is or becomes occupied by one of your enemies, they roll one d6 every turn on a 1 remove the base. This base cannot be the target of bombardements.;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Submarine;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Nuclear Submarines;Unit;Nuclear Submarines may ignore first destroyer cancellation per turn. Normal submarine rules apply, all bonuses on submarines count.;;;;;;20;0;20;0;20;0;0;0;0;0;60
+Ballistic Missile Submarine;Unit;Ballistic Misile Submarines can submerge after suprise attack. Normal submarine rules apply, all bonuses on submarines count.;;;;;;0;20;20;0;20;0;0;20;0;0;80
+Synthetic Oil Plant;Facility;Produces 1 oil for 1 IPC;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Tactical Bomber;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Tank destroyer;Unit;Will attack @ 3 before first round of combat directed at tanks. Every tanks destroyed this way will de removed from battlefield. After that Tank destroyers count as default Mech. Inf.;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Tank;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Transport;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+UFO;Unit;You now have developed the Hannebeau II Saucer. For 1 Vril token the UFO can move 1 infantry from one place to another (if the territory is enemy occupied, the infantry unit is in combat) OR you may move one enemy aircraft back to it’s place of origin.;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Uranium;Resource;Needed for production of Atomic Bomb;;;;;;30;0;0;0;0;0;0;0;0;0;30
+Vril;Resource;Resource to pay for the Occult inventions (restricted to Germany);;;;;;30;0;0;0;0;0;0;0;0;0;30
+Research token;Resource;Represents one Research Point;;;;;;100;0;0;0;0;0;0;0;0;0;100
+;;;;;;;;;;;;;;;;;;
+Total;;;;;;;;;;;;;;;;;;1727

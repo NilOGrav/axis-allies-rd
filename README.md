@@ -8,6 +8,25 @@ which open up new technologies on turn. There is also the possibility to in- or 
 - OCCULTISM: To include the myths that Germany did occult resrearch.
 - ToDo - ZOMBIES: to integrate Axis & Allies & Zombies into Axis & Allies 1940 Global
 
+
+## Gameplay
+
+This project adds a modular **Research & Development (R&D) system** to Axis & Allies Global 1940. Players can invest in technologies that unlock new capabilities, units, facilities, resources, and strategic options.
+
+Research is deliberately separated from production and construction:
+
+* **Research Points (RP)** represent individual research attempts. Each attempt costs 1 RP and targets an eligible technology.
+* **Technology prerequisites** determine which technologies are available for research. Eligibility is checked at the start of the turn, preventing research from cascading through the tree in a single turn.
+* **Research is uncertain but strategic:** players choose their research targets, with successful research advancing their technological capabilities while breakthroughs can preserve the invested RP for the following turn.
+* **Technologies unlock capabilities rather than automatically providing physical assets.** Facilities and bases must generally be constructed or purchased separately.
+* **Facilities are physical game pieces** placed on the map. They provide specialised capabilities and can be damaged, captured, and rendered inoperative according to their rules.
+* **Air Bases and Naval Bases** are distinct from other facilities and provide operational capabilities such as extended unit range, scrambling, servicing, and repairs.
+* **Resources** such as Oil, Aluminium, Steel, Heavy Water, Uranium, and Vril are separate from technologies and may form part of optional strategic-resource modules.
+* The technology tree is designed with **multiple technological routes and national specialisation**, allowing players to pursue different strategic approaches rather than a single optimal progression.
+
+The system is modular: the core R&D rules can be used with optional expansions such as strategic resources, additional facilities, and other technology modules. It is designed for compatibility with both **Global 1940** and **Global 1940 Halifax**.
+
+
 ## Project structure
 
 - `src/` — current Python source code
@@ -21,6 +40,7 @@ which open up new technologies on turn. There is also the possibility to in- or 
 - `archive/` — historical versions of scripts and tech sheets
 - `output/` — generated project output
 
+
 ## Tools
 
 The project uses:
@@ -29,6 +49,7 @@ The project uses:
 - LibreOffice Calc
 - neato
 - SVG, CSV, DOT
+
 
 ## Development
 

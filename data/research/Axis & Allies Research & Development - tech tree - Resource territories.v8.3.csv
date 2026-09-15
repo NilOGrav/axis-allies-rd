@@ -1,0 +1,27 @@
+Territory/Sea zone;Resource;Production;Status;Notes
+United States (2 territories);Oil;5;Active (w/ Oil Derrick);Safe, core Allied advantage
+Caucasus;Oil;3;Active (w/ Oil Derrick);Critical USSR target
+Romania;Oil;2;Active (w/ Oil Derrick);Germany’s lifeline (+1 production for balance, if needed)
+Sumatra;Oil;2;Active (w/ Oil Derrick);Japan priority
+Java;Oil;2;Active (w/ Oil Derrick);Japan priority
+Persia;Oil;2;Oil Derrick;UK / Axis battleground
+Iraq;Oil;2;Oil Derrick;Middel East control
+Saudi Arabia;Oil;2;Oil Derrick;Expansion zone
+Borneo;Oil;1;Oil Derrick;Supplemental DEI
+Celebes;Oil;1;Oil Derrick;Supplemental DEI
+Persian Gulf;Oil;2;Oil Platform;High conflict zone
+East Indies Seas;Oil;2;Oil Platform;Japan expansion
+Gulf of Mexico;Oil;2;Oil Platform;USA boost (optional balance lever)
+Slovakia/Hungary;Oil;1;Oil Derrick;
+Kazachstan;Oil;2;Oil Derrick;
+Russia more east than Kazachstan;Oil;1;Oil Derrick;
+Western United States;Uranium;1;Mine;Colorado
+Slovakia;Uranium;1;Mine;Jachymov
+Belgian Congo;Uranium;1;Mine;Shinkolobwe
+Yukon;Uranium;1;Mine;Eldorado Mine
+[Somewhere in Asia];Uranium;1;Mine;
+Norway;Heavy water;1;Heavy Water Plant;Telemark
+Ukraine;Heavy water;1;Heavy Water Plant;Dnepropetrovsk
+Korea;Heavy water;1;Heavy Water Plant;And Fukuoka?
+Any territory;Heavy water;1;Heavy Water Plant;Can be built after research
+Germany;Vril;1;Ahnenerbe Institute;Eastern Germany
