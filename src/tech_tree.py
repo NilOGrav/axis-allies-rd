@@ -159,7 +159,7 @@ node_views = {
         "penwidth": 2
     },
 
-    "RCENTER": {
+    "RCENTRE": {
         "shape": "box",
         "style": "rounded,filled",
         "peripheries": 2,
@@ -528,7 +528,7 @@ def apply_view(graph):
 
         # Make the border visible against the coloured fill.
         # Category shape already distinguishes node types;
-        # penwidth distinguishes KEYSTONE / RCENTER.
+        # penwidth distinguishes KEYSTONE / RCENTRE.
         node["view"]["color"] = "#555555"
 
     for domain, domain_data in graph["domains"].items():
@@ -1674,8 +1674,8 @@ def build_neato_model(graph, resolved_layout):
     # --- Nodes ---
 
     # Pre-compute how many visible nodes each node shares its
-    # cluster with. The RCENTER size-and-shift treatment only
-    # applies when the RCENTER is the sole visible node in the
+    # cluster with. The RCENTRE size-and-shift treatment only
+    # applies when the RCENTRE is the sole visible node in the
     # cluster — if other nodes share the cluster (e.g. E.3.01
     # with E.3.02) normal positioning is used to avoid overlaps.
     cluster_visible_counts = {}
@@ -1717,12 +1717,12 @@ def build_neato_model(graph, resolved_layout):
 
         sole_in_cluster = cluster_visible_counts.get(tech_id, 1) == 1
 
-        if node["category"] == "RCENTER" and sole_in_cluster:
-            # RCENTER spans 2 node heights + the inter-node gap so
+        if node["category"] == "RCENTRE" and sole_in_cluster:
+            # RCENTRE spans 2 node heights + the inter-node gap so
             # it fills the same vertical space as two normal nodes.
             # Its centre is shifted half a row down so it sits
             # between its grid row and the empty padding below it.
-            # Only applied when the RCENTER is alone in its cluster;
+            # Only applied when the RCENTRE is alone in its cluster;
             # if other nodes share the cluster use normal positioning.
             y = -(position["row"] + 0.5) * row_spacing
             node_view["height"] = rcenter_height

@@ -19,7 +19,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_A_3 {
 label="Air - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
-"A.3.01" [label="A.3.01\nAir Research Centre", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.3.01" [label="A.3.01\nAir Research Centre", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#cfe8ff"];
 }
 subgraph cluster_A_4 {
 label="Air - Tier 4";
@@ -48,12 +48,12 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_D_0 {
 label="Research & Development - Tier 0";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d1b6d0"];
-"D.0.01" [label="D.0.01\nBasic Research Facility", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffdefe"];
+"D.0.01" [label="D.0.01\nBasic Research Facility", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe"];
 }
 subgraph cluster_D_2 {
 label="Research & Development - Tier 2";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d1b6d0"];
-"D.2.01" [label="D.2.01\nUniversity", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffdefe"];
+"D.2.01" [label="D.2.01\nUniversity", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe"];
 }
 subgraph cluster_E_0 {
 label="Energy And Physics - Tier 0";
@@ -81,7 +81,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_E_3 {
 label="Energy And Physics - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#cbb0b2"];
-"E.3.01" [label="E.3.01\nEnergy & Physics Institute", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#f8d7da"];
+"E.3.01" [label="E.3.01\nEnergy & Physics Institute", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#f8d7da"];
 "E.3.02" [label="E.3.02\nAdvanced Metallurgy", shape="doubleoctagon", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#f8d7da"];
 }
 subgraph cluster_E_4 {
@@ -136,7 +136,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_F_3 {
 label="Logistics And Industry - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#a088d1"];
-"F.3.01" [label="F.3.01\nIndustrial & Logistics Bureau", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#c4a6ff"];
+"F.3.01" [label="F.3.01\nIndustrial & Logistics Bureau", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#c4a6ff"];
 }
 subgraph cluster_F_4 {
 label="Logistics And Industry - Tier 4";
@@ -183,7 +183,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_I_3 {
 label="Intelligence - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#b7cacd"];
-"I.3.01" [label="I.3.01\nIntelligence Directorate", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#e0f7fa"];
+"I.3.01" [label="I.3.01\nIntelligence Directorate", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#e0f7fa"];
 }
 subgraph cluster_I_4 {
 label="Intelligence - Tier 4";
@@ -231,7 +231,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_L_3 {
 label="Land - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#b1c6b1"];
-"L.3.01" [label="L.3.01\nLand Warfare Research Centre", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+"L.3.01" [label="L.3.01\nLand Warfare Research Centre", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#d9f2d9"];
 }
 subgraph cluster_L_4 {
 label="Land - Tier 4";
@@ -291,7 +291,7 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 subgraph cluster_N_3 {
 label="Naval - Tier 3";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d1c6a7"];
-"N.3.01" [label="N.3.01\nNaval Research Centre", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#fff2cc"];
+"N.3.01" [label="N.3.01\nNaval Research Centre", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#fff2cc"];
 }
 subgraph cluster_N_4 {
 label="Naval - Tier 4";
