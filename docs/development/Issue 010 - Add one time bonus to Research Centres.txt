@@ -1,0 +1,47 @@
+Yes. I think a **one-time establishment bonus** is a good addition, because otherwise Research Centres risk feeling like a pure administrative prerequisite: *pay for building → unlock eligibility → perhaps generate RP*. A tangible immediate benefit makes constructing one an actual strategic decision.
+
+I would structure it as **two separate effects**:
+
+| Effect                       | Purpose                                                |
+| ---------------------------- | ------------------------------------------------------ |
+| **Tier 4+ eligibility**      | Long-term technological function                       |
+| **One-time free minor unit** | Immediate strategic payoff for establishing the centre |
+
+### Suggested rule
+
+> **Research Centre:** Purchasing a Research Centre immediately unlocks access to Tier 4+ technologies in its applicable research domain and allows the owner to place **one free minor unit** associated with that domain. This free unit is received only when the Research Centre is first established.
+
+For a **Naval Research Centre**, for example:
+
+> **Naval Research Centre:** Unlocks Tier 4+ Naval technologies. When purchased, place one free minor naval unit in an eligible territory/sea zone.
+
+I would make the bonus **one-time per physical Research Centre**, rather than once per technology or once per turn.
+
+### Why I like the idea
+
+It gives the Research Centre three distinct gameplay roles:
+
+1. **Prerequisite** — opens the higher tier.
+2. **Investment** — potentially provides ongoing research capacity/progress.
+3. **Immediate capability** — gives the player something tangible on establishment.
+
+That also fits the historical flavour reasonably well: establishing a major research establishment could represent not just a building, but the associated laboratories, prototypes, test equipment and personnel.
+
+### One thing I would constrain
+
+I would **not make “minor naval unit” completely unrestricted**. Otherwise the optimal choice could simply be whatever unit has the highest immediate combat value.
+
+I'd define the bonus by Research Centre domain, e.g.:
+
+| Research Centre  | Free establishment unit                        |
+| ---------------- | ---------------------------------------------- |
+| Naval            | 1 minor naval unit                             |
+| Air              | 1 minor air unit                               |
+| Land Warfare     | 1 minor land unit                              |
+| Energy & Physics | potentially no combat unit / specialised bonus |
+| Intelligence     | intelligence-related bonus                     |
+| Basic Research   | perhaps RP rather than a unit                  |
+
+That keeps the bonus tied to the function of the centre rather than turning every RCENTER into a generic free-unit factory.
+
+**I would therefore adopt the concept, but treat the exact free-unit mapping as a balancing parameter rather than a universal rule.** It is also a good candidate for a new Facility Rule / Design Decision rather than a Design Principle.

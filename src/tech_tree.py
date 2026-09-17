@@ -68,11 +68,26 @@ domain_colors = {
     "Logistics And Industry": "#c4a6ff",
     "Intelligence": "#e0f7fa",
     "Energy And Physics": "#f8d7da",
+    "Research & Development": "#ffdefe",
     "Programs": "#ffd9b3",
     "Resource": "#eeeeee",
 }
 
 DEFAULT_DOMAIN_COLOR = "black"
+
+
+def darken_color(hex_color, factor=0.82):
+    """Return a darkened version of a hex colour.
+
+    Multiplies each RGB channel by factor. Used to make cluster
+    background fills visibly darker than the node fill in the
+    simple renderer, while keeping them in the same colour family.
+    """
+    hex_color = hex_color.lstrip("#")
+    r = int(int(hex_color[0:2], 16) * factor)
+    g = int(int(hex_color[2:4], 16) * factor)
+    b = int(int(hex_color[4:6], 16) * factor)
+    return f"#{r:02x}{g:02x}{b:02x}"
 
 or_colors = [
     "#e41a1c", "#377eb8", "#4daf4a",
@@ -89,10 +104,11 @@ layout = {
         "Air",
         "Land",
         "Naval",
+        "Programs",
+        "Research & Development",
         "Logistics And Industry",
         "Intelligence",
         "Energy And Physics",
-        "Programs",
         "Resource",
     ],
 }
@@ -144,8 +160,9 @@ node_views = {
     },
 
     "RCENTER": {
-        "shape": "doublecircle",
-        "style": "filled",
+        "shape": "box",
+        "style": "rounded,filled",
+        "peripheries": 2,
         "color": "#fffdf2",
         "penwidth": 2
     },
@@ -501,14 +518,29 @@ def apply_view(graph):
             node_views["DEFAULT"]
         ).copy()
 
+        # Domain colour coding: nodes use the same colours
+        # as cluster backgrounds so domain membership is
+        # visible without cluster boxes (neato renderer).
+        node["view"]["fillcolor"] = domain_colors.get(
+            node["domain"],
+            DEFAULT_DOMAIN_COLOR
+        )
+
+        # Make the border visible against the coloured fill.
+        # Category shape already distinguishes node types;
+        # penwidth distinguishes KEYSTONE / RCENTER.
+        node["view"]["color"] = "#555555"
+
     for domain, domain_data in graph["domains"].items():
 
         for cluster, cluster_data in domain_data["clusters"].items():
 
             cluster_data["view"] = cluster_view.copy()
-            cluster_data["view"]["fillcolor"] = domain_colors.get(
-                domain,
-                DEFAULT_DOMAIN_COLOR
+            domain_color = domain_colors.get(domain)
+            cluster_data["view"]["fillcolor"] = (
+                darken_color(domain_color)
+                if domain_color
+                else DEFAULT_DOMAIN_COLOR
             )
 
     for edge in graph["edges"]:
@@ -551,7 +583,7 @@ def clusters_for_tier(graph, domain, tier):
 def create_tier_to_column(graph):
 
     tiers = sorted(
-        graph["tiers"],
+        (t for t in graph["tiers"] if t.strip()),
         key=lambda tier: int(tier)
     )
 
@@ -665,11 +697,47 @@ def resolve_layout(graph, layout):
     return resolved
 
 
+def compute_max_cluster_sizes_per_domain(graph):
+    """Return the largest visible cluster size per domain across all tiers.
+
+    Used by calculate_node_positions() to pad smaller clusters so
+    every cluster in a domain occupies the same number of virtual
+    rows, creating consistent horizontal domain bands in the grid.
+    """
+
+    max_sizes = {}
+
+    for domain, domain_data in graph["domains"].items():
+
+        max_size = 0
+
+        for cluster_data in domain_data["clusters"].values():
+
+            visible_count = sum(
+                1
+                for tech_id in cluster_data["nodes"]
+                if graph["nodes"][tech_id]["view"].get(
+                    "visible", True
+                )
+            )
+
+            max_size = max(max_size, visible_count)
+
+        max_sizes[domain] = max_size
+
+    return max_sizes
+
+
 def calculate_node_positions(graph, resolved_layout):
 
     node_positions = {}
 
     tier_to_column = resolved_layout["tier_to_column"]
+
+    # Pre-compute the largest cluster size per domain so every
+    # cluster in a domain occupies the same number of rows,
+    # producing consistent horizontal domain bands across all tiers.
+    domain_max_sizes = compute_max_cluster_sizes_per_domain(graph)
 
     for tier, column in tier_to_column.items():
 
@@ -682,6 +750,16 @@ def calculate_node_positions(graph, resolved_layout):
                 domain,
                 tier
             )
+
+            if not clusters:
+                # No cluster for this domain in this tier.
+                # Still advance by the full domain band height so
+                # domain bands stay vertically consistent across
+                # all tier columns — fixing alignment of tier-0,
+                # tier-7+ nodes and sparse Program/Resource entries.
+                row += domain_max_sizes.get(domain, 0)
+                row += resolved_layout["row_offset"]
+                continue
 
             for cluster in clusters:
 
@@ -705,6 +783,14 @@ def calculate_node_positions(graph, resolved_layout):
                         "column": column,
                         "row": row
                     }
+
+                # Pad rows to match the domain maximum so the
+                # cluster occupies the same vertical space as the
+                # largest cluster in this domain.
+                pad = domain_max_sizes.get(domain, 0) - len(
+                    visible_nodes
+                )
+                row += max(0, pad)
 
                 row += resolved_layout["row_offset"]
 
@@ -808,45 +894,24 @@ def build_graphviz_model(graph, resolved_layout):
     return graphviz_model
 
 
-# def largest_cluster_size_by_tier(graphviz_model):
-#     """Return the largest cluster node count per tier.
-#
-#     Used to determine the target size when equalizing
-#     cluster heights within each tier.
-#     """
-#
-#     largest = {}
-#
-#     for cluster in graphviz_model["clusters"]:
-#
-#         tier = cluster["tier"]
-#         size = len(cluster["nodes"])
-#
-#         if tier not in largest:
-#             largest[tier] = size
-#         else:
-#             largest[tier] = max(largest[tier], size)
-#
-#     return largest
-def largest_cluster_size_by_domain(graphviz_model):
-    """Return the largest cluster node count per domain.
+def largest_cluster_size_by_tier(graphviz_model):
+    """Return the largest cluster node count per tier.
 
-    Used to give every cluster in a domain a consistent
-    height, creating stable horizontal domain bands
-    across the full width of the tree.
+    Used to determine the target size when equalizing
+    cluster heights within each tier.
     """
 
     largest = {}
 
     for cluster in graphviz_model["clusters"]:
 
-        domain = cluster["domain"]
+        tier = cluster["tier"]
         size = len(cluster["nodes"])
 
-        if domain not in largest:
-            largest[domain] = size
+        if tier not in largest:
+            largest[tier] = size
         else:
-            largest[domain] = max(largest[domain], size)
+            largest[tier] = max(largest[tier], size)
 
     return largest
 
@@ -864,14 +929,14 @@ def add_cluster_fillers(graphviz_model, grid_experiment):
     write_dot_filler_nodes().
     """
 
-    largest_sizes = largest_cluster_size_by_domain(graphviz_model)
+    largest_sizes = largest_cluster_size_by_tier(graphviz_model)
 
     filler_index = 0
 
     for cluster in graphviz_model["clusters"]:
 
-        domain = cluster["domain"]
-        target_size = largest_sizes[domain]
+        tier = cluster["tier"]
+        target_size = largest_sizes[tier]
         current_size = len(cluster["nodes"])
         filler_count = target_size - current_size
 
@@ -1254,48 +1319,6 @@ def write_dot_ranks(f, graphviz_model):
         )
 
 
-# def write_dot_grid_ranks(f, graphviz_model):
-#
-#     columns = defaultdict(list)
-#
-#     for node_id, node in (
-#         graphviz_model["nodes"].items()
-#     ):
-#
-#         # Cluster fillers have column=None and row=None.
-#         # They belong to their cluster structurally but
-#         # have no virtual grid position, so exclude them
-#         # from rank declarations.
-#         if node["type"] != "real":
-#             continue
-#
-#         columns[node["column"]].append(
-#             (
-#                 node["row"],
-#                 node_id
-#             )
-#         )
-#
-#     for column in sorted(columns):
-#
-#         nodes = sorted(
-#             columns[column],
-#             key=lambda item: item[0]
-#         )
-#
-#         node_ids = [
-#             node_id
-#             for row, node_id in nodes
-#         ]
-#
-#         f.write(
-#             "{ rank=same; "
-#             + " ".join(
-#                 f'"{node_id}"'
-#                 for node_id in node_ids
-#             )
-#             + "; }\n"
-#         )
 def write_dot_grid_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -1623,92 +1646,6 @@ def render_simple_svg(
     )
 
 
-# def render_grid_svg(
-#     graph,
-#     resolved_layout,
-#     dot_file,
-#     svg_file,
-#     grid_experiment
-# ):
-#
-#     graphviz_model = build_grid_graphviz_model(
-#         graph,
-#         resolved_layout,
-#         grid_experiment
-#     )
-#
-#     write_dot(
-#         graphviz_model,
-#         dot_file
-#     )
-#
-#     run_graphviz(
-#         dot_file,
-#         svg_file
-#     )
-# def render_grid_svg(
-#     graph,
-#     resolved_layout,
-#     dot_file,
-#     svg_file,
-#     grid_experiment
-# ):
-#
-#     graphviz_model = build_graphviz_model(
-#         graph,
-#         resolved_layout
-#     )
-#
-#     graphviz_model = apply_grid_experiment(
-#         graphviz_model,
-#         grid_experiment
-#     )
-#
-#     write_grid_dot(
-#         graphviz_model,
-#         dot_file
-#     )
-#
-#     run_graphviz(
-#         dot_file,
-#         svg_file
-#     )
-#
-#     # TODO - post-processing SVG
-#
-#
-# rows = load_data(input_file)
-#
-# graph = build_graph(rows)
-#
-# graph = apply_view(graph)
-#
-# resolved_layout = resolve_layout(
-#     graph,
-#     layout
-# )
-#
-# render_text(
-#     graph,
-#     resolved_layout,
-#     terminal_file
-# )
-#
-# render_simple_svg(
-#     graph,
-#     resolved_layout,
-#     simple_dot_file,
-#     simple_svg_file
-# )
-#
-# render_grid_svg(
-#     graph,
-#     resolved_layout,
-#     grid_dot_file,
-#     grid_svg_file,
-#     grid_experiment
-# )
-
 def build_neato_model(graph, resolved_layout):
     """Build a neato-compatible model from the canonical graph.
 
@@ -1736,6 +1673,28 @@ def build_neato_model(graph, resolved_layout):
 
     # --- Nodes ---
 
+    # Pre-compute how many visible nodes each node shares its
+    # cluster with. The RCENTER size-and-shift treatment only
+    # applies when the RCENTER is the sole visible node in the
+    # cluster — if other nodes share the cluster (e.g. E.3.01
+    # with E.3.02) normal positioning is used to avoid overlaps.
+    cluster_visible_counts = {}
+    for domain_data in graph["domains"].values():
+        for cluster_data in domain_data["clusters"].values():
+            visible_in_cluster = [
+                tid
+                for tid in cluster_data["nodes"]
+                if graph["nodes"][tid]["view"].get("visible", True)
+            ]
+            count = len(visible_in_cluster)
+            for tid in visible_in_cluster:
+                cluster_visible_counts[tid] = count
+
+    rcenter_height = (
+        2 * dot_view["node"]["height"]
+        + dot_view["graph"]["nodesep"]
+    )
+
     neato_nodes = {}
 
     for tech_id, node in graph["nodes"].items():
@@ -1749,17 +1708,34 @@ def build_neato_model(graph, resolved_layout):
             continue
 
         x = position["column"] * col_spacing
-        y = -position["row"] * row_spacing
+
+        node_view = {
+            k: v
+            for k, v in node["view"].items()
+            if k != "visible"
+        }
+
+        sole_in_cluster = cluster_visible_counts.get(tech_id, 1) == 1
+
+        if node["category"] == "RCENTER" and sole_in_cluster:
+            # RCENTER spans 2 node heights + the inter-node gap so
+            # it fills the same vertical space as two normal nodes.
+            # Its centre is shifted half a row down so it sits
+            # between its grid row and the empty padding below it.
+            # Only applied when the RCENTER is alone in its cluster;
+            # if other nodes share the cluster use normal positioning.
+            y = -(position["row"] + 0.5) * row_spacing
+            node_view["height"] = rcenter_height
+            node_view["width"] = dot_view["node"]["width"]
+            node_view["fixedsize"] = True
+        else:
+            y = -position["row"] * row_spacing
 
         neato_nodes[tech_id] = {
             "id": tech_id,
             "label": node["label"],
             "pos": f"{x:.1f},{y:.1f}",
-            "view": {
-                k: v
-                for k, v in node["view"].items()
-                if k != "visible"
-            },
+            "view": node_view,
         }
 
     # --- Edges ---
@@ -1943,4 +1919,3 @@ render_grid_svg(
     grid_svg_file,
     grid_experiment
 )
-

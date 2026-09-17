@@ -1,0 +1,481 @@
+Yes. The recurring issue in the design discussions is that the **domains have gradually become more than simple subject categories**: they now influence the visual tree, Research Centres, paths, and how technologies are conceptually grouped. That makes unclear domain boundaries increasingly important.
+
+Below is a recap of the domain-design discussion as it currently stands.
+
+## 1. Current domain structure
+
+The project currently uses eight domains:
+
+| Code    | Domain                 | General purpose                                                                          |
+| ------- | ---------------------- | ---------------------------------------------------------------------------------------- |
+| **A**   | Air                    | Aircraft, aviation technology, air warfare                                               |
+| **L**   | Land                   | Ground combat, tanks, artillery, infantry-related technology                             |
+| **N**   | Naval                  | Ships, submarines, naval warfare and naval technology                                    |
+| **I**   | Intelligence           | Intelligence, espionage, reconnaissance, information/warfare knowledge                   |
+| **E**   | Energy And Physics     | Nuclear physics, atomic energy, advanced physics and related fundamental technologies    |
+| **L&I** | Logistics And Industry | Industrial capacity, logistics, production, transportation and supporting infrastructure |
+| **P**   | Programs               | Large technological/industrial programmes and special development programmes             |
+| **R**   | Resource               | Physical resources/materials required for certain technologies                           |
+
+The corresponding domain+tier combinations are used as the visual clusters in the Graphviz tree.
+
+An important architectural decision was that **the domain is a property of the technology model**, not merely a Graphviz presentation choice.
+
+---
+
+# 2. What a domain is supposed to represent
+
+The discussions established that domains should primarily represent **technological/functional areas**, rather than strict historical organizations.
+
+For example:
+
+* A technology being developed by an army does not automatically make it **Land**.
+* A technology being developed by a navy does not automatically make it **Naval**.
+* A technology involving nuclear physics does not necessarily mean that the resulting weapon belongs in **Energy And Physics**.
+* A technology can support another domain without belonging to that domain.
+
+This became particularly important when distinguishing **technology**, **resource**, and **facility**.
+
+The rough conceptual separation is:
+
+> **Technology** = an acquired technological capability
+> **Resource** = a material/physical resource needed to support capabilities
+> **Facility** = infrastructure/capacity enabling or supporting research/technology
+
+So, for example, a uranium resource and nuclear technology should not become the same thing merely because they are historically connected.
+
+---
+
+# 3. Domains are not the same thing as paths
+
+This was one of the more important clarifications.
+
+A **domain** is the primary classification of a technology.
+
+A **path** is an analytical technological route.
+
+Therefore:
+
+> Domains should be relatively stable classifications, while paths are allowed to cross domains.
+
+A technology can belong to multiple paths.
+
+For example, a technology may simultaneously contribute to:
+
+* a tank-development path,
+* an industrial path,
+* a heavy-weapon path,
+
+without needing to move domains merely because it participates in several technological routes.
+
+This means we should **not solve every “this technology touches another subject” problem by creating additional domains or moving nodes around**.
+
+---
+
+# 4. Domains should not become historical departments
+
+Another recurring principle was that the tree is **historically inspired, not historically limited**.
+
+That means the question should not primarily be:
+
+> “Which historical organization developed this?”
+
+but rather:
+
+> “What technological capability does this represent in the game?”
+
+This is important because WWII research often crossed organizational boundaries.
+
+For example:
+
+* industrial research,
+* military research,
+* physics,
+* weapons development,
+* naval engineering,
+
+could all overlap historically.
+
+The tree therefore needs a **game-design classification**, not a reconstruction of WWII research ministries.
+
+---
+
+# 5. The Air / Land / Naval boundary
+
+These three are the clearest domains because they correspond strongly to the major military environments.
+
+### Air
+
+The Air domain covers technologies whose principal capability is associated with:
+
+* aircraft,
+* aviation,
+* air combat,
+* air power,
+* aircraft performance/armament,
+* related aviation systems.
+
+### Land
+
+Land covers technologies whose principal capability is associated with:
+
+* ground warfare,
+* tanks,
+* armoured vehicles,
+* artillery,
+* ground combat systems,
+* related land-war capabilities.
+
+One deliberate example from the recent discussions is **Landkreuzer P.7**.
+
+Even though the P.7 is an enormous and unusual weapon, its placement in the **TANK path** was considered intentional. Its conceptual route therefore remains Land rather than being moved merely because it is technologically unusual.
+
+### Naval
+
+Naval covers:
+
+* surface warships,
+* submarines,
+* naval propulsion,
+* naval weapons,
+* carrier technology,
+* naval warfare systems.
+
+The recent nuclear-submarine clarification is useful here:
+
+> A **nuclear submarine** is a submarine with nuclear propulsion.
+
+So its fundamental platform remains Naval.
+
+A **ballistic-missile submarine**, however, is specifically a submarine capable of delivering an atomic payload. That introduces an interaction between Naval and Energy/Physics, but does not necessarily mean the submarine technology itself belongs in Energy And Physics.
+
+This illustrates the general domain principle: **classify according to the primary capability represented by the node.**
+
+---
+
+# 6. Energy And Physics
+
+This domain emerged as the natural home for technologies dealing with **fundamental or enabling physical science**, particularly:
+
+* nuclear physics,
+* atomic energy,
+* nuclear weapons research,
+* advanced energy technologies,
+* related physical-science breakthroughs.
+
+But an important boundary has emerged:
+
+**Energy And Physics should not become “everything involving a nuclear weapon.”**
+
+There is a difference between:
+
+* the underlying nuclear/atomic technology,
+* the weapon/platform that uses it,
+* the resource required to produce it,
+* the facility required to research/produce it.
+
+For example:
+
+**Nuclear physics → Energy And Physics**
+
+while:
+
+**Nuclear propulsion → potentially Naval when represented as a naval propulsion capability**
+
+and:
+
+**Nuclear submarine → Naval**
+
+and:
+
+**uranium/heavy water → Resource**
+
+This layered interpretation prevents Energy And Physics from swallowing large portions of the tree.
+
+---
+
+# 7. Resource is deliberately separate
+
+The Resource domain was introduced to prevent physical resources from being confused with technologies.
+
+Examples discussed include things such as:
+
+* uranium,
+* heavy water,
+* other strategically important materials.
+
+A resource can be a prerequisite for technology without itself being a technological advancement.
+
+This is also why the project distinguishes:
+
+> resource requirement ≠ technology prerequisite ≠ facility requirement
+
+even though all three can participate in eligibility.
+
+The Resource domain therefore has a somewhat different nature from Air/Land/Naval.
+
+That is not necessarily a problem, but it is something to keep in mind when reconsidering the domain architecture.
+
+---
+
+# 8. Logistics And Industry
+
+This domain exists for the technological/economic support structure behind military capabilities.
+
+Its conceptual area includes things such as:
+
+* industrial production,
+* logistics,
+* transportation,
+* manufacturing capability,
+* supporting infrastructure,
+* industrial processes.
+
+The important distinction is that this domain is not simply:
+
+> “technologies that help you produce military units.”
+
+It represents the underlying **industrial/logistical capability** itself.
+
+That makes it possible for an industrial technology to support Air, Land and Naval simultaneously without needing to duplicate it into all three domains.
+
+This is one of the strongest arguments for retaining Logistics And Industry as a cross-cutting domain.
+
+---
+
+# 9. Intelligence
+
+Intelligence is conceptually different from the three military domains.
+
+It represents capabilities based around:
+
+* information,
+* intelligence gathering,
+* reconnaissance,
+* espionage,
+* counter-intelligence,
+* related information advantages.
+
+The rationale is that intelligence is a distinct technological/organizational capability rather than simply a subcategory of Land, Air or Naval warfare.
+
+This also makes it suitable for future modular systems involving things such as espionage.
+
+---
+
+# 10. Programs
+
+**Programs** are intentionally different again.
+
+The idea is that some entries represent **large-scale technological programmes**, rather than a conventional technology category.
+
+This was useful for things that don't fit naturally into a single technological discipline.
+
+A program can therefore act as a container for a major development effort without forcing the underlying concept into Air/Land/Naval/etc.
+
+This is also consistent with the broader design principle of **modularity and optional complexity**.
+
+However, Programs should not become a generic “miscellaneous” domain.
+
+If something is actually a normal technology, it should ideally belong to its appropriate technological domain.
+
+---
+
+# 11. Research Centres complicate the domain question
+
+Recent discussions added an important distinction.
+
+**Research Centre** is a functional concept.
+
+`RCENTER` is the **data-model category**.
+
+A named facility might be something like a university, institute, directorate, etc., but those are facility identities rather than domains.
+
+Research Centres can provide eligibility for higher-tier technologies and therefore interact with domains.
+
+The recent idea under discussion was:
+
+> establishing/purchasing a domain-specific Research Centre could unlock Tier 4+ technology in that domain, potentially with a one-time bonus such as a free minor unit.
+
+That means domains may eventually have a mechanical consequence beyond visual grouping.
+
+This makes getting the domain boundaries right more important.
+
+At the same time, the facility should **not define the domain**. A naval research centre does not mean every technology it helps develop becomes Naval.
+
+---
+
+# 12. The most important general rule that emerged
+
+Across the discussions, the best description of the intended classification logic is approximately:
+
+> **Put a technology in the domain representing its primary technological capability, not every field it interacts with.**
+
+Secondary relationships should normally be represented through:
+
+* dependencies,
+* paths,
+* resources,
+* facilities,
+* modules,
+* or other relationships.
+
+This is what allows a relatively small number of domains to represent a much more interconnected technology system.
+
+---
+
+# 13. Why some current nodes now don't fit
+
+This is actually an expected consequence of the tree becoming more sophisticated.
+
+Some technologies are inherently **cross-domain**.
+
+Typical problem cases are likely to fall into one of these categories:
+
+### A. Platform + enabling technology
+
+Example:
+
+> nuclear submarine
+
+It combines:
+
+* Naval → submarine
+* Energy/Physics → nuclear propulsion
+
+But the node represents a **Naval platform capability**, so putting it in both domains is problematic if domain is single-valued.
+
+### B. Weapon + scientific basis
+
+Example:
+
+> atomic weapon
+
+It has:
+
+* physics,
+* energy,
+* industrial,
+* military,
+* resource,
+* facility dimensions.
+
+But it still needs one primary home.
+
+### C. Industrial technology with military consequences
+
+For example, a manufacturing technology may dramatically affect:
+
+* tanks,
+* aircraft,
+* ships,
+
+while still fundamentally being an industrial technology.
+
+This is a good case for Logistics And Industry rather than duplicating it into three military domains.
+
+### D. Resource/technology overlap
+
+For example:
+
+> Heavy Water
+
+may be essential to nuclear research but is not itself nuclear technology.
+
+That belongs to the Resource layer rather than Energy And Physics.
+
+### E. Programme versus technology
+
+Some large projects don't cleanly represent a technology at all.
+
+Those are candidates for Programs, but Programs should not become the dumping ground for awkward nodes.
+
+### F. Technologies that are genuinely interdisciplinary
+
+There may simply be technologies for which **one domain cannot express their nature perfectly**.
+
+The existing architecture deliberately allows paths and dependencies to express those cross-domain relationships instead.
+
+---
+
+# 14. What we have *not* decided
+
+This is important because I don't think we previously reached a final “redesign the domains” decision.
+
+We have **not established**:
+
+* a formal one-sentence definition for every domain;
+* an exhaustive inclusion/exclusion list for every domain;
+* whether any current domain should be split;
+* whether any domains should be merged;
+* whether cross-domain technologies should be allowed to have multiple domains;
+* whether a new domain is needed;
+* whether Programs should remain a domain or become another kind of classification;
+* whether Resource should remain a domain or become a separate model layer;
+* whether Research Centres should be domain-specific in all cases;
+* a formal tie-breaker for technologies that legitimately fit two domains.
+
+So the current problem is not evidence that the architecture is wrong. It means we have reached the point where the **domain taxonomy needs to be made explicit**.
+
+---
+
+# 15. The underlying design tension
+
+I think the discussions reveal three competing goals:
+
+```text
+                 DOMAIN
+                   │
+        primary technological identity
+                   │
+       ┌───────────┼───────────┐
+       │           │           │
+     PATH       RESOURCE    FACILITY
+       │           │           │
+ strategic     material     infrastructure
+ route         requirement  / eligibility
+```
+
+A technology can have relationships to all three without belonging to all three.
+
+That is probably the cleanest conceptual model we have arrived at.
+
+The danger is that we start asking:
+
+> “What subjects does this technology touch?”
+
+instead of:
+
+> **“What is the primary capability represented by this technology node?”**
+
+The latter is much more compatible with the existing architecture.
+
+---
+
+# 16. What I would do next
+
+Rather than immediately adding/removing domains, I would make a **Domain Definition & Boundary table**.
+
+For each existing domain:
+
+| Domain               | Core definition | Includes | Excludes | Borderline cases |
+| -------------------- | --------------- | -------- | -------- | ---------------- |
+| Air                  | ...             | ...      | ...      | ...              |
+| Land                 | ...             | ...      | ...      | ...              |
+| Naval                | ...             | ...      | ...      | ...              |
+| Logistics & Industry | ...             | ...      | ...      | ...              |
+| Intelligence         | ...             | ...      | ...      | ...              |
+| Energy & Physics     | ...             | ...      | ...      | ...              |
+| Programs             | ...             | ...      | ...      | ...              |
+| Resource             | ...             | ...      | ...      | ...              |
+
+Then we can take **every current node that feels wrong**, classify why it feels wrong, and see whether the problem is:
+
+1. the node's current domain,
+2. an unclear domain boundary,
+3. a missing domain,
+4. a node that should actually be a Resource/Facility/Program,
+5. or simply a legitimate cross-domain technology that needs to remain in one primary domain.
+
+That would let us determine whether the domain architecture actually needs changing **before changing the tree itself**.
+
+The key point from the existing design is that **we should not create a new domain merely because a technology interacts with multiple domains**. The domain taxonomy should describe primary technological identity; paths, prerequisites, resources and facilities provide the cross-domain relationships.
