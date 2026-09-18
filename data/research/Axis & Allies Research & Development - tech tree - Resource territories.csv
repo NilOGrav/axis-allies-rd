@@ -1,0 +1,28 @@
+Territory or Sea zone;Resource;Production;Status;Notes
+Western United States;Oil;2;Active (starts with Oil Derrick);Safe, core Allied advantage
+Central United States;Oil;3;Active (starts with Oil Derrick);Safe, core Allied advantage
+Caucasus;Oil;3;Active (starts with Oil Derrick);Critical USSR target
+Romania;Oil;2;Active (starts with Oil Derrick);Germany’s lifeline (+1 production for balance, if needed)
+Sumatra;Oil;2;Active (starts with Oil Derrick);Japan priority
+Java;Oil;2;Active (starts with Oil Derrick);Japan priority
+Persia;Oil;2;Requires Oil Derrick;UK vs. Axis battleground
+Iraq;Oil;2;Requires Oil Derrick;Middle East control
+Saudi Arabia;Oil;2;Requires Oil Derrick;Expansion zone
+Borneo;Oil;1;Requires Oil Derrick;Supplemental DEI
+Celebes;Oil;1;Requires Oil Derrick;Supplemental DEI
+Persian Gulf;Oil;2;Requires Oil Platform;High conflict zone
+East Indies Seas;Oil;2;Requires Oil Platform;Japan expansion
+Gulf of Mexico;Oil;2;Requires Oil Platform;USA boost (optional balance lever)
+Slovakia and Hungary;Oil;1;Requires Oil Derrick;
+Kazakhstan;Oil;2;Requires Oil Derrick;
+Novosibirsk;Oil;1;Requires Oil Derrick;Alternatively can be changed to Siberia while playtesting
+Western United States;Uranium;1;Mine;Colorado
+Slovakia;Uranium;1;Mine;Jachymov
+Belgian Congo;Uranium;1;Mine;Shinkolobwe
+Yukon;Uranium;1;Mine;Eldorado Mine
+Xinjiang;Uranium;1;Mine;Siberia or Manchuria could be alternatives
+Norway;Heavy water;1;Heavy Water Plant;Telemark
+Ukraine;Heavy water;1;Heavy Water Plant;Dnepropetrovsk
+Korea;Heavy water;1;Heavy Water Plant;Alternatively change to Fukuoka
+Any territory;Heavy water;1;Heavy Water Plant;Can be built after research
+Germany;Vril;1;Ahnenerbe Institute;Eastern Germany

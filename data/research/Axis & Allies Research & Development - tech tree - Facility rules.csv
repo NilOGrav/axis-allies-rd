@@ -7,7 +7,7 @@ FAC-005;Research Centre classification;Research Centres are identified separatel
 FAC-006;Research Centre prerequisites;A Research Centre may be required for eligibility to research specific technologies.;Established
 FAC-007;Other facilities are not prerequisites;Facilities other than Research Centres do not themselves function as prerequisites for researching technologies.;Established
 FAC-008;Technology unlocks facilities;A technology may unlock the ability to build or purchase a specific facility or base.;Established
-FAC-009;Facility unlock ≠ construction;"Unlocking a facility gives the player the ability to build or purchase it; it does not automatically place the physical facility on the map.";Established
+FAC-009;Facility unlock ≠ construction;Unlocking a facility gives the player the ability to build or purchase it, it does not automatically place the physical facility on the map.;Established
 FAC-010;Technology remains the dependency;If a facility unlocked by Technology A enables a later technological development, the later technology depends on Technology A rather than on possession of the physical facility.;Established
 FAC-011;Facilities have individual functions;The gameplay effect of a facility is determined by its individual rules/description rather than by a universal facility effect.;Established
 FAC-012;Facility damage;Facilities can be damaged by applicable game effects, including strategic bombing, according to their individual rules.;Established
@@ -25,4 +25,5 @@ FAC-023;Technology cost and facility cost are separate;Researching a technology 
 FAC-024;Facilities are not technology nodes;A facility unlocked by a technology is represented as a physical game piece rather than as a separate technology node. A facility should not be duplicated as a technology solely to represent a dependency.;Established
 FAC-025;Unique facility type per territory;A territory may contain at most one facility of each facility type.;Established
 FAC-026;Facility and Base bombing distinction;Facilities and Bases are both physical installations. Facilities can be targeted by Strategic Bombing raids. Bases can be targeted by both Tactical Bombing and Strategic Bombing raids.;Established
-FAC-027;Base damage and inoperative state;A base is considered inoperative if it has 3 or more damage points. As a base takes damage, it progressively loses its abilities until repaired.;Established
+FAC-027;Base damage and inoperative state;A base is considered inoperative if it has 3 or more damage points. Damage reduces or disables the base's abilities according to the applicable base rules, those abilities return as the damage is repaired.;Established
+FAC-028;Research Centre establishment bonus;When a Research Centre is first purchased, it immediately unlocks access to the applicable Tier 4+ technologies and provides a one-time establishment bonus appropriate to its research domain.;Current Design

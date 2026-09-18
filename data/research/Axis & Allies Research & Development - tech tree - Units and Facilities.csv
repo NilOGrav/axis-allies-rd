@@ -1,8 +1,8 @@
 Name;Type;Ability;Description;Attack;Defense;Move;Cost;Generic;Germany;Japan;Italy;US;UK;ANZAC;Russia;France;China;Total
 AAA;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
+Ahnenerbe Institute;Facility;Research Institute for the Occult generates 1 Vril energy token per turn. Every use of researched items cost an amount of Vril.;;;;;;;;;;;;;;;;
 Aircraft Carrier;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
-Fleet Carrier;Unit;Aircraft carrier w/ special abilities;;;;;;0;0;20;0;0;0;0;0;0;0;20
-Airship;Unit;Aircrapt able to perform bombing but not attacking;;;;;;0;10;10;5;10;10;5;10;5;0;65
+Airship;Unit;Aircraft able to perform bombing but not attacking;;;;;;0;10;10;5;10;10;5;10;5;0;65
 Aluminium;Resource;Needed to build specific units;;;;;;50;0;0;0;0;0;0;0;0;0;50
 Aluminium factory;Facility;Produces Aluminium;;;;;;8;0;0;0;0;0;0;0;0;0;8
 Artillery;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
@@ -34,21 +34,21 @@ LandKreuzer;Unit;Super Heavy Armor: Landkreuzer P. 1500 Monster: attacks at 5 A5
 Marine;Unit;Marines on transport “arm” the transport +1 attack and +2 defense for every marine aboard add 1 hitpoint to transport. Attack is same as Infantry + 1.;;;;;;30;0;0;0;0;0;0;0;0;0;30
 Mechanized Infantry;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
 Mega-factory;Facility;Industrial Complex w/ special abilities;;;;;;8;0;0;0;0;0;0;0;0;0;8
-Nuclear Power Plant;Facility;Produces 1 IPC per turn.;;;;;;;;;;;;;;;;
-Nuclear Reactor;Facility;"1. Increases Nuclear Power Plant production within the same territory to +2 IPC/turn.
-2. Gains uranium-production capability 3 IPC = 1 Uranium.
-3. Is able to produce the Atomic Bomb (you have to choose between 2 en 3 per turn).";;;;;;8;0;0;0;0;0;0;0;0;0;8
-Nuke;Unit;Rocket that delivers the Atomic Bomb. Nuclear warheads capability on rockets. Buy unarmed Nukes for 15 IPC. M8;;;;8;15;0;20;20;0;20;0;0;20;0;0;80
+Nuclear Power Plant;Facility;Produces 1 IPC per turn.;;;;;;5;;;;;;;;;;
+Nuclear Reactor;Facility;Increases Nuclear Power Plant production within the same territory to +2 IPC/turn.;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Nuke;Unit;Rocket that delivers the Atomic Bomb. Nuclear warheads capability on rockets. Buy unarmed Nukes for 15 IPC. M8;;;;8;15;8;20;20;0;20;0;0;20;0;0;88
 Oil;Resource;Oil acts as a second currency (like IPCs), but it is mainly used for operations (movement/combat).;;;;;;60;0;0;0;0;0;0;0;0;0;60
-Oil Derrick;Facility;Produces the amount of oil of the territory per turn;;;;;;30;0;0;0;0;0;0;0;0;0;30
-Oil Platform;Facility;Produces the amount of oil of the sea zone per turn;;;;;;10;0;0;0;0;0;0;0;0;0;10
+Oil Derrick;Facility;Produces the amount of oil of the territory per turn;;;;;6;30;0;0;0;0;0;0;0;0;0;30
+Oil Platform;Facility;Produces the amount of oil of the sea zone per turn;;;;;8;10;0;0;0;0;0;0;0;0;0;10
 Radar;Facility;When base is built: AAA (both from facilities and units) hit on 1–2 instead of 1.;;;;;;30;0;0;0;0;0;0;0;0;0;30
 Rails;Base;You may move newly mobilized land units from an Industrial Complex along rail-connected territories as if they where produced in the designated territory. One Railway section costs 2IPC and counts as base.;;;;;2;60;0;0;0;0;0;0;0;0;0;60
-Air Research Center;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
-Basic Research Facility;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
-Energy & Physics Institute;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
-Intelligence Directorate;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
-Land Warfare Research Center;Facility;Unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Air Research Centre;Facility;Enables Research for Air Units, unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Basic Research Facility;Facility;Unlocks tier 1 & 2 tech;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Energy & Physics Institute;Facility;Enables Research for Rockets and Atomic Bomb, unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Industrial & Logistics Bureau;Facility;Enables Research for Econimics and Infrastructure, unlocks tier 4+;;;;;;;;;;;;;;;;
+Intelligence Directorate;Facility;Enables development of various intelligence activities, unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Land Warfare Research Centre;Facility;Enables Research for Land Units and Bunkers, unlocks tier 4+;;;;;;8;0;0;0;0;0;0;0;0;0;8
+Naval Research Centre;Facility;Enables Research for Sea Units and Naval bases, unlocks tier 4+;;;;;;;;;;;;;;;;
 Rocket Site;Base;May build Rocket sites (counts as base), which is able to build rockets. During the Strategic and Tactical Bombing Raids step of your Conduct Combat phase each turn, each of your operative rocket sites can make a single rocket attack against an enemy facility within 4 spaces of it. This attack does one die roll of damage to that facility. Rockets may not be fired over neutral territories.;;;;;;30;0;0;0;0;0;0;0;0;0;30
 Rocket;Unit;To be matched with Rocket Site;;;;;;30;0;0;0;0;0;0;0;0;0;30
 Sea Mine;Unit;When entering a seazone with seamines roll a d6 on a 1 resolve a hit anywhere on the fleet entering the seazone.;;;;;;20;20;20;10;20;10;10;20;10;0;140
@@ -68,7 +68,8 @@ Tank;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
 Transport;Unit;Base game;;;;;;0;0;0;0;0;0;0;0;0;0;0
 UFO;Unit;You now have developed the Hannebeau II Saucer. For 1 Vril token the UFO can move 1 infantry from one place to another (if the territory is enemy occupied, the infantry unit is in combat) OR you may move one enemy aircraft back to it’s place of origin.;;;;;;0;0;0;0;0;0;0;0;0;0;0
 Uranium;Resource;Needed for production of Atomic Bomb;;;;;;30;0;0;0;0;0;0;0;0;0;30
+University;Facility;You are now able to build a university, which grants 1 Research Point per turn.;;;;;10;;;;;;;;;;;
 Vril;Resource;Resource to pay for the Occult inventions (restricted to Germany);;;;;;30;0;0;0;0;0;0;0;0;0;30
 Research token;Resource;Represents one Research Point;;;;;;100;0;0;0;0;0;0;0;0;0;100
 ;;;;;;;;;;;;;;;;;;
-Total;;;;;;;;;;;;;;;;;;1727
+Total;;;;;;;;;;;;;;;;;;1717
