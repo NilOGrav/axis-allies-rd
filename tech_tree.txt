@@ -1,5 +1,5 @@
 row  33: D.0.01 - Basic Research Facility
-row  48: E.0.01 - Oil Derrick
+row  49: E.0.01 - Oil Derrick
 
 row   1: A.1.01 - Improved Airframes
 row   2: A.1.02 - Air Transport Doctrine
@@ -14,22 +14,22 @@ row  15: N.1.02 - Extended Range Submarines
 row  16: N.1.03 - Sea mines
 row  17: N.1.04 - Secret submarine harbour
 row  18: N.1.05 - Jet Propulsion
-row  35: F.1.01 - Seaplane base
-row  36: F.1.02 - War Bonds Campaign
-row  37: F.1.03 - Port Efficiency
-row  38: F.1.04 - Lendlease
-row  39: F.1.05 - Supply Chain Optimization
-row  40: F.1.06 - Fuel Efficiency
-row  43: I.1.01 - Germany: Enigma
-row  44: I.1.02 - Basic Espionage
-row  45: I.1.03 - Codebreaking
-row  46: I.1.04 - Propaganda Campaign
-row  48: E.1.01 - Early Radar
-row  49: E.1.02 - Heavy Water Chemistry
-row  50: E.1.03 - Improved AA Procedures
-row  51: E.1.04 - Basic Drilling
-row  52: E.1.05 - Improved Refining
-row  54: R.1.01 - Oil
+row  36: F.1.01 - Seaplane base
+row  37: F.1.02 - War Bonds Campaign
+row  38: F.1.03 - Port Efficiency
+row  39: F.1.04 - Lendlease
+row  40: F.1.05 - Supply Chain Optimization
+row  41: F.1.06 - Fuel Efficiency
+row  44: I.1.01 - Germany: Enigma
+row  45: I.1.02 - Basic Espionage
+row  46: I.1.03 - Codebreaking
+row  47: I.1.04 - Propaganda Campaign
+row  49: E.1.01 - Early Radar
+row  50: E.1.02 - Heavy Water Chemistry
+row  51: E.1.03 - Improved AA Procedures
+row  52: E.1.04 - Basic Drilling
+row  53: E.1.05 - Improved Refining
+row  55: R.1.01 - Oil
 
 row   1: A.2.01 - Defensive Turrets
 row   2: A.2.02 - Improved scramble (ATC)
@@ -46,31 +46,31 @@ row  15: N.2.02 - Advanced ASW
 row  16: N.2.03 - Torpedos
 row  17: N.2.04 - Gatekeeper systems
 row  33: D.2.01 - University
-row  35: F.2.01 - Standardized Parts
-row  36: F.2.02 - Rail Coordination
-row  37: F.2.03 - Increased Factory Production
-row  38: F.2.04 - Civil Defense Planning
-row  39: F.2.05 - Fuel Logistics
-row  40: F.2.06 - Protected Oil Infrastructure
-row  41: F.2.07 - Oil Platform
-row  43: I.2.01 - UK: Alan Turing
-row  44: I.2.02 - Cryptographic Systems
-row  45: I.2.03 - Propaganda Effect on Mobilization
-row  46: I.2.04 - Camouflage
-row  48: E.2.01 - Integrated Air Defense Network
-row  49: E.2.02 - Reactor Theory
-row  50: E.2.03 - Radar Wave Theory
-row  51: E.2.04 - Synthetic Fuel Production
-row  52: E.2.05 - Advanced Drilling
+row  36: F.2.01 - Standardized Parts
+row  37: F.2.02 - Rail Coordination
+row  38: F.2.03 - Increased Factory Production
+row  39: F.2.04 - Civil Defense Planning
+row  40: F.2.05 - Fuel Logistics
+row  41: F.2.06 - Protected Oil Infrastructure
+row  42: F.2.07 - Oil Platform
+row  44: I.2.01 - UK: Alan Turing
+row  45: I.2.02 - Cryptographic Systems
+row  46: I.2.03 - Propaganda Effect on Mobilization
+row  47: I.2.04 - Camouflage
+row  49: E.2.01 - Integrated Air Defense Network
+row  50: E.2.02 - Reactor Theory
+row  51: E.2.03 - Radar Wave Theory
+row  52: E.2.04 - Synthetic Fuel Production
+row  53: E.2.05 - Advanced Drilling
 
 row   1: A.3.01 - Air Research Centre
 row   6: L.3.01 - Land Warfare Research Centre
 row  14: N.3.01 - Naval Research Centre
 row  21: P.3.GO - Germany: Occultism: The Ahnenerbe Institute
-row  35: F.3.01 - Industrial & Logistics Bureau
-row  43: I.3.01 - Intelligence Directorate
-row  48: E.3.01 - Energy & Physics Institute
-row  49: E.3.02 - Advanced Metallurgy
+row  36: F.3.01 - Industrial & Logistics Bureau
+row  44: I.3.01 - Intelligence Directorate
+row  49: E.3.01 - Energy & Physics Institute
+row  51: E.3.02 - Advanced Metallurgy
 
 row   1: A.4.01 - Long-Range Aircraft
 row   2: A.4.02 - Advanced Fighter Development
@@ -84,23 +84,23 @@ row  15: N.4.02 - Surface Fleet doctrine
 row  16: N.4.03 - Sonar
 row  17: N.4.04 - Armed transports
 row  21: P.4.GO - Germany: Occultism: Expedition to Tibet
-row  35: F.4.01 - Strategic Rail Network
-row  36: F.4.02 - Industrial Relocation
-row  37: F.4.03 - Mass Production
-row  38: F.4.04 - War Economy Planning
-row  39: F.4.05 - Advanced Fuel Efficiency
-row  40: F.4.06 - Strategic Fuel Reserves
-row  43: I.4.01 - Espionage Networks
-row  44: I.4.02 - Signals Interception
-row  45: I.4.03 - Stealth Techniques
-row  46: I.4.04 - Resistance Coordination
-row  48: E.4.01 - Reactor Engineering
-row  49: E.4.02 - Rocket Propulsion Theory
-row  50: E.4.03 - Synthetic Oil Expansion
-row  51: E.4.04 - Offshore Extraction
-row  52: E.4.05 - Heavy Armor Production
-row  54: R.4.01 - Aluminium
-row  55: R.4.02 - Vril
+row  36: F.4.01 - Strategic Rail Network
+row  37: F.4.02 - Industrial Relocation
+row  38: F.4.03 - Mass Production
+row  39: F.4.04 - War Economy Planning
+row  40: F.4.05 - Advanced Fuel Efficiency
+row  41: F.4.06 - Strategic Fuel Reserves
+row  44: I.4.01 - Espionage Networks
+row  45: I.4.02 - Signals Interception
+row  46: I.4.03 - Stealth Techniques
+row  47: I.4.04 - Resistance Coordination
+row  49: E.4.01 - Reactor Engineering
+row  50: E.4.02 - Rocket Propulsion Theory
+row  51: E.4.03 - Synthetic Oil Expansion
+row  52: E.4.04 - Offshore Extraction
+row  53: E.4.05 - Heavy Armor Production
+row  55: R.4.01 - Aluminium
+row  56: R.4.02 - Vril
 
 row   1: A.5.01 - Jet Engine Theory
 row   2: A.5.02 - Engine Optimization
@@ -120,20 +120,20 @@ row  17: N.5.03 - Super battleships
 row  18: N.5.04 - Fleet Screening Doctrine
 row  19: N.5.05 - Heavy Transport Capacity
 row  21: P.5.GO - Germany: Occultism: Thule Society
-row  35: F.5.01 - Armoured Trains
-row  36: F.5.02 - Industrial Mobilization
-row  37: F.5.03 - Improved Shipyards
-row  38: F.5.04 - Mobile factories
-row  39: F.5.05 - Industrial Expansion
-row  43: I.5.01 - Counterintelligence
-row  44: I.5.02 - Scientific Espionage
-row  45: I.5.03 - Political Influence Operations
-row  46: I.5.04 - Mustering locals
-row  48: E.5.01 - Uranium Processing
-row  49: E.5.02 - Rocket Development Program
-row  50: E.5.03 - Strategic Payload Integration
-row  51: E.5.04 - Recycle Station
-row  54: R.5.01 - Steel
+row  36: F.5.01 - Armoured Trains
+row  37: F.5.02 - Industrial Mobilization
+row  38: F.5.03 - Improved Shipyards
+row  39: F.5.04 - Mobile factories
+row  40: F.5.05 - Industrial Expansion
+row  44: I.5.01 - Counterintelligence
+row  45: I.5.02 - Scientific Espionage
+row  46: I.5.03 - Political Influence Operations
+row  47: I.5.04 - Mustering locals
+row  49: E.5.01 - Uranium Processing
+row  50: E.5.02 - Rocket Development Program
+row  51: E.5.03 - Strategic Payload Integration
+row  52: E.5.04 - Recycle Station
+row  55: R.5.01 - Steel
 
 row   1: A.6.01 - Early Jet Fighters
 row   2: A.6.02 - Under the cover of the night
@@ -150,17 +150,17 @@ row  15: N.6.02 - Advanced Submarine Propulsion
 row  16: N.6.03 - Heavy battleship
 row  17: N.6.04 - Heavy carriers
 row  21: P.6.GO - Germany: Occultism: Spear of Longinus
-row  35: F.6.01 - Express Railway
-row  36: F.6.02 - Megafactories
-row  37: F.6.03 - Advanced Assembly Lines
-row  43: I.6.01 - Counter sabotage
-row  44: I.6.02 - Espionage
-row  45: I.6.03 - Sabotage
-row  46: I.6.04 - Reduced Bombing effect
-row  48: E.6.01 - Advanced Ballistics
-row  49: E.6.02 - Nuclear Delivery
-row  54: R.6.01 - Uranium
-row  55: R.6.02 - Heavy Water
+row  36: F.6.01 - Express Railway
+row  37: F.6.02 - Megafactories
+row  38: F.6.03 - Advanced Assembly Lines
+row  44: I.6.01 - Counter sabotage
+row  45: I.6.02 - Espionage
+row  46: I.6.03 - Sabotage
+row  47: I.6.04 - Reduced Bombing effect
+row  49: E.6.01 - Advanced Ballistics
+row  50: E.6.02 - Nuclear Delivery
+row  55: R.6.01 - Uranium
+row  56: R.6.02 - Heavy Water
 
 row  21: P.7.FI - Fighter Jets
 row  22: P.7.GA - Germany: Atlantik Wall
@@ -173,7 +173,7 @@ row  28: P.7.SG - Rail Super Gun -  Schwerer Gustav
 row  29: P.7.SU - The Wolfpack: Super Submarines
 row  30: P.7.UK - UK: Global Intelligence Network
 row  31: P.7.US - US: Industrial capacity
-row  48: E.7.01 - Cruise Missile Doctrine
+row  49: E.7.01 - Cruise Missile Doctrine
 
 row  21: P.8.FI - Fighter Jets
 row  22: P.8.GA - Germany: Atlantic Wall Pt. 2

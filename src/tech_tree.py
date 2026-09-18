@@ -698,32 +698,32 @@ def resolve_layout(graph, layout):
 
 
 def compute_max_cluster_sizes_per_domain(graph):
-    """Return the largest visible cluster size per domain across all tiers.
+    """Return the largest visible cluster row-height per domain.
 
-    Used by calculate_node_positions() to pad smaller clusters so
-    every cluster in a domain occupies the same number of virtual
-    rows, creating consistent horizontal domain bands in the grid.
+    RCENTRE nodes occupy 2 virtual rows each; all other nodes
+    occupy 1. This count is used to pad smaller clusters so every
+    cluster in a domain occupies the same number of virtual rows,
+    creating consistent horizontal domain bands in the grid.
     """
 
     max_sizes = {}
 
     for domain, domain_data in graph["domains"].items():
 
-        max_size = 0
+        max_rows = 0
 
         for cluster_data in domain_data["clusters"].values():
 
-            visible_count = sum(
-                1
-                for tech_id in cluster_data["nodes"]
-                if graph["nodes"][tech_id]["view"].get(
-                    "visible", True
-                )
+            cluster_rows = sum(
+                2 if graph["nodes"][tid]["category"] == "RCENTRE"
+                else 1
+                for tid in cluster_data["nodes"]
+                if graph["nodes"][tid]["view"].get("visible", True)
             )
 
-            max_size = max(max_size, visible_count)
+            max_rows = max(max_rows, cluster_rows)
 
-        max_sizes[domain] = max_size
+        max_sizes[domain] = max_rows
 
     return max_sizes
 
@@ -775,21 +775,29 @@ def calculate_node_positions(graph, resolved_layout):
                 if not visible_nodes:
                     continue
 
+                rows_used = 0
+
                 for tech_id in visible_nodes:
 
                     row += 1
+                    rows_used += 1
 
                     node_positions[tech_id] = {
                         "column": column,
                         "row": row
                     }
 
+                    if graph["nodes"][tech_id]["category"] == "RCENTRE":
+                        # RCENTRE occupies 2 virtual rows so the next
+                        # node in the cluster starts one slot lower,
+                        # leaving room for the taller rendered node.
+                        row += 1
+                        rows_used += 1
+
                 # Pad rows to match the domain maximum so the
                 # cluster occupies the same vertical space as the
                 # largest cluster in this domain.
-                pad = domain_max_sizes.get(domain, 0) - len(
-                    visible_nodes
-                )
+                pad = domain_max_sizes.get(domain, 0) - rows_used
                 row += max(0, pad)
 
                 row += resolved_layout["row_offset"]
@@ -1055,21 +1063,6 @@ def add_row_ordering_edges(graphviz_model):
             )
 
 
-# def apply_grid_experiment(
-#     graphviz_model,
-#     grid_experiment
-# ):
-#
-#     if grid_experiment.get(
-#         "row_ordering",
-#         False
-#     ):
-#
-#         add_row_ordering_edges(
-#             graphviz_model
-#         )
-#
-#     return graphviz_model
 def apply_grid_experiment(
     graphviz_model,
     grid_experiment
@@ -1089,37 +1082,6 @@ def apply_grid_experiment(
     # will be added here when those functions are implemented.
 
     return graphviz_model
-
-# def build_grid_graphviz_model(
-#     graph,
-#     resolved_layout,
-#     grid_experiment
-# ):
-#
-#     graphviz_model = build_graphviz_model(
-#         graph,
-#         resolved_layout
-#     )
-#
-#     if grid_experiment["cluster_fillers"]:
-#
-#         add_cluster_fillers(
-#             graphviz_model
-#         )
-#
-#     if grid_experiment["horizontal_edges"]:
-#
-#         add_horizontal_grid_edges(
-#             graphviz_model
-#         )
-#
-#     if grid_experiment["vertical_edges"]:
-#
-#         add_vertical_grid_edges(
-#             graphviz_model
-#         )
-#
-#     return graphviz_model
 
 
 def apply_graphviz_routing(edge, attrs):
@@ -1234,65 +1196,6 @@ def write_dot_filler_nodes(f, graphviz_model):
         )
 
 
-# def write_dot_ranks(f, graphviz_model):
-#
-#     columns = defaultdict(list)
-#
-#     for node_id, node in (
-#         graphviz_model["nodes"].items()
-#     ):
-#
-#         columns[node["column"]].append(
-#             node_id
-#         )
-#
-#     for column in sorted(columns):
-#
-#         node_ids = columns[column]
-#
-#         f.write(
-#             "{ rank=same; "
-#             + " ".join(
-#                 f'"{node_id}"'
-#                 for node_id in node_ids
-#             )
-#             + "; }\n"
-#         )
-# def write_dot_ranks(f, graphviz_model):
-#
-#     columns = defaultdict(list)
-#
-#     for node_id, node in (
-#         graphviz_model["nodes"].items()
-#     ):
-#
-#         columns[node["column"]].append(
-#             (
-#                 node["row"],
-#                 node_id
-#             )
-#         )
-#
-#     for column in sorted(columns):
-#
-#         nodes = sorted(
-#             columns[column],
-#             key=lambda item: item[0]
-#         )
-#
-#         node_ids = [
-#             node_id
-#             for row, node_id in nodes
-#         ]
-#
-#         f.write(
-#             "{ rank=same; "
-#             + " ".join(
-#                 f'"{node_id}"'
-#                 for node_id in node_ids
-#             )
-#             + "; }\n"
-#         )
 def write_dot_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -1520,17 +1423,6 @@ def print_layout(resolved_layout):
         )
 
 
-# DEBUG Function
-# def print_graphviz_model(graphviz_model):
-#
-#     print("\nGRAPHVIZ MODEL CLUSTERS")
-#
-#     for cluster in graphviz_model["clusters"]:
-#
-#         print(
-#             f'{cluster["id"]}: '
-#             f'{cluster["nodes"]}'
-#         )
 def print_graphviz_model(graphviz_model):
 
     print("\nGRAPHVIZ MODEL NODES")
@@ -1673,24 +1565,12 @@ def build_neato_model(graph, resolved_layout):
 
     # --- Nodes ---
 
-    # Pre-compute how many visible nodes each node shares its
-    # cluster with. The RCENTRE size-and-shift treatment only
-    # applies when the RCENTRE is the sole visible node in the
-    # cluster — if other nodes share the cluster (e.g. E.3.01
-    # with E.3.02) normal positioning is used to avoid overlaps.
-    cluster_visible_counts = {}
-    for domain_data in graph["domains"].values():
-        for cluster_data in domain_data["clusters"].values():
-            visible_in_cluster = [
-                tid
-                for tid in cluster_data["nodes"]
-                if graph["nodes"][tid]["view"].get("visible", True)
-            ]
-            count = len(visible_in_cluster)
-            for tid in visible_in_cluster:
-                cluster_visible_counts[tid] = count
-
-    rcenter_height = (
+    # RCENTRE nodes are rendered at 2× height, centred between
+    # their virtual row and the reserved row below it.
+    # calculate_node_positions() already advances 2 rows for each
+    # RCENTRE, so subsequent nodes in the same cluster naturally
+    # start below the full height of the research centre box.
+    rcentre_height = (
         2 * dot_view["node"]["height"]
         + dot_view["graph"]["nodesep"]
     )
@@ -1715,17 +1595,11 @@ def build_neato_model(graph, resolved_layout):
             if k != "visible"
         }
 
-        sole_in_cluster = cluster_visible_counts.get(tech_id, 1) == 1
-
-        if node["category"] == "RCENTRE" and sole_in_cluster:
-            # RCENTRE spans 2 node heights + the inter-node gap so
-            # it fills the same vertical space as two normal nodes.
-            # Its centre is shifted half a row down so it sits
-            # between its grid row and the empty padding below it.
-            # Only applied when the RCENTRE is alone in its cluster;
-            # if other nodes share the cluster use normal positioning.
+        if node["category"] == "RCENTRE":
+            # Centre shifted half a row down to sit in the middle
+            # of the 2 virtual rows reserved for this node.
             y = -(position["row"] + 0.5) * row_spacing
-            node_view["height"] = rcenter_height
+            node_view["height"] = rcentre_height
             node_view["width"] = dot_view["node"]["width"]
             node_view["fixedsize"] = True
         else:
