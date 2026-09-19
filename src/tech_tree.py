@@ -1,15 +1,115 @@
 import sys
+import os
 import csv
+import argparse
 import subprocess
 from collections import defaultdict
 
-input_file = sys.argv[1]
 
-terminal_file = "tech_tree.txt"
-simple_dot_file = "tech_tree_simple.dot"
-simple_svg_file = "tech_tree_simple.svg"
-grid_dot_file = "tech_tree_grid.dot"
-grid_svg_file = "tech_tree_grid.svg"
+def parse_args():
+    """Parse command-line arguments."""
+
+    parser = argparse.ArgumentParser(
+        description="Axis & Allies R&D Tech Tree Generator"
+    )
+
+    parser.add_argument(
+        "input_file",
+        help="CSV data file path",
+    )
+
+    # --- View ---
+    parser.add_argument(
+        "--view",
+        choices=["full", "module", "domain", "chain"],
+        default="full",
+        help=(
+            "View type: full (default), module, domain, or chain. "
+            "Use --filter to specify the value."
+        ),
+    )
+    parser.add_argument(
+        "--filter",
+        dest="filter_value",
+        default=None,
+        metavar="VALUE",
+        help=(
+            "Value for --view: module name (NUCLEAR), domain name "
+            "(Air), or node ID for chain view (P.9.NU)."
+        ),
+    )
+    parser.add_argument(
+        "--dim",
+        choices=["grey", "fade", "none"],
+        default="grey",
+        help=(
+            "How to display non-highlighted nodes: grey (flat grey), "
+            "fade (washed-out domain colour), none (remove entirely). "
+            "Default: grey."
+        ),
+    )
+
+    # --- Domain toggles ---
+    parser.add_argument(
+        "--hide-resource",
+        action="store_true",
+        default=False,
+        help="Exclude all Resource domain nodes from the output.",
+    )
+
+    # --- Output suppression ---
+    parser.add_argument(
+        "--notxt",
+        action="store_true",
+        help="Skip text file output.",
+    )
+    parser.add_argument(
+        "--nodot",
+        action="store_true",
+        help="Skip writing DOT files (both renderers).",
+    )
+    parser.add_argument(
+        "--nosvg",
+        action="store_true",
+        help="Skip SVG generation (both renderers).",
+    )
+    parser.add_argument(
+        "--nosimple",
+        action="store_true",
+        help="Skip the simple Graphviz dot renderer entirely.",
+    )
+    parser.add_argument(
+        "--nogrd",
+        action="store_true",
+        help="Skip the grid neato renderer entirely.",
+    )
+
+    return parser.parse_args()
+
+
+def output_suffix(args):
+    """Build a filename suffix that reflects the active view filter."""
+
+    if args.view == "full":
+        return ""
+
+    value = (args.filter_value or "unknown").lower()
+    # Sanitise for use in file names.
+    for char in [".", " ", "&", "/", "\\"]:
+        value = value.replace(char, "_")
+    value = value.strip("_")
+
+    return f"_{args.view}_{value}"
+
+
+args = parse_args()
+suffix = output_suffix(args)
+
+terminal_file     = "tech_tree.txt"
+simple_dot_file   = f"tech_tree_simple{suffix}.dot"
+simple_svg_file   = f"tech_tree_simple{suffix}.svg"
+grid_dot_file     = f"tech_tree_grid{suffix}.dot"
+grid_svg_file     = f"tech_tree_grid{suffix}.svg"
 
 WRITE_TERMINAL_FILE = True
 
@@ -68,7 +168,6 @@ domain_colors = {
     "Logistics And Industry": "#c4a6ff",
     "Intelligence": "#e0f7fa",
     "Energy And Physics": "#f8d7da",
-    "Research & Development": "#ffdefe",
     "Programs": "#ffd9b3",
     "Resource": "#eeeeee",
 }
@@ -110,11 +209,10 @@ layout = {
         "Air",
         "Land",
         "Naval",
-        "Programs",
-        "Research & Development",
         "Logistics And Industry",
         "Intelligence",
         "Energy And Physics",
+        "Programs",
         "Resource",
     ],
 }
@@ -1982,34 +2080,214 @@ def render_grid_svg(
     # cluster outlines, tier column headers, legend.
 
 
-rows = load_data(input_file)
+def blend_to_white(hex_color, factor=0.2):
+    """Blend a hex colour toward white.
+
+    factor controls how much of the original colour survives:
+    0.0 = pure white, 1.0 = original colour unchanged.
+    Used for 'fade' dim mode to wash out non-highlighted nodes
+    while keeping them recognisably in their domain colour family.
+    """
+
+    hex_color = hex_color.lstrip("#")
+    r = int(int(hex_color[0:2], 16) * factor + 255 * (1 - factor))
+    g = int(int(hex_color[2:4], 16) * factor + 255 * (1 - factor))
+    b = int(int(hex_color[4:6], 16) * factor + 255 * (1 - factor))
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def apply_hide_domain(graph, domain):
+    """Hide all nodes in domain from all renderers.
+
+    Sets visible=False before layout so hidden nodes are excluded
+    from position calculation and do not appear in any output.
+    """
+
+    for node in graph["nodes"].values():
+        if node["domain"] == domain:
+            node["view"]["visible"] = False
+
+
+def find_chain_ancestors(graph, target_id):
+    """Return target_id and every prerequisite node recursively.
+
+    Traverses dependency edges backwards from target_id, following
+    both AND and OR edges. The result is the full set of nodes a
+    player could need to research before reaching target_id.
+    """
+
+    if target_id not in graph["nodes"]:
+        raise ValueError(
+            f"Chain target '{target_id}' not found in graph"
+        )
+
+    # Build reverse edge map: target -> {sources}
+    reverse_edges = defaultdict(set)
+
+    for edge in graph["edges"]:
+        src = edge["source"]["graph_node"]
+        dst = edge["target"]["graph_node"]
+        reverse_edges[dst].add(src)
+
+    visited = {target_id}
+    queue = [target_id]
+
+    while queue:
+        node_id = queue.pop()
+        for src in reverse_edges[node_id]:
+            if src not in visited:
+                visited.add(src)
+                queue.append(src)
+
+    return visited
+
+
+def get_highlighted_nodes(graph, args):
+    """Return the set of node IDs to highlight for the active view.
+
+    Full view: all nodes.
+    Module:    nodes whose module field matches filter_value.
+    Domain:    nodes whose domain field matches filter_value.
+    Chain:     target node and all its recursive prerequisites.
+    """
+
+    view = args.view
+    value = args.filter_value
+
+    if view == "full" or value is None:
+        return {
+            tid for tid, node in graph["nodes"].items()
+            if node["view"].get("visible", True)
+        }
+
+    if view == "module":
+        return {
+            tid
+            for tid, node in graph["nodes"].items()
+            if node["module"] == value
+            and node["view"].get("visible", True)
+        }
+
+    if view == "domain":
+        return {
+            tid
+            for tid, node in graph["nodes"].items()
+            if node["domain"] == value
+            and node["view"].get("visible", True)
+        }
+
+    if view == "chain":
+        return find_chain_ancestors(graph, value)
+
+    raise ValueError(f"Unknown view type '{view}'")
+
+
+def apply_view_filter(graph, highlighted, dim_mode):
+    """Apply highlighting and dimming to node and edge views.
+
+    highlighted: set of node IDs to keep at full brightness.
+    dim_mode:
+      "grey" — flat grey fill and border, grey label text.
+      "fade" — domain colour washed out toward white.
+      "none" — node marked invisible; excluded from all output.
+
+    Edges where both endpoints are highlighted are kept unchanged.
+    All other edges are greyed out (or hidden for dim_mode 'none').
+    """
+
+    for tech_id, node in graph["nodes"].items():
+
+        if not node["view"].get("visible", True):
+            continue
+
+        if tech_id in highlighted:
+            continue
+
+        if dim_mode == "none":
+            node["view"]["visible"] = False
+
+        elif dim_mode == "grey":
+            node["view"]["fillcolor"] = "#dddddd"
+            node["view"]["color"]     = "#bbbbbb"
+            node["view"]["fontcolor"] = "#aaaaaa"
+
+        elif dim_mode == "fade":
+            domain_color = domain_colors.get(node["domain"])
+            node["view"]["fillcolor"] = (
+                blend_to_white(domain_color, factor=0.2)
+                if domain_color
+                else "#f5f5f5"
+            )
+            node["view"]["color"]     = "#cccccc"
+            node["view"]["fontcolor"] = "#cccccc"
+
+    for edge in graph["edges"]:
+        src = edge["source"]["graph_node"]
+        dst = edge["target"]["graph_node"]
+
+        if src in highlighted and dst in highlighted:
+            continue
+
+        if dim_mode == "none":
+            # Edges to removed nodes are automatically excluded
+            # in build_neato_model() / build_graphviz_model()
+            # since their endpoints won't be in the node dict.
+            # Mark them invisible as a belt-and-braces measure
+            # for the simple renderer's write_dot_edges().
+            edge["view"]["style"] = "invis"
+
+        else:
+            # Retain original style (solid/dashed) but grey the colour.
+            edge["view"]["color"]  = "#dddddd"
+            edge["view"]["weight"] = 1
+
+
+# ─────────────────────────────────────────────────────────────────
+# Main pipeline
+# ─────────────────────────────────────────────────────────────────
+
+rows = load_data(args.input_file)
 
 graph = build_graph(rows)
 
 graph = apply_view(graph)
 
-resolved_layout = resolve_layout(
-    graph,
-    layout
-)
+# Pre-layout domain toggles (must run before resolve_layout so
+# hidden nodes are excluded from position calculation).
+if args.hide_resource:
+    apply_hide_domain(graph, "Resource")
 
-render_text(
-    graph,
-    resolved_layout,
-    terminal_file
-)
+resolved_layout = resolve_layout(graph, layout)
 
-render_simple_svg(
-    graph,
-    resolved_layout,
-    simple_dot_file,
-    simple_svg_file
-)
+# Post-layout view filter (runs after layout so node positions
+# are already fixed; only affects rendering appearance).
+if args.view != "full":
+    highlighted = get_highlighted_nodes(graph, args)
+    apply_view_filter(graph, highlighted, args.dim)
 
-render_grid_svg(
-    graph,
-    resolved_layout,
-    grid_dot_file,
-    grid_svg_file,
-    grid_experiment
-)
+# ── Text output ──────────────────────────────────────────────────
+if not args.notxt:
+    render_text(
+        graph,
+        resolved_layout,
+        terminal_file,
+    )
+
+# ── Simple renderer (Graphviz dot) ───────────────────────────────
+if not args.nosimple:
+    render_simple_svg(
+        graph,
+        resolved_layout,
+        simple_dot_file if not args.nodot else os.devnull,
+        simple_svg_file if not args.nosvg else os.devnull,
+    )
+
+# ── Grid renderer (neato) ────────────────────────────────────────
+if not args.nogrd:
+    render_grid_svg(
+        graph,
+        resolved_layout,
+        grid_dot_file if not args.nodot else os.devnull,
+        grid_svg_file if not args.nosvg else os.devnull,
+        grid_experiment,
+    )
