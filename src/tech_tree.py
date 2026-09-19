@@ -100,6 +100,12 @@ layout = {
     "policy": "compact",
     "row_offset": 1,
 
+    # Tiers from this value onward are treated as "late tiers".
+    # Domains whose late-tier clusters exceed their early-tier
+    # maximum are centred vertically rather than band-placed,
+    # reflecting the structural shift to national programme tiers.
+    "late_tiers_from": 7,
+
     "domain_order": [
         "Air",
         "Land",
@@ -697,13 +703,16 @@ def resolve_layout(graph, layout):
     return resolved
 
 
-def compute_max_cluster_sizes_per_domain(graph):
+def compute_max_cluster_sizes_per_domain(graph, tier_filter=None):
     """Return the largest visible cluster row-height per domain.
 
     RCENTRE nodes occupy 2 virtual rows each; all other nodes
     occupy 1. This count is used to pad smaller clusters so every
     cluster in a domain occupies the same number of virtual rows,
     creating consistent horizontal domain bands in the grid.
+
+    tier_filter: optional set of tier strings. When provided only
+    clusters belonging to those tiers are considered.
     """
 
     max_sizes = {}
@@ -713,6 +722,12 @@ def compute_max_cluster_sizes_per_domain(graph):
         max_rows = 0
 
         for cluster_data in domain_data["clusters"].values():
+
+            if (
+                tier_filter is not None
+                and cluster_data["tier"] not in tier_filter
+            ):
+                continue
 
             cluster_rows = sum(
                 2 if graph["nodes"][tid]["category"] == "RCENTRE"
@@ -733,14 +748,68 @@ def calculate_node_positions(graph, resolved_layout):
     node_positions = {}
 
     tier_to_column = resolved_layout["tier_to_column"]
+    late_tiers_from = resolved_layout.get("late_tiers_from", 7)
 
-    # Pre-compute the largest cluster size per domain so every
-    # cluster in a domain occupies the same number of rows,
-    # producing consistent horizontal domain bands across all tiers.
-    domain_max_sizes = compute_max_cluster_sizes_per_domain(graph)
+    early_tiers = {
+        t for t in tier_to_column
+        if int(t) < late_tiers_from
+    }
+
+    late_tiers = {
+        t for t in tier_to_column
+        if int(t) >= late_tiers_from
+    }
+
+    # Domain band heights are determined from early tiers only.
+    # These same heights are used for ALL tier columns so that
+    # every column has consistent domain band positions.
+    early_max_sizes = compute_max_cluster_sizes_per_domain(
+        graph,
+        tier_filter=early_tiers
+    )
+
+    # Domains whose late-tier max exceeds their early-tier max
+    # will have their late-tier clusters centred vertically
+    # around that domain's own band centre, letting them
+    # overflow symmetrically into adjacent bands.
+    late_max_sizes = compute_max_cluster_sizes_per_domain(
+        graph,
+        tier_filter=late_tiers
+    )
+
+    centred_domains = {
+        domain
+        for domain in resolved_layout["domain_order"]
+        if late_max_sizes.get(domain, 0) > early_max_sizes.get(domain, 0)
+    }
+
+    # Compute each domain's band centre from the early-tier layout.
+    # Centred late-tier clusters anchor to their domain's own centre
+    # rather than the diagram centre, so they stay in their region
+    # and overflow symmetrically above and below.
+    domain_band_centres = {}
+    accum = 0
+
+    for domain in resolved_layout["domain_order"]:
+
+        early_max = early_max_sizes.get(domain, 0)
+
+        if early_max > 0:
+            band_start = accum + 1
+            domain_band_centres[domain] = (
+                band_start + (early_max - 1) / 2
+            )
+
+        accum += early_max + resolved_layout["row_offset"]
+
+    # accum now equals the total virtual rows in an early-tier
+    # column — used as a fallback centre for any domain not yet
+    # seen in early tiers.
+    fallback_centre = accum / 2
 
     for tier, column in tier_to_column.items():
 
+        is_late = int(tier) >= late_tiers_from
         row = 0
 
         for domain in resolved_layout["domain_order"]:
@@ -751,13 +820,13 @@ def calculate_node_positions(graph, resolved_layout):
                 tier
             )
 
+            early_max = early_max_sizes.get(domain, 0)
+
             if not clusters:
-                # No cluster for this domain in this tier.
-                # Still advance by the full domain band height so
-                # domain bands stay vertically consistent across
-                # all tier columns — fixing alignment of tier-0,
-                # tier-7+ nodes and sparse Program/Resource entries.
-                row += domain_max_sizes.get(domain, 0)
+                # No cluster here: still advance the full band
+                # height so domain bands stay consistent across
+                # all tier columns.
+                row += early_max
                 row += resolved_layout["row_offset"]
                 continue
 
@@ -767,14 +836,53 @@ def calculate_node_positions(graph, resolved_layout):
                     tech_id
                     for tech_id in cluster["nodes"]
                     if graph["nodes"][tech_id]["view"].get(
-                        "visible",
-                        True
+                        "visible", True
                     )
                 ]
 
                 if not visible_nodes:
                     continue
 
+                cluster_rows = sum(
+                    2 if graph["nodes"][tid]["category"] == "RCENTRE"
+                    else 1
+                    for tid in visible_nodes
+                )
+
+                if is_late and domain in centred_domains:
+                    # Centre the cluster around this domain's
+                    # own band centre from the early-tier layout.
+                    # The cluster overflows symmetrically into
+                    # adjacent bands; it takes no band space so
+                    # surrounding domains stay aligned.
+                    centre = domain_band_centres.get(
+                        domain,
+                        fallback_centre
+                    )
+                    r = round(centre - cluster_rows / 2)
+
+                    for tech_id in visible_nodes:
+
+                        node_positions[tech_id] = {
+                            "column": column,
+                            "row": r
+                        }
+
+                        r += (
+                            2
+                            if graph["nodes"][tech_id]["category"]
+                            == "RCENTRE"
+                            else 1
+                        )
+
+                    # Still advance row by the early band height
+                    # so all domains below remain vertically
+                    # consistent with early-tier columns.
+                    row += early_max
+                    row += resolved_layout["row_offset"]
+                    continue
+
+                # Normal band placement.
                 rows_used = 0
 
                 for tech_id in visible_nodes:
@@ -787,19 +895,15 @@ def calculate_node_positions(graph, resolved_layout):
                         "row": row
                     }
 
-                    if graph["nodes"][tech_id]["category"] == "RCENTRE":
-                        # RCENTRE occupies 2 virtual rows so the next
-                        # node in the cluster starts one slot lower,
-                        # leaving room for the taller rendered node.
+                    if (
+                        graph["nodes"][tech_id]["category"]
+                        == "RCENTRE"
+                    ):
                         row += 1
                         rows_used += 1
 
-                # Pad rows to match the domain maximum so the
-                # cluster occupies the same vertical space as the
-                # largest cluster in this domain.
-                pad = domain_max_sizes.get(domain, 0) - rows_used
+                pad = early_max - rows_used
                 row += max(0, pad)
-
                 row += resolved_layout["row_offset"]
 
     return node_positions
@@ -1063,6 +1167,21 @@ def add_row_ordering_edges(graphviz_model):
             )
 
 
+# def apply_grid_experiment(
+#     graphviz_model,
+#     grid_experiment
+# ):
+#
+#     if grid_experiment.get(
+#         "row_ordering",
+#         False
+#     ):
+#
+#         add_row_ordering_edges(
+#             graphviz_model
+#         )
+#
+#     return graphviz_model
 def apply_grid_experiment(
     graphviz_model,
     grid_experiment
@@ -1082,6 +1201,37 @@ def apply_grid_experiment(
     # will be added here when those functions are implemented.
 
     return graphviz_model
+
+# def build_grid_graphviz_model(
+#     graph,
+#     resolved_layout,
+#     grid_experiment
+# ):
+#
+#     graphviz_model = build_graphviz_model(
+#         graph,
+#         resolved_layout
+#     )
+#
+#     if grid_experiment["cluster_fillers"]:
+#
+#         add_cluster_fillers(
+#             graphviz_model
+#         )
+#
+#     if grid_experiment["horizontal_edges"]:
+#
+#         add_horizontal_grid_edges(
+#             graphviz_model
+#         )
+#
+#     if grid_experiment["vertical_edges"]:
+#
+#         add_vertical_grid_edges(
+#             graphviz_model
+#         )
+#
+#     return graphviz_model
 
 
 def apply_graphviz_routing(edge, attrs):
@@ -1196,6 +1346,65 @@ def write_dot_filler_nodes(f, graphviz_model):
         )
 
 
+# def write_dot_ranks(f, graphviz_model):
+#
+#     columns = defaultdict(list)
+#
+#     for node_id, node in (
+#         graphviz_model["nodes"].items()
+#     ):
+#
+#         columns[node["column"]].append(
+#             node_id
+#         )
+#
+#     for column in sorted(columns):
+#
+#         node_ids = columns[column]
+#
+#         f.write(
+#             "{ rank=same; "
+#             + " ".join(
+#                 f'"{node_id}"'
+#                 for node_id in node_ids
+#             )
+#             + "; }\n"
+#         )
+# def write_dot_ranks(f, graphviz_model):
+#
+#     columns = defaultdict(list)
+#
+#     for node_id, node in (
+#         graphviz_model["nodes"].items()
+#     ):
+#
+#         columns[node["column"]].append(
+#             (
+#                 node["row"],
+#                 node_id
+#             )
+#         )
+#
+#     for column in sorted(columns):
+#
+#         nodes = sorted(
+#             columns[column],
+#             key=lambda item: item[0]
+#         )
+#
+#         node_ids = [
+#             node_id
+#             for row, node_id in nodes
+#         ]
+#
+#         f.write(
+#             "{ rank=same; "
+#             + " ".join(
+#                 f'"{node_id}"'
+#                 for node_id in node_ids
+#             )
+#             + "; }\n"
+#         )
 def write_dot_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -1423,6 +1632,17 @@ def print_layout(resolved_layout):
         )
 
 
+# DEBUG Function
+# def print_graphviz_model(graphviz_model):
+#
+#     print("\nGRAPHVIZ MODEL CLUSTERS")
+#
+#     for cluster in graphviz_model["clusters"]:
+#
+#         print(
+#             f'{cluster["id"]}: '
+#             f'{cluster["nodes"]}'
+#         )
 def print_graphviz_model(graphviz_model):
 
     print("\nGRAPHVIZ MODEL NODES")
