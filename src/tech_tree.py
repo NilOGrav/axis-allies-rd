@@ -168,9 +168,11 @@ domain_colors = {
     "Logistics And Industry": "#c4a6ff",
     "Intelligence": "#e0f7fa",
     "Energy And Physics": "#f8d7da",
+    "Research & Development": "#ffdefe",
     "Programs": "#ffd9b3",
     "Resource": "#eeeeee",
 }
+
 
 DEFAULT_DOMAIN_COLOR = "black"
 
@@ -209,10 +211,11 @@ layout = {
         "Air",
         "Land",
         "Naval",
+        "Programs",
+        "Research & Development",
         "Logistics And Industry",
         "Intelligence",
         "Energy And Physics",
-        "Programs",
         "Resource",
     ],
 }
