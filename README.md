@@ -65,7 +65,7 @@ Since of v10.2 Github is handling the version history.
 
 $ `python3 src/tech_tree.py --help`
 
-`usage: tech_tree.py [-h] [--view {full,module,domain,chain}] [--filter VALUE] [--dim {grey,fade,none}]
+`usage: tech_tree.py [-h] [--view {full,module,domain,chain}] [--filter VALUE] [--dim {grey,fade,none}]`
                     [--hide-resource] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
                     input_file
 
