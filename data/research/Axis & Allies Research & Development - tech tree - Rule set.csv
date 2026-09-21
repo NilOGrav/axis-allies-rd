@@ -1,0 +1,146 @@
+ID;Family;Rule;Description;Status;Source;Related Data;Open Field / Issue
+RES-001;RES;Research Points;RP are the resource used for research attempts.;Established;Design Principles DP-023;Research economy;—
+RES-002;RES;Uniform research cost;Every research attempt costs exactly 1 RP.;Established;Design Principles DP-021;Research economy;—
+RES-003;RES;RP conversion;Current baseline conversion is 5 IPC → 1 RP.;Parameter;Design Principles DP-024;IPC economy;Balance parameter
+RES-004;RES;RP carry-over;Unspent RP carry over between turns.;Established;Design Principles DP-025;Research economy;—
+RES-005;RES;Research assignment;RP are assigned at the beginning of the player's turn alongside normal purchases.;Established;Design Principles DP-027;Turn sequence;—
+RES-006;RES;One RP, one target;Each assigned RP targets one eligible technology.;Established;Design Principles DP-022/028;Tech List;—
+RES-007;RES;Secret target;The targeted technology remains secret until resolution.;Established;Design Principles DP-026/028;Research secrecy;—
+RES-008;RES;Public RP commitment;Available/committed RP are public while targets remain secret.;Established;Design Principles DP-026;Research secrecy;—
+RES-009;RES;Research resolution;Research attempts resolve during Deployment.;Established;Design Principles DP-032;Turn sequence;—
+RES-010;RES;Failure;Roll of 1 fails and the RP is lost.;Established;Design Principles DP-033;Research resolution;—
+RES-011;RES;Failure secrecy;A failed research target remains undisclosed.;Established;Design Principles DP-033/037;Research secrecy;—
+RES-012;RES;Normal success;Roll of 2–5 acquires the targeted technology and consumes the RP.;Established;Design Principles DP-034;Research resolution;—
+RES-013;RES;Breakthrough;Roll of 6 acquires the technology while retaining the RP.;Established;Design Principles DP-035;Research resolution;—
+RES-014;RES;Delayed breakthrough RP;Retained RP becomes available only in the following round.;Established;Design Principles DP-036;Research resolution;—
+RES-015;RES;Multiple attempts;Multiple RP may be assigned to different eligible technologies in one turn.;Established;Design Principles DP-031;Research economy;—
+ELG-016;ELG;Eligibility requirement;A technology must be eligible before it can be selected.;Established;Design Principles DP-008/038;Tech List;—
+ELG-017;ELG;Technology prerequisites;Dependencies determine research eligibility.;Established;Design Principles DP-008/012;Tech List dependency groups;—
+ELG-018;ELG;OR dependencies;Alternatives within a dependency group are OR requirements.;Established;Design Principles DP-012;DepGroup1–4;—
+ELG-019;ELG;AND dependencies;Separate dependency groups are combined as AND requirements.;Established;Design Principles DP-012;DepGroup1–4;—
+ELG-020;ELG;Start-of-turn snapshot;Eligibility is evaluated at turn start and remains fixed for that turn's assignments.;Established;Design Principles DP-029;Turn sequence;—
+ELG-021;ELG;No same-turn chains;Newly acquired technology cannot create additional eligibility for already-assigned attempts.;Established;Design Principles DP-030;Research;—
+ELG-022;ELG;Research Centre gate;A Research Centre may be required for specific technologies.;Established;Facility Rules FAC-006;`RCENTER`, Tech List;Exact gate semantics
+ELG-023;ELG;Other facilities are not prerequisites;Facilities other than Research Centres do not themselves function as tech prerequisites.;Established;Facility Rules FAC-007;Facility classifications;—
+ELG-024;ELG;Facility possession is not dependency;Possession of a physical facility normally does not replace its technology dependency.;Established;Facility Rules FAC-010;Tech List, Facilities;—
+ELG-025;ELG;National eligibility;National restrictions may form part of eligibility.;Established architecture;Tech List;Nation/module fields;General syntax
+ELG-026;ELG;Module eligibility;Module-specific eligibility may apply when enabled.;Established architecture;Design Principles DP-001/017;Module;Activation rules
+ELG-027;ELG;Resource requirements;Resources may form explicit prerequisites/payment requirements.;Current data model;Tech List;Resource fields;Exact evaluation semantics
+ELG-028;ELG;Eligibility evaluation order;Order of checking prerequisites, RCENTER, nation, module and resources is not yet formalised.;Open;Design Principles / Tech List;Eligibility engine;Define evaluation order
+TEC-029;TEC;Technology acquisition;Successful research acquires the technology.;Established;Design Principles / Tech List;Tech List;—
+TEC-030;TEC;Defined technology effects;Each technology has individually defined effects.;Established;Tech List;Description;—
+TEC-031;TEC;Facility unlock;A technology may unlock construction/purchase of a facility or base.;Established;Facility Rules FAC-008;Units & Facilities;—
+TEC-032;TEC;Unit unlock;A technology may unlock a unit or unit capability.;Established;Tech List;Unit field;—
+TEC-033;TEC;Unlock ≠ possession;Unlocking an object does not automatically provide it unless explicitly stated.;Established;Facility Rules FAC-009 / Tech List;Units & Facilities;—
+TEC-034;TEC;Technology upgrade;Technology may modify an existing capability.;Established;Tech List;Description;—
+TEC-035;TEC;Technology bonus;Technology may provide recurring or one-time bonuses.;Established;Tech List;Description;—
+TEC-036;TEC;Technology dependency;Follow-up technologies normally depend on the unlocking technology rather than physical facility possession.;Established;Facility Rules FAC-010;DepGroups;—
+TEC-037;TEC;Technology domain;Technology has a primary domain.;Established;Design Principles / Tech List;Domain_code, Domain;—
+TEC-038;TEC;Technology paths;Paths represent analytical routes and are not inherently mutually exclusive research programmes.;Established;Design Principles DP-044;Path;—
+TEC-039;TEC;Technology/object separation;Technology definitions remain separate from physical object definitions.;Established;Design Principles DP-053;Tech List / Units & Facilities;—
+FAC-040;FAC;Physical facilities;Facilities and bases are physical game pieces on the map.;Established;Facility Rules FAC-001;Units & Facilities;—
+FAC-041;FAC;Distinct facility types;Facility types have individually defined functions.;Established;Facility Rules FAC-002;Units & Facilities;—
+FAC-042;FAC;Research Facilities;Research Facilities are physical infrastructure.;Established;Facility Rules FAC-003;Category;—
+FAC-043;FAC;Bases;Bases are physical military installations with defined operational effects.;Established;Facility Rules FAC-004;Units & Facilities;—
+FAC-044;FAC;Research Centre classification;Research Centres use the `RCENTER` classification.;Established;Facility Rules FAC-005;Category;—
+FAC-045;FAC;Research Centre prerequisite;A Research Centre may gate specific technologies.;Established;Facility Rules FAC-006;Tech List;—
+FAC-046;FAC;Technology unlocks facilities;Technology may unlock ability to build/purchase a facility.;Established;Facility Rules FAC-008;Tech List;—
+FAC-047;FAC;Unlock ≠ construction;Unlocking does not automatically place the facility.;Established;Facility Rules FAC-009;Units & Facilities;—
+FAC-048;FAC;Separate construction event;Unlock, purchase/construction, placement and operation are separate events.;Established;Facility Rules FAC-016;Units & Facilities;—
+FAC-049;FAC;Individual facility functions;Facility effects are individually defined.;Established;Facility Rules FAC-011;Units & Facilities;—
+FAC-050;FAC;Facility damage;Facilities may receive applicable damage.;Established;Facility Rules FAC-012;Units & Facilities;—
+FAC-051;FAC;Damage affects operation;Damage can reduce/disable facility capabilities.;Established;Facility Rules FAC-013;Units & Facilities;—
+FAC-052;FAC;Damage does not remove technology;Damage/disablement does not remove researched technology.;Established;Facility Rules FAC-014;Tech List;—
+FAC-053;FAC;Facility ownership;Facilities belong to their territory and follow ownership/capture rules.;Established;Facility Rules FAC-015;Capture;—
+FAC-054;FAC;No universal RP generation;Facilities do not inherently generate RP.;Established;Facility Rules FAC-017;Units & Facilities;—
+FAC-055;FAC;Research Centre RP;RCENTER may generate RP or other research effects when explicitly defined.;Established;Facility Rules FAC-018;Tech List / Units & Facilities;—
+FAC-056;FAC;Individual facility cost;Each facility has its own build/purchase cost.;Established;Facility Rules FAC-021;Units & Facilities;Cost completeness
+FAC-057;FAC;Separate facility/technology costs;Facility cost and research cost are separate.;Established;Facility Rules FAC-023;Tech List / Units & Facilities;—
+FAC-058;FAC;Facility cost as balance lever;Facility cost may reflect strategic capability.;Design rule;Facility Rules FAC-022;Units & Facilities;Balance
+FAC-059;FAC;Facilities are not technology nodes;A facility is represented as a physical object, not a duplicate technology node.;Established;Facility Rules FAC-024;Tech List / Units & Facilities;—
+FAC-060;FAC;Unique facility type;At most one facility of each type may occupy a territory.;Established;Facility Rules FAC-025;Units & Facilities;—
+FAC-061;FAC;Bombing distinction;"Facilities may be strategically bombed; Bases may be tactically or strategically bombed.";Established;Facility Rules FAC-026;Units & Facilities;—
+FAC-062;FAC;Base inoperative threshold;"Base is inoperative at 3+ damage; abilities return as repaired.";Established;Facility Rules FAC-027;Air Base, Naval Base;—
+FAC-063;FAC;RCENTER establishment;Purchasing a Research Centre immediately unlocks applicable Tier 4+ technologies and gives its establishment bonus.;Current Design;Facility Rules FAC-028;RCENTER, Tech List;Exact implementation
+FAC-064;FAC;RCENTER establishment bonus;Each Research Centre has an individually defined one-time establishment bonus.;Current Design;Facility Rules FAC-028;Units & Facilities;Bonus per RCENTER
+FAC-065;FAC;RCENTER bonus parameter;The actual bonus and eligible “minor unit” must be defined per facility.;Open/data;Facility Rules FAC-028;Units & Facilities;Missing parameter
+UNT-066;UNT;Unit data separation;Unit attributes are maintained separately from technology definitions.;Established;Units & Facilities;Unit records;—
+UNT-067;UNT;Unit-specific capabilities;Special unit abilities are individually defined.;Established;Units & Facilities;Unit descriptions;—
+UNT-068;UNT;Normal A&A rules;Special units otherwise follow normal A&A rules unless modified by their own rule.;Established;Units & Facilities;Unit descriptions;Rulebook wording
+UNT-069;UNT;Unit parameters;Cost, attack, defence, movement, capacity and piece availability are data parameters.;Data architecture;Units & Facilities;Unit columns;Completeness audit
+UNT-070;UNT;Free-unit establishment bonus;RCENTER may provide a free unit when explicitly specified.;Current Design;Facility Rules / Units & Facilities;RCENTER;—
+UNT-071;UNT;Minor-unit definition;“Minor unit” in RCENTER bonuses requires an explicit definition/mapping.;Open;Facility Rules;Units & Facilities;Missing definition
+DMG-072;DMG;Facility damage;Facilities can receive damage from applicable game effects.;Established;Facility Rules;Units & Facilities;—
+DMG-073;DMG;Operational damage;Damage affects operation according to individual facility rules.;Established;Facility Rules;Units & Facilities;—
+DMG-074;DMG;Technology persistence;Damage does not remove technology.;Established;Facility Rules;Tech List;—
+DMG-075;DMG;Base threshold;Bases are inoperative at 3+ damage.;Established;Facility Rules;Air Base, Naval Base;—
+DMG-076;DMG;Repair restores capability;Repair restores damaged/inoperative capabilities according to applicable rules.;Established;Facility Rules;Units & Facilities;—
+DMG-077;DMG;Repair parameters;Repair costs, thresholds and effects are object-specific parameters.;Data/Open;Facility Rules / Units & Facilities;Repair data;Completeness audit
+CAP-078;CAP;Facility capture;Facilities are subject to territory ownership/capture.;Established;Facility Rules;Territory / Units & Facilities;—
+CAP-079;CAP;Technology ownership;Capturing a facility does not transfer researched technologies.;Established;Facility Rules FAC-019;Tech ownership;—
+CAP-080;CAP;Technology persistence;Losing a facility does not remove its technology.;Established;Facility Rules FAC-019;Tech ownership;—
+CAP-081;CAP;Captured facility operation;Captured facilities operate according to their applicable rules.;Established concept;Facility Rules;Units & Facilities;—
+CAP-082;CAP;Captured RCENTER;Effect of capturing RCENTER on research eligibility must be defined.;Open;Facility Rules / Design Log;RCENTER;Captor eligibility
+CAP-083;CAP;Captured specialised facility;Operation of specialised captured facilities without the associated technology requires explicit treatment where applicable.;Open;Facility Rules;Units & Facilities;Case-by-case
+TUR-084;TUR;Start-of-turn commitment;Research assignments occur at the defined start-of-turn/Purchase & Repair point.;Established;Design Principles DP-027;Turn sequence;—
+TUR-085;TUR;Fixed eligibility window;Eligibility uses the start-of-turn state.;Established;Design Principles DP-029;Eligibility;—
+TUR-086;TUR;Deployment resolution;Research resolves during Deployment.;Established;Design Principles DP-032;Turn sequence;—
+TUR-087;TUR;Delayed breakthrough;Breakthrough RP cannot be reused during the current turn.;Established;Design Principles DP-036;Research;—
+TUR-088;TUR;Effect timing;Individual technology/object effects occur at their specified game phase.;Established architecture;Tech List / Units & Facilities;Phase/timing text;Timing audit
+TUR-089;TUR;Timing reference;A consolidated timing reference is needed because R&D effects interact with several game phases.;Open/documentation;Tech List;Phase references;Rulebook section
+RSO-090;RSO;Resources distinct from technologies;Resources are represented separately from technologies.;Established;Design Principles DP-042;Resource types;—
+RSO-091;RSO;Geographic resources;Resource production may be tied to specific territories/sea zones.;Established;Design Principles DP-048;Resource Territories;—
+RSO-092;RSO;Strategic control;Territory/sea-zone control can affect resource availability.;Established;Design Principles DP-048;Resource Territories;—
+RSO-093;RSO;Abstract resources;Resources may be nationally accessible without physical transportation.;Established;Design Principles DP-047;Resources;Applies per module
+RSO-094;RSO;Resource infrastructure;Production may require physical infrastructure.;Established;Design Principles DP-049;Units & Facilities;—
+RSO-095;RSO;Basic infrastructure independence;Basic resource infrastructure does not inherently require R&D.;Established;Design Principles DP-050;Tech List;—
+RSO-096;RSO;Technological enhancement;R&D may improve resource infrastructure/production.;Established;Design Principles DP-050/051;Tech List;—
+RSO-097;RSO;Resource progression;Optional resource modules may progress from geography → infrastructure → production → operational use → technological enhancement.;Established principle;Design Principles DP-051;Resource modules;—
+RSO-098;RSO;Resource parameters;Locations, production rates, infrastructure and costs are maintained as data.;Established architecture;Resource Territories / Units & Facilities;Resource data;Completeness audit
+OIL-099;OIL;Abstract Oil resource;Oil is an abstract national resource and does not require physical transportation.;Established;Oil Module ODP-001;Oil module;—
+OIL-100;OIL;Oil geography;Oil production is geographically located and territorial control can affect supply.;Established;Oil Module ODP-002;Resource Territories;—
+OIL-101;OIL;Oil infrastructure;Oil locations may be naturally active or require infrastructure.;Established direction;Oil Module ODP-003;Resource Territories;Clarify “active” terminology
+OIL-102;OIL;Land/offshore extraction;Land and offshore extraction may use different infrastructure.;Established direction;Oil Module ODP-004;Oil Derrick/Platform;—
+OIL-103;OIL;Oil Derrick;Oil Derrick is physical extraction infrastructure.;Established;Tech List E.0.01;Units & Facilities;6 IPC
+OIL-104;OIL;Oil Platform;Oil Platform is physical offshore extraction infrastructure.;Established;Tech List / Units & Facilities;Oil Platform;8 IPC
+OIL-105;OIL;Synthetic Oil;Synthetic Oil Plant provides synthetic oil production.;Established;Tech List E.2.04;Units & Facilities;—
+OIL-106;OIL;Oil production timing;Oil production is collected during Income.;Current rule;Tech List;Income phase;—
+OIL-107;OIL;Oil storage;Oil has a defined storage limit/soft-cap mechanic.;Current rule;Tech List;Oil parameters;Verify current values
+OIL-108;OIL;Oil consumption;Defined military operations consume Oil.;Current rule;Tech List;Oil effects;Consolidate operation list
+OIL-109;OIL;Oil shortage;Oil shortage imposes defined operational penalties.;Current rule;Tech List;Oil effects;Rulebook wording
+OIL-110;OIL;Oil infrastructure damage;Bombing/damage can disable Oil infrastructure.;Current rule;Tech List / Units & Facilities;Oil facilities;Threshold/repair
+OIL-111;OIL;Oil convoy interaction;Convoys can affect Oil availability.;Current rule;Tech List;Convoy rules;Exact procedure
+OIL-112;OIL;Emergency IPC substitution;Required Oil may be substituted with IPC at the defined rate.;Current rule;Tech List;Oil parameters;Verify rate
+OIL-113;OIL;Offshore capture;Oil Platforms can be captured through control of their sea zone.;Current rule;Tech List / Units & Facilities;Oil Platform;Capture timing
+OIL-114;OIL;Oil parameters;Production, costs, storage, consumption and substitution values are data parameters.;Data architecture;Oil Module / Tech List / Resource Territories;Oil data;Audit
+NUC-115;NUC;Nuclear Power Plant;Reactor Theory unlocks Nuclear Power Plant construction.;Established;Tech List E.2.02;Nuclear Power Plant;—
+NUC-116;NUC;NPP production;Nuclear Power Plant produces +1 IPC/turn.;Established;Tech List E.2.02;Units & Facilities;—
+NUC-117;NUC;Nuclear Reactor;Uranium Processing unlocks Nuclear Reactor construction.;Established;Tech List E.5.01;Nuclear Reactor;—
+NUC-118;NUC;Reactor enhancement;Nuclear Reactor increases an NPP in the same territory to 2 IPC/turn.;Current design;Tech List E.5.01;NPP + Reactor;—
+NUC-119;NUC;Reactor as facility;Nuclear Reactor is a physical facility, not a technology node.;Established;Tech List / Units & Facilities;Nuclear Reactor;—
+NUC-120;NUC;Uranium production;P.7.NU gives a Nuclear Reactor uranium-production capability.;Current design;Tech List;Nuclear Reactor;Production/payment
+NUC-121;NUC;Atomic Bomb production;P.8.NU gives the Nuclear Reactor Atomic Bomb production capability.;Current design;Tech List;Nuclear Reactor;—
+NUC-122;NUC;Atomic Bomb resources;Atomic Bomb production consumes 2 Heavy Water + 1 Uranium.;Current parameter;Tech List;Heavy Water/Uranium;—
+NUC-123;NUC;Nuclear propulsion;Nuclear Submarines use nuclear propulsion.;Established;Tech List / Units & Facilities;Nuclear Submarine;—
+NUC-124;NUC;Ballistic Missile Submarine;Ballistic Missile Submarine is a distinct nuclear delivery capability.;Established;Tech List / Units & Facilities;BMS;—
+NUC-125;NUC;Atomic delivery;Ballistic Missile Submarines can deliver Atomic Bombs.;Current design;Tech List;BMS / Atomic Bomb;Delivery procedure
+NUC-126;NUC;Nuclear delivery dependency;Nuclear weapon delivery requires a qualifying delivery system.;Current design;Tech List;P.8/P.9, N.6.02;Dependency reconciliation
+NUC-127;NUC;Nuclear delivery procedure;Final Atomic Bomb delivery/drop procedure requires consolidated rule text.;Open;Nuclear reference / Tech List;P.9.NU;Rulebook procedure
+NUC-128;NUC;P.9 placeholder;P.9.NU currently functions as a placeholder rather than an ordinary research technology.;Current data;Tech List;P.9.NU;Final implementation
+NUC-129;NUC;Nuclear reference reconciliation;Nuclear rules should be checked against `XP GOING NUCLEAR v3`.;Open;Nuclear reference;`docs/reference/XP GOING NUCLEAR v3.pdf`;Reconcile before finalisation
+MOD-130;MOD;Modular architecture;R&D consists of independent modules that can be added, removed or expanded without breaking the core.;Established;Design Principles DP-001;Modules;—
+MOD-131;MOD;Optional modules;Optional modules can add technologies, facilities, resources and effects.;Established;Design Principles DP-017;Oil, Zombies, etc.;—
+MOD-132;MOD;Core independence;Core R&D remains playable without optional modules.;Established;Design Principles DP-017;Modules;—
+MOD-133;MOD;Module-specific rules;Module-specific rules apply only when the module is enabled.;Established architecture;Design Principles / module sheets;Module;—
+MOD-134;MOD;Module activation;Exact configuration/activation procedure needs documentation.;Open;Design Principles / module sheets;Module configuration;—
+MOD-135;MOD;Global/Halifax compatibility;Core R&D rules apply to both Global 1940 and Global Halifax.;Established;Design Principles DP-046;Global/Halifax;—
+ZOM-136;ZOM;Zombie module optionality;Zombie system is an optional module.;Established;Zombie Module ZDP-002;Zombie module;—
+ZOM-137;ZOM;AAZ baseline;AAZ is the mechanical baseline, adapted for Global.;Established;Zombie Module ZDP-001;AAZ rules;—
+ZOM-138;ZOM;Global Zombie deck;Global uses an adapted Zombie deck.;Established direction;Zombie Module ZDP-003;Zombie deck;Deck design
+ZOM-139;ZOM;Preserve AAZ loop;Core AAZ mechanics remain while event variety expands.;Established direction;Zombie Module ZDP-004;Zombie deck;—
+ZOM-140;ZOM;State-driven randomness;Randomness primarily comes from cards and game-state effects.;Established principle;Zombie Module ZDP-005;Zombie deck;—
+ZOM-141;ZOM;Strategic-context interaction;Zombie events should interact with meaningful Global map/game conditions.;Established philosophy;Zombie Module ZDP-006;Map/game state;—
+ZOM-142;ZOM;R&D interaction;Existing R&D technologies may provide contextual Zombie benefits.;Established;Zombie Module ZDP-007;Tech List;Individual interactions
+ZOM-143;ZOM;Limited dedicated research;Dedicated Zombie technology remains limited and complementary to the main tree.;Established direction;Zombie Module ZDP-008;Tech List;—
+ZOM-144;ZOM;Interacting layers;Zombie events, Desperate Measures, R&D and dedicated Zombie research may interact.;Established philosophy;Zombie Module ZDP-009;Zombie / DM / R&D;Exact interactions
+ZOM-145;ZOM;Desperate Measures relationship;Relationship between Desperate Measures and R&D remains unresolved.;Open;Zombie Module ZDP-010;Desperate Measures;Review original AAZ cards
