@@ -63,6 +63,32 @@ Since of v10.2 Github is handling the version history.
 
 ## Usage
 
+$ python3 src/tech_tree.py --help
+
+usage: tech_tree.py [-h] [--view {full,module,domain,chain}] [--filter VALUE] [--dim {grey,fade,none}]
+                    [--hide-resource] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
+                    input_file
+
+Axis & Allies R&D Tech Tree Generator
+
+positional arguments:
+  input_file            CSV data file path
+
+options:
+  -h, --help            show this help message and exit
+  --view {full,module,domain,chain}
+                        View type: full (default), module, domain, or chain. Use --filter to specify the value.
+  --filter VALUE        Value for --view: module name (NUCLEAR), domain name (Air), or node ID for chain view (P.9.NU).
+  --dim {grey,fade,none}
+                        How to display non-highlighted nodes: grey (flat grey), fade (washed-out domain colour), none
+                        (remove entirely). Default: grey.
+  --hide-resource       Exclude all Resource domain nodes from the output.
+  --notxt               Skip text file output.
+  --nodot               Skip writing DOT files (both renderers).
+  --nosvg               Skip SVG generation (both renderers).
+  --nosimple            Skip the simple Graphviz dot renderer entirely.
+  --nogrd               Skip the grid neato renderer entirely.
+
 $ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ -\ Tech\ List.csv 
 
 This will generate a dot-file (in .) from the csv-file, which is than converted to a svg-file (also in .) that contains the Tech tree.
