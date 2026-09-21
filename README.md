@@ -60,9 +60,10 @@ Historical development versions are preserved under `archive/`.
 
 Since of v10.2 Github is handling the version history.
 
-Usage:
 
-$ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ v8.Y.csv
+## Usage
+
+$ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ -\ Tech\ List.csv 
 
 This will generate a dot-file (in .) from the csv-file, which is than converted to a svg-file (also in .) that contains the Tech tree.
 
