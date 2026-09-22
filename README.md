@@ -66,8 +66,8 @@ Since of v10.2 Github is handling the version history.
 `$ python3 src/tech_tree.py --help`
  
 ```
-usage: tech_tree.py [-h] [--view {full,module,domain,chain}] [--filter VALUE] [--dim {grey,fade,none}]
-                   [--hide-resource] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
+usage: tech_tree.py [-h] [--view {full,module,domain,path,chain}] [--filter VALUE] [--dim {grey,fade,none}]
+                    [--hide-resource] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
                     input_file
 
 Axis & Allies R&D Tech Tree Generator
@@ -77,12 +77,14 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  --view {full,module,domain,chain}
-                        View type: full (default), module, domain, or chain. Use --filter to specify the value.
-  --filter VALUE        Value for --view: module name (NUCLEAR), domain name (Air), or node ID for chain view (P.9.NU).
+  --view {full,module,domain,path,chain}
+                        View type: full (default), module, domain, path, or chain. Use --filter to specify the
+                        value.
+  --filter VALUE        Value for --view: module name (NUCLEAR), domain name (Air), or node ID for chain view
+                        (P.9.NU).
   --dim {grey,fade,none}
-                        How to display non-highlighted nodes: grey (flat grey), fade (washed-out domain colour), none
-                        (remove entirely). Default: grey.
+                        How to display non-highlighted nodes: grey (flat grey), fade (washed-out domain colour),
+                        none (remove entirely). Default: grey.
   --hide-resource       Exclude all Resource domain nodes from the output.
   --notxt               Skip text file output.
   --nodot               Skip writing DOT files (both renderers).

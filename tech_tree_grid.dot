@@ -176,7 +176,7 @@ node [shape="box", width=3.5, height=1.0, fixedsize=true, fontsize=10];
 "P.8.SU" [label="P.8.SU\nThe Wolfpack: Suprise Tactics", pos="6804.0,-2764.8!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
 "P.8.UK" [label="P.8.UK\nUK: Global Intelligence Network", pos="6804.0,-2880.0!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
 "P.8.US" [label="P.8.US\nUS: Industrial powerhouse", pos="6804.0,-2995.2!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
-"P.9.NU" [label="P.9.NU\nProject Manhattan – Dropping The Bomb", pos="7560.0,-2304.0!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+"P.9.NU" [label="P.9.NU\nProject Manhattan – Dropping The Bomb", pos="7560.0,-2419.2!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
 "R.1.01" [label="R.1.01\nOil", pos="1512.0,-5184.0!", shape="box", style="rounded,filled,dotted,bold", color="#555555", penwidth=1, fillcolor="#eeeeee"];
 "R.4.01" [label="R.4.01\nAluminium", pos="3780.0,-5184.0!", shape="box", style="rounded,filled,dotted,bold", color="#555555", penwidth=1, fillcolor="#eeeeee"];
 "R.4.02" [label="R.4.02\nVril", pos="3780.0,-5299.2!", shape="box", style="rounded,filled,dotted,bold", color="#555555", penwidth=1, fillcolor="#eeeeee"];
