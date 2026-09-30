@@ -1,19 +1,17 @@
-# Axis & Allies 1940 Global – R&D System
+# Axis & Allies 1940 Global – Research & Development System
 
-Development repository for the custom Research & Development system for
-Axis & Allies 1940 Global. It is a civilization-style system where you research technologies, 
-which open up new technologies on turn. There is also the possibility to in- or exclude add-ons:
+This project adds a modular **Research & Development (R&D) system** to Axis & Allies Global 1940. It is a civilization-style system where you research technologies, which open up new technologies on turn. The technologies offer perks in different areas. This is the development repository where all the materials for the game are gathered, including add-ons and the possibility to in- or exclude them:
+
+- CORE: the technology tree including deleopment paths in different domains: Land, Naval, Air, Production, Energy and Intelligence.
 - NUCLEAR: Develop the nuclear bomb and a means to drop it.
 - OIL: Finding and refining oil to allow your logistics to function.
-- OCCULTISM: To include the myths that Germany did occult resrearch.
-- ToDo - ZOMBIES: to integrate Axis & Allies & Zombies into Axis & Allies 1940 Global
+- OCCULTISM: Alternate history module to include the myths about Germany's occult research.
+- ToDo - ZOMBIES: Alternate reality module to integrate Axis & Allies & Zombies into Axis & Allies 1940 Global.
 
 
 ## Gameplay
 
-This project adds a modular **Research & Development (R&D) system** to Axis & Allies Global 1940. Players can invest in technologies that unlock new capabilities, units, facilities, resources, and strategic options.
-
-Research is deliberately separated from production and construction:
+This project adds a modular **Research & Development (R&D) system** to Axis & Allies Global 1940. Players can invest in technologies that unlock new capabilities, units, facilities, resources, and strategic options. Research is deliberately separated from production and construction:
 
 * **Research Points (RP)** represent individual research attempts. Each attempt costs 1 RP and targets an eligible technology.
 * **Technology prerequisites** determine which technologies are available for research. Eligibility is checked at the start of the turn, preventing research from cascading through the tree in a single turn.
@@ -53,10 +51,7 @@ The project uses:
 
 ## Development
 
-The repository is maintained using Git and GitHub.
-
-The `main` branch contains the current working version.
-Historical development versions are preserved under `archive/`.
+The repository is maintained using Git and GitHub. The `main` branch contains the current working version. Historical development versions are preserved under `archive/`.
 
 Since of v10.2 Github is handling the version history.
 
