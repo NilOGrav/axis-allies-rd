@@ -11,7 +11,7 @@ This project adds a modular **Research & Development (R&D) system** to Axis & Al
 
 ## Gameplay
 
-This project adds a modular **Research & Development (R&D) system** to Axis & Allies Global 1940. Players can invest in technologies that unlock new capabilities, units, facilities, resources, and strategic options. Research is deliberately separated from production and construction:
+Players can invest in technologies that unlock new capabilities, units, facilities, resources, and strategic options, during their Purchase and Repair phase, for 1 Research Token. Technology will become effective during the Deployment phase. Contrary to the stock R&D mode there is far less luck involved, but still a bit: on a D6 roll 1 means failure, 2-5 means choosing a valid tech (when all dependencies are met) and 6 means choosing a valid tech for free (you may keep your Research Token). Research is deliberately separated from production and construction:
 
 * **Research Points (RP)** represent individual research attempts. Each attempt costs 1 RP and targets an eligible technology.
 * **Technology prerequisites** determine which technologies are available for research. Eligibility is checked at the start of the turn, preventing research from cascading through the tree in a single turn.
