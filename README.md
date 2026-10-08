@@ -45,11 +45,11 @@ The project should eventually create:
   * design principles;
   * rules.
 - [X] Visual Tech tree map 
-- [] Rulebook
-- [] Technology cards
+- [ ] Rulebook
+- [ ] Technology cards
 - [X] Python script to generate different views of the tech tree;
-- [] TripleA module
-- [] Interactive website
+- [ ] TripleA module
+- [ ] Interactive website
 
 
 ## Project structure
