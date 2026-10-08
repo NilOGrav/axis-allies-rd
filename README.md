@@ -34,7 +34,8 @@ The system is modular: the core R&D rules can be used with optional expansions s
 ## Game materials
 
 The project should eventually create:
-[X] Sheet with sheets containing all the necessary data, including:
+
+- [X] Sheet with sheets containing all the necessary data, including:
   * technologies and their dependencies;
   * units;
   * facilities;
@@ -43,12 +44,12 @@ The project should eventually create:
   * domains;
   * design principles;
   * rules.
-[X] Visual Tech tree map 
-[] Rulebook
-[] Technology cards
-[X] Python script to generate different views of the tech tree;
-[] TripleA module
-[] Interactive website
+- [X] Visual Tech tree map 
+- [] Rulebook
+- [] Technology cards
+- [X] Python script to generate different views of the tech tree;
+- [] TripleA module
+- [] Interactive website
 
 
 ## Project structure
