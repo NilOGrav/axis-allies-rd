@@ -1,28 +1,28 @@
-Territory or Sea zone;Resource;Production;Status;Notes
-Western United States;Oil;2;Active (starts with Oil Derrick);Safe, core Allied advantage
-Central United States;Oil;3;Active (starts with Oil Derrick);Safe, core Allied advantage
-Caucasus;Oil;3;Active (starts with Oil Derrick);Critical USSR target
-Romania;Oil;2;Active (starts with Oil Derrick);Germany’s lifeline (+1 production for balance, if needed)
-Sumatra;Oil;2;Active (starts with Oil Derrick);Japan priority
-Java;Oil;2;Active (starts with Oil Derrick);Japan priority
-Persia;Oil;2;Requires Oil Derrick;UK vs. Axis battleground
-Iraq;Oil;2;Requires Oil Derrick;Middle East control
-Saudi Arabia;Oil;2;Requires Oil Derrick;Expansion zone
-Borneo;Oil;1;Requires Oil Derrick;Supplemental DEI
-Celebes;Oil;1;Requires Oil Derrick;Supplemental DEI
-Persian Gulf;Oil;2;Requires Oil Platform;High conflict zone
-East Indies Seas;Oil;2;Requires Oil Platform;Japan expansion
-Gulf of Mexico;Oil;2;Requires Oil Platform;USA boost (optional balance lever)
-Slovakia and Hungary;Oil;1;Requires Oil Derrick;
-Kazakhstan;Oil;2;Requires Oil Derrick;
-Novosibirsk;Oil;1;Requires Oil Derrick;Alternatively can be changed to Siberia while playtesting
-Western United States;Uranium;1;Mine;Colorado
-Slovakia;Uranium;1;Mine;Jachymov
-Belgian Congo;Uranium;1;Mine;Shinkolobwe
-Yukon;Uranium;1;Mine;Eldorado Mine
-Xinjiang;Uranium;1;Mine;Siberia or Manchuria could be alternatives
-Norway;Heavy water;1;Heavy Water Plant;Telemark
-Ukraine;Heavy water;1;Heavy Water Plant;Dnepropetrovsk
-Korea;Heavy water;1;Heavy Water Plant;Alternatively change to Fukuoka
-Any territory;Heavy water;1;Heavy Water Plant;Can be built after research
-Germany;Vril;1;Ahnenerbe Institute;Eastern Germany
+RT_ID;Territory_ID;Territory_Name;Resource_ID;Base_Production;Status;Unit_ID;Module;Notes
+RTE-001;;Belgian Congo;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Shinkolobwe
+RTE-002;;Borneo;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Supplemental DEI
+RTE-003;;Caucasus;RES-OIL;3;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Critical USSR target
+RTE-004;;Celebes;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Supplemental DEI
+RTE-005;;Central United States;RES-OIL;3;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Safe, core Allied advantage
+RTE-006;;East Indies Seas;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;Japan expansion
+RTE-007;;Gulf of Mexico;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;USA boost (optional balance lever)
+RTE-008;;Iraq;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Middle East control
+RTE-009;;Java;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Japan priority
+RTE-010;;Kazakhstan;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Oil territory for Russia’s logistical challenge
+RTE-011;;Korea;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Alternatively change to Fukuoka
+RTE-012;;Norway;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Telemark
+RTE-013;;Novosibirsk;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Alternatively can be changed to Siberia while playtesting
+RTE-014;;Persia;RES-OIL;2;;FAC-OIL-DERRICK;OIL;UK vs. Axis battleground
+RTE-015;;Persian Gulf;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;High conflict zone
+RTE-016;;Romania;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Germany’s lifeline (+1 production for balance, if needed)
+RTE-017;;Saudi Arabia;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Expansion zone
+RTE-018;;Slovakia;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Jachymov
+RTE-019;;Slovakia and Hungary;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Balancing Oil territory for Germany
+RTE-020;;Sumatra;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Japan priority
+RTE-021;;Ukraine;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Dnepropetrovsk
+RTE-022;;Western United States;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Safe, core Allied advantage
+RTE-023;;Western United States;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Colorado
+RTE-024;;Xinjiang;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Siberia or Manchuria could be alternatives
+RTE-025;;Yukon;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Eldorado Mine
+RTE-026;;Any territory;RES-HEAVY-WATER;1;;FAC-HEAVY-WATER-PLANT;NUCLEAR;Can be built after research
+RTE-027;;Germany;RES-VRIL;1;;FAC-AHNENERBE;OCCULTISM;Eastern Germany

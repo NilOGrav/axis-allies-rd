@@ -1,0 +1,32 @@
+Facility_ID;Name;FacType;Module;Description;Cost
+FAC-AHNENERBE;Ahnenerbe Institute;Facility;OCCULTISM;Research Institute for the Occult generates 1 Vril energy token per turn. Every use of researched items cost an amount of Vril.;
+FAC-AIR-RC;Air Research Centre;Rcenter;CORE;Enables Research for Air Units, unlocks tier 4+;
+FAC-ALUMINIUM-FACTORY;Aluminium factory;Facility;CORE;Produces Aluminium;
+FAC-BARRACKS;Barracks;Base;CORE;Produce regular infantry (not specialized units) at the cost of 3 IPC.;3
+FAC-BASIC-RC;Basic Research Facility;Rcenter;CORE;Unlocks tier 1 & 2 tech;
+FAC-BUNKER;Bunker;Base;CORE;Absorbs 1 hit every round in battle as long as at least one infantry unit present. Can be destroyed by 5 damage from (tactical) bombing.;
+FAC-ENERGY-RC;Energy & Physics Institute;Rcenter;CORE;Enables Research for Rockets and Atomic Bomb, unlocks tier 4+;
+FAC-HEAVY-WATER-PLANT;Heavy Water Plant;Facility;NUCLEAR;Produces Heavy Water;
+FAC-HOSPITAL;Hospital;Base;CORE;By a 1 by D6 infantry casualty return to nearest field hospital and “respawn” there (but cannot participate in movement phase). If two Field hospitals are at the same distance: owner chooses.;
+FAC-MANUFACTURING-RC;Industrial & Logistics Bureau;Rcenter;CORE;Enables Research for Economics and Infrastructure, unlocks tier 4+;
+FAC-INTELLIGENCE-RC;Intelligence Directorate;Rcenter;CORE;Enables development of various intelligence activities, unlocks tier 4+;
+FAC-LAND-RC;Land Warfare Research Centre;Rcenter;CORE;Enables Research for Land Units and Bunkers, unlocks tier 4+;
+FAC-MAJOR-IC;Major Industrial Complex;Facility;BASE;Base game;30
+FAC-MEGA-FACTORY;Mega-factory;Facility;CORE;Industrial Complex w/ special abilities;
+FAC-MINOR-IC;Minor Industrial Complex;Facility;BASE;Base game;12
+FAC-NAVAL-BASE;Naval Base;Base;BASE;Base game;15
+FAC-AIR-BASE;Air Base;Base;BASE;Base game;15
+FAC-NAVAL-RC;Naval Research Centre;Rcenter;CORE;Enables Research for Sea Units and Naval bases, unlocks tier 4+;
+FAC-NUCLEAR-POWERPLANT;Nuclear Power Plant;Facility;NUCLEAR;Produces 1 IPC per turn.;
+FAC-NUCLEAR-REACTOR;Nuclear Reactor;Facility;NUCLEAR;Increases Nuclear Power Plant production within the same territory to +2 IPC/turn.;
+FAC-OIL-DERRICK;Oil Derrick;Facility;OIL;Produces the amount of oil of the territory per turn;6
+FAC-OIL-PLATFORM;Oil Platform;Facility;OIL;Produces the amount of oil of the sea zone per turn;8
+FAC-RADAR;Radar;Facility;CORE;When base is built: AAA (both from facilities and units) hit on 1–2 instead of 1.;
+FAC-RAILS;Rails;Base;CORE;You may move newly mobilized land units from an Industrial Complex along rail-connected territories as if they where produced in the designated territory. One Railway section costs 2IPC and counts as base.;2
+FAC-ROCKET-SITE;Rocket Site;Base;CORE;May build Rocket sites (counts as base), which is able to build rockets. During the Strategic and Tactical Bombing Raids step of your Conduct Combat phase each turn, each of your operative rocket sites can make a single rocket attack against an enemy facility within 4 spaces of it. This attack does one die roll of damage to that facility. Rockets may not be fired over neutral territories. MUST BE CHEAPER THAN AIR BASES!;
+FAC-SEAPLANE-BASE;Seaplane base;Base;CORE;Acts simulaniously as Naval Port and Airbase;
+FAC-STEEL-FACTORY;Steel Factory;Facility;CORE;Produces 1 Steel per turn;
+FAC-SUBMARINE-PORT;Submarine Port;Base;CORE;Submarine secret harbours may be built in Neutral and enemy territories. To do so pay 10 IPC while at least one naval unit is present in the seazone during mobilization phase. If territory is or becomes occupied by one of your enemies, they roll one d6 every turn on a 1 remove the base. This base cannot be the target of bombardements.;
+FAC-SYNTHETIC-OIL-PLANT;Synthetic Oil Plant;Facility;OIL;Produces 1 oil for 1 IPC;
+FAC-UNIVERSITY;University;Facility;CORE;You are now able to build a university, which grants 1 Research Point per turn.;10
+FAC-URANIUM-MINE;Uranium Mine;Facility;NUCLEAR;Produces 1 Uranium Resource per round, to be represented by a resource token placed next to the mine.;

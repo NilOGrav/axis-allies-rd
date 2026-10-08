@@ -1,0 +1,35 @@
+Unit_ID;Name;Type;Unit_Class;Module;Description;Cost;Attack;Defense;Move;Remarks
+UNIT-AAA;AAA;Unit;LAND;BASE;Base game;5;-;-;1;Move during noncombat phase only
+UNIT-AIRCRAFT-CARRIER;Aircraft Carrier;Unit;NAVAL;BASE;Base game;16;0;2;2;
+UNIT-AIRSHIP;Airship;Unit;AIR;CORE;Aircraft able to perform bombing but cannot be used in battle.;6;-;-;5;
+UNIT-ARTILLERY;Artillery;Unit;LAND;BASE;Base game;4;2;2;1;
+UNIT-ATOMIC-BOMB;Atomic bomb;Unit;AIR;NUCLEAR;Atomic bombing: on a 1-5 d6 roll permanently destroys  all units and maximizes damage on facilities in territory (one-use weapon) and reduces production value of territory to 1 IPC for the duration of 5 years. Place radiation markers (10) in territory accordingly, remove one every round.;;;;;
+UNIT-BARBED-WIRE;Barbed wire;Unit;LAND;CORE;Infantry movement penalty -1 => can be zero!. Purchase cost per barbed wire is 1 IPC.;1;;;;
+UNIT-BATTLESHIP;Battleship;Unit;NAVAL;BASE;Base game;20;4;4;2;
+UNIT-COMMANDO;Commando;Unit;LAND;CORE;Infantry can be dropped in enemy territories behind enemy lines and occupy territory, need to be dropped by transport planes or tactical bombers capable of dropping paratroopers.;;;;;
+UNIT-CRUISER;Cruiser;Unit;NAVAL;BASE;Base game;12;3;3;2;
+UNIT-CZECH-HEDGEHOG;Czech hedgehog;Unit;LAND;CORE;Tanks movement penalty -1. Cost is 2 IPC.;2;;;;
+UNIT-DESTROYER;Destroyer;Unit;NAVAL;BASE;Base game;8;2;2;2;
+UNIT-DIE-GLOCKE;Die Glocke;Unit;LAND;OCCULTISM;Once per round you can reset the turn of a power (self, enemy or ally). That turn starts all over. ;;;;;
+UNIT-FIGHTER;Fighter;Unit;AIR;BASE;Base game;10;3;4;4;
+UNIT-FLYING-FORTRESS;Flying Fortress;Unit;AIR;NUCLEAR;Special kind of Strategic bomber. Flying Fortresses ignore first interceptor hit. Enables atomic delivery:Atomic Bombing;15;5;2;8;
+UNIT-GUSTAV;Gustav;Unit;LAND;CORE;The armoured train artillry. Can move to all rail connected sections in one move and participate in combat 2 territories away. Stays in combat until all friendly land units are out of combat.  Can only be targeted by bombings (like a facility without AAA) A3/Dx/M1/C?;;3;;;
+UNIT-INFANTRY;Infantry;Unit;LAND;BASE;Base game;3;1;2;1;Attack is 2 when supported by artillery
+UNIT-JET-FIGHTER;Jet fighter;Unit;AIR;CORE;Jet fighters defend at 5 and move +1. All fighter bonuses apply.;;;5;;
+UNIT-LAND-MINE;Land Mine;Unit;LAND;CORE;Cost 3 IPC, defend 2 times @ 2 before first round of battle against Land units but tanks, will be removed when it hits, changes owner in case territory is captured and survives battle. In case of multiple: roll all at once and distribute hits over land mines in any way: 2 hits on a 4 die roll can be appointed to one and the same land mine.;3;;;;
+UNIT-LANDKREUZER;LandKreuzer;Unit;LAND;CORE;Super Heavy Armor: Landkreuzer P. 1500 Monster: attacks at 5 A5/D5/M2/C14;14;5;5;2;
+UNIT-MARINE;Marine;Unit;LAND;CORE;Marines on transport “arm” the transport +1 attack and +2 defense for every marine aboard add 1 hitpoint to transport. Attack is same as Infantry + 1.;;;;;
+UNIT-MECHANIZED-INFANTRY;Mechanized Infantry;Unit;LAND;BASE;Base game;4;1;2;2;Attack is 2 when supported by artillery
+UNIT-NUKE;Nuke;Unit;AIR;NUCLEAR;Rocket that delivers the Atomic Bomb. Nuclear warheads capability on rockets. Buy unarmed Nukes for 15 IPC. M8;15;;;8;
+UNIT-ROCKET;Rocket;Unit;AIR;CORE;To be matched with Rocket Site;;;;4;
+UNIT-SEA-MINE;Sea Mine;Unit;NAVAL;CORE;When entering a seazone with seamines roll a d6 on a 1 resolve a hit anywhere on the fleet entering the seazone. CHACK WITH A&A NORTH AFRICA;;;;;
+UNIT-SPY;Spy;Unit;LAND;CORE;Spy spawns in capital (A0/D0/M2/C8) and is able to sabotage facilities, steal or cancel tech (while in enemy capital) or cancel one battle this round from the power it is currently residing (play as interrupt in enemy’s combat phase, while not having performed one of your earlier options this round.;8;0;0;2;
+UNIT-STRATEGIC-BOMBER;Strategic Bomber;Unit;AIR;BASE;Base game;12;4;1;6;
+UNIT-SUBMARINE;Submarine;Unit;NAVAL;BASE;Base game;6;2;1;2;
+UNIT-NUCLEAR-SUBMARINES;Nuclear Submarines;Unit;NAVAL;CORE;Nuclear Submarines may ignore first destroyer cancellation per turn. Normal submarine rules apply, all bonuses on submarines count.;;;;;
+UNIT-BMS;B.M.S. (Ballistic Missile Submarine);Unit;NAVAL;NUCLEAR;Ballistic Misile Submarines can submerge after suprise attack. Normal submarine rules apply, all bonuses on submarines count.;;;;;
+UNIT-TACTICAL-BOMBER;Tactical Bomber;Unit;AIR;BASE;Base game;11;3;3;4;
+UNIT-TANK-DESTROYER;Tank destroyer;Unit;LAND;CORE;Will attack @ 3 before first round of combat directed at tanks. Every tanks destroyed this way will de removed from battlefield. After that Tank destroyers count as default Mech. Inf.;;;;;
+UNIT-TANK;Tank;Unit;LAND;BASE;Base game;6;3;3;2;
+UNIT-TRANSPORT;Transport;Unit;NAVAL;BASE;Base game;7;0;0;2;
+UNIT-UFO;UFO;Unit;AIR;OCCULTISM;You now have developed the Hannebeau II Saucer. For 1 Vril token the UFO can move 1 infantry from one place to another (if the territory is enemy occupied, the infantry unit is in combat) OR you may move one enemy aircraft back to it’s place of origin.;;;;;

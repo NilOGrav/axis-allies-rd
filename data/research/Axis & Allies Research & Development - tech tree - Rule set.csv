@@ -1,4 +1,4 @@
-ID;Family;Rule;Description;Status;Source;Related Data;Open Field / Issue
+Rule_ID;Family;Rule;Description;Status;Source;Related Data;Open Field / Issue
 RES-001;RES;Research Points;RP are the resource used for research attempts.;Established;Design Principles DP-023;Research economy;—
 RES-002;RES;Uniform research cost;Every research attempt costs exactly 1 RP.;Established;Design Principles DP-021;Research economy;—
 RES-003;RES;RP conversion;Current baseline conversion is 5 IPC → 1 RP.;Parameter;Design Principles DP-024;IPC economy;Balance parameter

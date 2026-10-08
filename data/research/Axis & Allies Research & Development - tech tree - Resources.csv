@@ -1,0 +1,10 @@
+Resource_ID;Name;Description;Module;Path
+RES-OIL;Oil;"Oil acts as a second currency (like IPCs) BUT: it is mainly used for operations (movement/combat), not required to be transported, stored and spent nationally. Oil can be derived from oil producing territories via Oil Derricks or seazones via Oil Platform or by developing a Synthetic Oil Plant. Japan starts with 1 oil in the bank.
+Oil costs: Land: 1 oil per major offensive Air: 1 oil per battle Naval: 1 oil per fleet per turn (+1 if combat).
+Penalties (when out of oil): Tanks/mech → no blitz Aircraft → -1 attack Navy → cannot enter hostile zones.
+Rules: Production From territories + infrastructure Collected during income phase Max storage: 15 (soft cap at 10, after 10 lose 1 oil each turn). )Convoys → lose IPC OR oil and Bombing → disables oil structures. Emergency Rule: Replace Oil cost by 3 times the amount in IPC.";OIL;OIL
+RES-ALUMINIUM;Aluminium;Aluminium is produced in an Aluminium Factory and when transported to an industrial complex you get a discount of 2 IPC when building a Jet, Rocket or Flying Fortress.;CORE;NUCLEAR, FIGHTER, ROCKET
+RES-VRIL;Vril;Vril energy acts as currency for the use of German Occult Artifacts (GOA) and are produced by the Ahnenerbe Institute one each turn.;OCCULTISM;OCCULTISM
+RES-STEEL;Steel;Steel is produced in a Steel Factory and when transported to an industrial compllex you get a discount of 2 IPC when building a Super Submarine, Heavy Tank or Heavy Capital ship.;CORE;NUCLEAR, RAIL, SUBS, BATTLESHIP
+RES-URANIUM;Uranium;Resource mined from 1 of 5 fixed Uranium mines: Western United States, Slovakia, Belgian Congo, Yukon Territory. Cannot be build. Production is 1 per turn.;NUCLEAR;NUCLEAR
+RES-HEAVY-WATER;Heavy Water;Resource produced in a Heavy Water Plant: two exist at the start of the game: Norway, Ukraine. More can be build.;NUCLEAR;NUCLEAR

@@ -165,12 +165,12 @@ domain_colors = {
     "Air":                    "#cfe8ff",
     "Land":                   "#d9f2d9",
     "Naval":                  "#fff2cc",
-    "Logistics And Industry": "#c4a6ff",
+    "Manufacturing":          "#c4a6ff",
     "Intelligence":           "#e0f7fa",
-    "Energy And Physics":     "#f8d7da",
-    "Research & Development": "#ffdefe",
+    "Energy":                 "#f8d7da",
+    "Research":               "#ffdefe",
     "Programs":               "#ffd9b3",
-    "Resource":               "#eeeeee",
+    "default":                "#eeeeee",
 }
 
 DEFAULT_DOMAIN_COLOR = "black"
@@ -211,11 +211,10 @@ layout = {
         "Land",
         "Naval",
         "Programs",
-        "Research & Development",
-        "Logistics And Industry",
+        "Research",
+        "Manufacturing",
         "Intelligence",
-        "Energy And Physics",
-        "Resource",
+        "Energy",
     ],
 }
 
@@ -505,7 +504,7 @@ def build_graph(rows):
     or_color_index = 0
 
     for row in rows:
-        tech_id = row["ID"].strip()
+        tech_id = row["Tech_ID"].strip()
         name = row["Name"].strip()
         domain_code = row["Domain_code"].strip()
         tier = row["Tier"].strip()
@@ -1304,21 +1303,6 @@ def add_row_ordering_edges(graphviz_model):
             )
 
 
-# def apply_grid_experiment(
-#     graphviz_model,
-#     grid_experiment
-# ):
-#
-#     if grid_experiment.get(
-#         "row_ordering",
-#         False
-#     ):
-#
-#         add_row_ordering_edges(
-#             graphviz_model
-#         )
-#
-#     return graphviz_model
 def apply_grid_experiment(
     graphviz_model,
     grid_experiment
@@ -1338,37 +1322,6 @@ def apply_grid_experiment(
     # will be added here when those functions are implemented.
 
     return graphviz_model
-
-# def build_grid_graphviz_model(
-#     graph,
-#     resolved_layout,
-#     grid_experiment
-# ):
-#
-#     graphviz_model = build_graphviz_model(
-#         graph,
-#         resolved_layout
-#     )
-#
-#     if grid_experiment["cluster_fillers"]:
-#
-#         add_cluster_fillers(
-#             graphviz_model
-#         )
-#
-#     if grid_experiment["horizontal_edges"]:
-#
-#         add_horizontal_grid_edges(
-#             graphviz_model
-#         )
-#
-#     if grid_experiment["vertical_edges"]:
-#
-#         add_vertical_grid_edges(
-#             graphviz_model
-#         )
-#
-#     return graphviz_model
 
 
 def apply_graphviz_routing(edge, attrs):
@@ -1483,65 +1436,6 @@ def write_dot_filler_nodes(f, graphviz_model):
         )
 
 
-# def write_dot_ranks(f, graphviz_model):
-#
-#     columns = defaultdict(list)
-#
-#     for node_id, node in (
-#         graphviz_model["nodes"].items()
-#     ):
-#
-#         columns[node["column"]].append(
-#             node_id
-#         )
-#
-#     for column in sorted(columns):
-#
-#         node_ids = columns[column]
-#
-#         f.write(
-#             "{ rank=same; "
-#             + " ".join(
-#                 f'"{node_id}"'
-#                 for node_id in node_ids
-#             )
-#             + "; }\n"
-#         )
-# def write_dot_ranks(f, graphviz_model):
-#
-#     columns = defaultdict(list)
-#
-#     for node_id, node in (
-#         graphviz_model["nodes"].items()
-#     ):
-#
-#         columns[node["column"]].append(
-#             (
-#                 node["row"],
-#                 node_id
-#             )
-#         )
-#
-#     for column in sorted(columns):
-#
-#         nodes = sorted(
-#             columns[column],
-#             key=lambda item: item[0]
-#         )
-#
-#         node_ids = [
-#             node_id
-#             for row, node_id in nodes
-#         ]
-#
-#         f.write(
-#             "{ rank=same; "
-#             + " ".join(
-#                 f'"{node_id}"'
-#                 for node_id in node_ids
-#             )
-#             + "; }\n"
-#         )
 def write_dot_ranks(f, graphviz_model):
 
     columns = defaultdict(list)
@@ -1769,17 +1663,6 @@ def print_layout(resolved_layout):
         )
 
 
-# DEBUG Function
-# def print_graphviz_model(graphviz_model):
-#
-#     print("\nGRAPHVIZ MODEL CLUSTERS")
-#
-#     for cluster in graphviz_model["clusters"]:
-#
-#         print(
-#             f'{cluster["id"]}: '
-#             f'{cluster["nodes"]}'
-#         )
 def print_graphviz_model(graphviz_model):
 
     print("\nGRAPHVIZ MODEL NODES")

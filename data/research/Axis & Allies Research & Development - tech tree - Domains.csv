@@ -1,0 +1,9 @@
+Domain_ID;Domain;Description
+A;Air;
+L;Land;
+N;Naval;
+P;Programs;
+R;Research;
+M;Manufacturing;
+I;Intelligence;
+E;Energy;
