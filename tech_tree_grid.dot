@@ -23,7 +23,7 @@ node [shape="box", width=3.5, height=1.0, fixedsize=true, fontsize=10];
 "A.6.03" [label="A.6.03\nUnder the Radar", pos="5292.0,-345.6!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
 "A.6.04" [label="A.6.04\nFlying Fortress Capability", pos="5292.0,-460.8!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
 "R.0.01" [label="R.0.01\nBasic Research Facility", pos="756.0,-2707.2!", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe", height=2.6, width=3.5, fixedsize=true];
-"R.2.01" [label="R.2.01\nUniversity", pos="2268.0,-2707.2!", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe", height=2.6, width=3.5, fixedsize=true];
+"R.2.01" [label="R.2.01\nUniversity", pos="2268.0,-2649.6!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffdefe"];
 "E.0.01" [label="E.0.01\nOil Derrick", pos="756.0,-4492.8!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#f8d7da"];
 "E.1.01" [label="E.1.01\nEarly Radar", pos="1512.0,-4492.8!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#f8d7da"];
 "E.1.02" [label="E.1.02\nHeavy Water Chemistry", pos="1512.0,-4608.0!", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#f8d7da"];

@@ -45,15 +45,15 @@ graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fil
 "A.6.03" [label="A.6.03\nUnder the Radar", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
 "A.6.04" [label="A.6.04\nFlying Fortress Capability", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
 }
-subgraph cluster_D_0 {
+subgraph cluster_R_0 {
 label="Research - Tier 0";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d1b6d0"];
 "R.0.01" [label="R.0.01\nBasic Research Facility", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe"];
 }
-subgraph cluster_D_2 {
+subgraph cluster_R_2 {
 label="Research - Tier 2";
 graph [style="rounded,filled,dashed", color="blue", penwidth=1.5, margin=30, fillcolor="#d1b6d0"];
-"R.2.01" [label="R.2.01\nUniversity", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe"];
+"R.2.01" [label="R.2.01\nUniversity", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffdefe"];
 }
 subgraph cluster_E_0 {
 label="Energy - Tier 0";

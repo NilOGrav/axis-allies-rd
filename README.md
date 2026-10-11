@@ -1,6 +1,6 @@
 # Axis & Allies: 1940 – Research & Development System
 
-This project adds a modular **Research & Development (R&D) system** to **Axis & Allies: 1940 Global**. It is a civilization-style system where you research technologies in different areas/domains, which open up new technologies on turn. The technologies offer perks in different areas. This is the development repository where all the materials for the game are gathered, including add-ons and the possibility to in- or exclude them (the modules can also be used **standalone** without the R&D system): 
+This project adds a modular **Research & Development (R&D) system** to **Axis & Allies: 1940**. It is a civilization-style system where you research technologies in different areas/domains, which open up new technologies on turn. The technologies offer perks in different areas. This is the development repository where all the materials for the game are gathered, including add-ons and the possibility to in- or exclude them (the modules can also be used **standalone** without the R&D system): 
 
 - CORE: the technology tree including deleopment paths in different domains: 
   * Air            : everything to do with development of aircrafts and air combat;
@@ -12,7 +12,7 @@ This project adds a modular **Research & Development (R&D) system** to **Axis & 
   * Research       : nuclear bomb and a means to drop it.
 - OIL: Finding and refining oil to allow your logistics to function.
 - OCCULTISM: Alternate history module to include the myths about Germany's occult research.
-- ToDo - ZOMBIES: Alternate reality module to integrate **Axis & Allies & Zombies** (AAZ) into **Axis & Allies 1940 Global**.
+- ToDo - ZOMBIES: Alternate reality module to integrate **Axis & Allies & Zombies** (AAZ) into **Axis & Allies: 1940**.
 
 
 ## Gameplay
@@ -28,7 +28,7 @@ Players can invest in technologies that unlock new capabilities, units, faciliti
 - **Resources** such as Oil, Aluminium, Steel, Heavy Water, Uranium, and Vril are separate from technologies and may form part of optional strategic-resource modules.
 - The technology tree is designed with **multiple technological routes and national specialisation**, allowing players to pursue different strategic approaches rather than a single optimal progression.
 
-The system is modular: the core R&D rules can be used with optional expansions such as strategic resources, additional facilities, and other technology modules. It is designed for compatibility with **1940 Europe**, **1940 Pacific**, **1940 Global** and **1940 Halifax**. The latter being a houserule variant where there is only one UK economy and a "new" minor power Commonwealth, consisting of ANZAC, South Africa and Canada.
+The system is modular: the core R&D rules can be used with optional expansions such as strategic resources, additional facilities, and other technology modules. It is designed primarily for compatibility with **1940 Halifax** and **1940 Global**, but also works with **1940 Europe**, **1940 Pacific**. **1940 Halifax** being a houserule variant where there is only **one** UK economy and a **new** minor power named Commonwealth, consisting of ANZAC, South Africa and Canada.
 
 
 ## Game materials

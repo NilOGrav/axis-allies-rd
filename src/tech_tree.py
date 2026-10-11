@@ -393,7 +393,7 @@ def load_data(input_file):
     rows = []
 
     with open(input_file, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter=';')
+        reader = csv.DictReader(f, delimiter=',')
 
         for row in reader:
             rows.append(row)
