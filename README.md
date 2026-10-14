@@ -2,17 +2,18 @@
 
 This project adds a modular **Research & Development (R&D) system** to **Axis & Allies: 1940**. It is a civilization-style system where you research technologies in different areas/domains, which open up new technologies on turn. The technologies offer perks in different areas. This is the development repository where all the materials for the game are gathered, including add-ons and the possibility to in- or exclude them (the modules can also be used **standalone** without the R&D system): 
 
-- CORE: the technology tree including deleopment paths in different domains: 
+- **CORE**: the technology tree including deleopment paths in different domains: 
   * Air            : everything to do with development of aircrafts and air combat;
   * Land           : land units and territory control;
   * Naval          : naval warfare and the domination of the seven seas;
   * Manufacturing  : logitics and industry boosters to develop the superior production line;
   * Energy         : using physics to create technological advancements over your opponents;
   * Intelligence   : all things spying, sabotage and other covert ops;
-  * Research       : nuclear bomb and a means to drop it.
-- OIL: Finding and refining oil to allow your logistics to function.
-- OCCULTISM: Alternate history module to include the myths about Germany's occult research.
-- ToDo - ZOMBIES: Alternate reality module to integrate **Axis & Allies & Zombies** (AAZ) into **Axis & Allies: 1940**.
+  * Research       : institutions and technologies which will generate extra Research Tokens
+- **NUCLEAR**: nuclear bomb and a means to drop it.
+- **OIL**: Finding and refining oil to allow your logistics to function.
+- **OCCULTISM**: Alternate history module to include the myths about Germany's occult research.
+- ToDo - **ZOMBIES**: Alternate reality module to integrate **Axis & Allies & Zombies** (AAZ) into **Axis & Allies: 1940**.
 
 
 ## Gameplay
@@ -44,7 +45,7 @@ The project should eventually create:
   * domains;
   * design principles;
   * rules.
-- [X] Visual Tech tree map 
+- [X] Visual Tech tree map (these are the svg-files)
 - [ ] Rulebook
 - [ ] Technology cards
 - [X] Python script to generate different views of the tech tree;

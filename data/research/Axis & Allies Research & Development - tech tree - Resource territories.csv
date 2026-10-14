@@ -1,28 +1,28 @@
-RT_ID;Territory_ID;Territory_Name;Resource_ID;Base_Production;Status;Unit_ID;Module;Notes
-RTE-001;;Belgian Congo;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Shinkolobwe
-RTE-002;;Borneo;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Supplemental DEI
-RTE-003;;Caucasus;RES-OIL;3;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Critical USSR target
-RTE-004;;Celebes;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Supplemental DEI
-RTE-005;;Central United States;RES-OIL;3;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Safe, core Allied advantage
-RTE-006;;East Indies Seas;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;Japan expansion
-RTE-007;;Gulf of Mexico;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;USA boost (optional balance lever)
-RTE-008;;Iraq;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Middle East control
-RTE-009;;Java;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Japan priority
-RTE-010;;Kazakhstan;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Oil territory for Russia’s logistical challenge
-RTE-011;;Korea;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Alternatively change to Fukuoka
-RTE-012;;Norway;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Telemark
-RTE-013;;Novosibirsk;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Alternatively can be changed to Siberia while playtesting
-RTE-014;;Persia;RES-OIL;2;;FAC-OIL-DERRICK;OIL;UK vs. Axis battleground
-RTE-015;;Persian Gulf;RES-OIL;2;;FAC-OIL-PLATFORM;OIL;High conflict zone
-RTE-016;;Romania;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Germany’s lifeline (+1 production for balance, if needed)
-RTE-017;;Saudi Arabia;RES-OIL;2;;FAC-OIL-DERRICK;OIL;Expansion zone
-RTE-018;;Slovakia;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Jachymov
-RTE-019;;Slovakia and Hungary;RES-OIL;1;;FAC-OIL-DERRICK;OIL;Balancing Oil territory for Germany
-RTE-020;;Sumatra;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Japan priority
-RTE-021;;Ukraine;RES-HEAVY-WATER;1;Active (starts with Heavy Water Plant);FAC-HEAVY-WATER-PLANT;NUCLEAR;Dnepropetrovsk
-RTE-022;;Western United States;RES-OIL;2;Active (starts with Oil Derrick);FAC-OIL-DERRICK;OIL;Safe, core Allied advantage
-RTE-023;;Western United States;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Colorado
-RTE-024;;Xinjiang;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Siberia or Manchuria could be alternatives
-RTE-025;;Yukon;RES-URANIUM;1;;FAC-URANIUM-MINE;NUCLEAR;Eldorado Mine
-RTE-026;;Any territory;RES-HEAVY-WATER;1;;FAC-HEAVY-WATER-PLANT;NUCLEAR;Can be built after research
-RTE-027;;Germany;RES-VRIL;1;;FAC-AHNENERBE;OCCULTISM;Eastern Germany
+"RTE_ID","Territory_ID","Territory_Name","Resource_ID","Base_Production","Status","Unit_ID","Module","Notes"
+"RTE-001","BELGIAN-CONGO","Belgian Congo","RES-URANIUM",1,,"FAC-URANIUM-MINE","NUCLEAR","Shinkolobwe"
+"RTE-002","BORNEO","Borneo","RES-OIL",1,,"FAC-OIL-DERRICK","OIL","Supplemental DEI"
+"RTE-003","CAUCASUS","Caucasus","RES-OIL",3,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Critical USSR target"
+"RTE-004","CELEBES","Celebes","RES-OIL",1,,"FAC-OIL-DERRICK","OIL","Supplemental DEI"
+"RTE-005","CENTRAL-UNITED-STATES","Central United States","RES-OIL",3,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Safe, core Allied advantage"
+"RTE-006","SEAZONE-034","East Indies Seas","RES-OIL",2,,"FAC-OIL-PLATFORM","OIL","Japan expansion"
+"RTE-007","SEAZONE-089","Gulf of Mexico","RES-OIL",2,,"FAC-OIL-PLATFORM","OIL","USA boost (optional balance lever)"
+"RTE-008","IRAQ","Iraq","RES-OIL",2,,"FAC-OIL-DERRICK","OIL","Middle East control"
+"RTE-009","JAVA","Java","RES-OIL",2,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Japan priority"
+"RTE-010","KAZACHSTAN","Kazakhstan","RES-OIL",2,,"FAC-OIL-DERRICK","OIL","Oil territory for Russia’s logistical challenge"
+"RTE-011","KOREA","Korea","RES-HEAVY-WATER",1,"Active (starts with Heavy Water Plant)","FAC-HEAVY-WATER-PLANT","NUCLEAR","Alternatively change to Fukuoka"
+"RTE-012","NORWAY","Norway","RES-HEAVY-WATER",1,"Active (starts with Heavy Water Plant)","FAC-HEAVY-WATER-PLANT","NUCLEAR","Telemark"
+"RTE-013","NOVOSIBRISK","Novosibirsk","RES-OIL",1,,"FAC-OIL-DERRICK","OIL","Alternatively can be changed to Siberia while playtesting"
+"RTE-014","PERSIA","Persia","RES-OIL",2,,"FAC-OIL-DERRICK","OIL","UK vs. Axis battleground"
+"RTE-015","SEAZONE-080","Persian Gulf","RES-OIL",2,,"FAC-OIL-PLATFORM","OIL","High conflict zone"
+"RTE-016","ROMANIA","Romania","RES-OIL",2,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Germany’s lifeline (+1 production for balance, if needed)"
+"RTE-017","SAUDI-ARABIA","Saudi Arabia","RES-OIL",2,,"FAC-OIL-DERRICK","OIL","Expansion zone"
+"RTE-018","SLOVAKIA-HUNGARY","Slovakia and Hungary","RES-URANIUM",1,,"FAC-URANIUM-MINE","NUCLEAR","Jachymov"
+"RTE-019","SLOVAKIA-HUNGARY","Slovakia and Hungary","RES-OIL",1,,"FAC-OIL-DERRICK","OIL","Balancing Oil territory for Germany"
+"RTE-020","SUMATRA","Sumatra","RES-OIL",2,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Japan priority"
+"RTE-021","UKRAINE","Ukraine","RES-HEAVY-WATER",1,"Active (starts with Heavy Water Plant)","FAC-HEAVY-WATER-PLANT","NUCLEAR","Dnepropetrovsk"
+"RTE-022","WESTERN-UNITED-STATES","Western United States","RES-OIL",2,"Active (starts with Oil Derrick)","FAC-OIL-DERRICK","OIL","Safe, core Allied advantage"
+"RTE-023","WESTERN-UNITED-STATES","Western United States","RES-URANIUM",1,,"FAC-URANIUM-MINE","NUCLEAR","Colorado"
+"RTE-024","KANSU","Kansu","RES-URANIUM",1,,"FAC-URANIUM-MINE","NUCLEAR","Siberia or Manchuria could be alternatives"
+"RTE-025","WESTERN-CANADA","Yukon","RES-URANIUM",1,,"FAC-URANIUM-MINE","NUCLEAR","Eldorado Mine"
+"RTE-026","ANY-TERRITORY","Any territory","RES-HEAVY-WATER",1,,"FAC-HEAVY-WATER-PLANT","NUCLEAR","Can be built after research"
+"RTE-027","GERMANY","Germany","RES-VRIL",1,,"FAC-AHNENERBE","OCCULTISM","Eastern Germany"
