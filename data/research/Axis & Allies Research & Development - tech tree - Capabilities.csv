@@ -1,44 +1,44 @@
-"Capability_ID","Capabilities","Analysis","Module"
-,"Scramble",,"BASE"
-"A","Tactical Bombing Raid","Bombing?","BASE"
-"A","Strategic Bombing Raid","Bombing?","BASE"
-"B","Self-defense AAA",,"BASE"
-"B","AAA neglect","self-defense aaa for airship and means immune","CORE"
-,"Amphibious Assault",,"BASE"
-"C ","Carry Units","Unit class = LAND","BASE"
-,"Blitz",,"BASE"
-"D","Supported by","Combined Arms?","BASE"
-"D","Combined Arms",,"BASE"
-,"Combat Value","Attack=0 and defense=0?","BASE"
-"E","Limited Move","Move?","BASE"
-"C","Carrier Operations","Carry Units class = AIR","BASE"
-,"Escorts",,"BASE"
-,"Interceptions",,"BASE"
-"D","Air Superiority","Combined Arms?","BASE"
-"F","Capital Ship","Damage Points?","BASE"
-,"Offshore Bombardement","Amphibious Assault?","BASE"
-"C","Carry Aircraft","Carry Units?","BASE"
-,"Air Defense","Aircrafts on carrier can perform defense combat = comabt rule?","BASE"
-"G","Anti-Sub Vessel","Submarine presence","BASE"
-"H","Suprise Strike","Submarine combat rules","BASE"
-"H","Submersible","Submarine combat rules","BASE"
-,"On Station","Convoy bonus","BASE"
-"G","Treat Hostile Seazones as friendly","Submarine presence","BASE"
-"G","Does not Block Enemy Movement","Submarine presence","BASE"
-"I","Cannot Hit Units","Unit class = AIR","BASE"
-"I","Cannot be Hit by Units","Unit class = AIR","BASE"
-,"Chosen Last",,"BASE"
-,"Loading and Offloading",,"BASE"
-,"Production","Amount, What, Where (placement restrictions).","BASE"
-"E","Immobile","Move=0?","BASE"
-"E","Move",,"BASE"
-,"Attack",,"BASE"
-,"Defend",,"BASE"
-,"Cost",,"BASE"
-"J","Original Territory","Territory restriction","BASE"
-"J","IPC Territory Requirement","Territory restriction","BASE"
-"J","Cannot be built on Islands","Territory restriction","BASE"
-"J","Original Capital","Territory restriction","BASE"
-"A","Bombing Target","Bombing?","BASE"
-"F","Subject to Damage","Damage Points?","BASE"
-,"Increased Unit Range","Unit class = AIR or NAVAL","BASE"
+"Capability_ID","Capability","Description","Module","Rule_ID","Variable1","Variable2","Variable3","Variable4","Variable5"
+,"Scramble",,"BASE",,,,,,
+"A","Tactical Bombing Raid","Bombing?","BASE",,,,,,
+"A","Strategic Bombing Raid","Bombing?","BASE",,,,,,
+"B","Self-defense AAA",,"BASE",,,,,,
+"B","AAA neglect","self-defense aaa for airship and means immune","CORE",,,,,,
+,"Amphibious Assault",,"BASE",,,,,,
+"C ","Carry Units","Unit class = LAND","BASE",,,,,,
+,"Blitz",,"BASE",,,,,,
+"D","Supported by","Combined Arms?","BASE",,,,,,
+"D","Combined Arms",,"BASE",,,,,,
+,"Combat Value","Attack=0 and defense=0?","BASE",,,,,,
+"E","Limited Move","Move?","BASE",,,,,,
+"C","Carrier Operations","Carry Units class = AIR","BASE",,,,,,
+,"Escorts",,"BASE",,,,,,
+,"Interceptions",,"BASE",,,,,,
+"D","Air Superiority","Combined Arms?","BASE",,,,,,
+"F","Capital Ship","Damage Points?","BASE",,,,,,
+,"Offshore Bombardement","Amphibious Assault?","BASE",,,,,,
+"C","Carry Aircraft","Carry Units?","BASE",,,,,,
+,"Air Defense","Aircrafts on carrier can perform defense combat = comabt rule?","BASE",,,,,,
+"G","Anti-Sub Vessel","Submarine presence","BASE",,,,,,
+"H","Suprise Strike","Submarine combat rules","BASE",,,,,,
+"H","Submersible","Submarine combat rules","BASE",,,,,,
+,"On Station","Convoy bonus","BASE",,,,,,
+"G","Treat Hostile Seazones as friendly","Submarine presence","BASE",,,,,,
+"G","Does not Block Enemy Movement","Submarine presence","BASE",,,,,,
+"I","Cannot Hit Units","Unit class = AIR","BASE",,,,,,
+"I","Cannot be Hit by Units","Unit class = AIR","BASE",,,,,,
+,"Chosen Last",,"BASE",,,,,,
+,"Loading and Offloading",,"BASE",,,,,,
+,"Production","Amount, What, Where (placement restrictions).","BASE",,,,,,
+"E","Immobile","Move=0?","BASE",,,,,,
+"E","Move",,"BASE",,,,,,
+,"Attack",,"BASE",,,,,,
+,"Defend",,"BASE",,,,,,
+,"Cost",,"BASE",,,,,,
+"J","Original Territory","Territory restriction","BASE",,,,,,
+"J","IPC Territory Requirement","Territory restriction","BASE",,,,,,
+"J","Cannot be built on Islands","Territory restriction","BASE",,,,,,
+"J","Original Capital","Territory restriction","BASE",,,,,,
+"A","Bombing Target","Bombing?","BASE",,,,,,
+"F","Subject to Damage","Damage Points?","BASE",,,,,,
+,"Increased Unit Range","Unit class = AIR or NAVAL","BASE",,,,,,

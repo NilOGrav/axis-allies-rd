@@ -9,6 +9,7 @@ This project adds a modular **Research & Development (R&D) system** to **Axis & 
   * Manufacturing  : logitics and industry boosters to develop the superior production line;
   * Energy         : using physics to create technological advancements over your opponents;
   * Intelligence   : all things spying, sabotage and other covert ops;
+  * Programs       : specific research path to specialize in different topics, some of these are for named powers only;
   * Research       : institutions and technologies which will generate extra Research Tokens
 - **NUCLEAR**: nuclear bomb and a means to drop it.
 - **OIL**: Finding and refining oil to allow your logistics to function.
@@ -90,8 +91,8 @@ Since of v10.2 Github is handling the version history.
 `$ python3 src/tech_tree.py --help`
  
 ```
-usage: tech_tree.py [-h] [--view {full,module,domain,path,chain}] [--filter VALUE] [--dim {grey,fade,none}]
-                    [--hide-resource] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
+usage: tech_tree.py [-h] [--config FILE] [--view {full,module,domain,path,chain}] [--filter VALUE] [--dim {grey,fade,none}]
+                    [--hide-domain NAME] [--notxt] [--nodot] [--nosvg] [--nosimple] [--nogrd]
                     input_file
 
 Axis & Allies R&D Tech Tree Generator
@@ -101,20 +102,21 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
+  --config FILE         TOML config file with domain order/colours, layout and styling. Default: tech_tree.toml next to this script, or
+                        built-in defaults if that file does not exist.
   --view {full,module,domain,path,chain}
-                        View type: full (default), module, domain, path, or chain. Use --filter to specify the
-                        value.
-  --filter VALUE        Value for --view: module name (NUCLEAR), domain name (Air), or node ID for chain view
-                        (P.9.NU).
+                        View type: full (default), module, domain, path, or chain. Use --filter to specify the value.
+  --filter VALUE        Value for --view: module name (NUCLEAR), domain name (Air), or node ID for chain view (P.9.NU).
   --dim {grey,fade,none}
-                        How to display non-highlighted nodes: grey (flat grey), fade (washed-out domain colour),
-                        none (remove entirely). Default: grey.
-  --hide-resource       Exclude all Resource domain nodes from the output.
+                        How to display non-highlighted nodes: grey (flat grey), fade (washed-out domain colour), none (remove entirely).
+                        Default: grey.
+  --hide-domain NAME    Exclude all nodes of this domain from every output. May be given more than once.
   --notxt               Skip text file output.
   --nodot               Skip writing DOT files (both renderers).
   --nosvg               Skip SVG generation (both renderers).
   --nosimple            Skip the simple Graphviz dot renderer entirely.
   --nogrd               Skip the grid neato renderer entirely.
+
 ```
 
 `$ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ -\ Tech\ List.csv `

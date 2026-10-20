@@ -1,9 +1,20 @@
 import sys
 import os
+import re
 import csv
+import copy
+import difflib
 import argparse
+import tempfile
+import statistics
 import subprocess
+import xml.etree.ElementTree as ET
 from collections import defaultdict
+
+try:
+    import tomllib  # Python 3.11+
+except ImportError:  # pragma: no cover
+    tomllib = None
 
 
 def parse_args():
@@ -16,6 +27,17 @@ def parse_args():
     parser.add_argument(
         "input_file",
         help="CSV data file path",
+    )
+
+    parser.add_argument(
+        "--config",
+        default=None,
+        metavar="FILE",
+        help=(
+            "TOML config file with domain order/colours, layout and "
+            "styling. Default: tech_tree.toml next to this script, "
+            "or built-in defaults if that file does not exist."
+        ),
     )
 
     # --- View ---
@@ -51,10 +73,14 @@ def parse_args():
 
     # --- Domain toggles ---
     parser.add_argument(
-        "--hide-resource",
-        action="store_true",
-        default=False,
-        help="Exclude all Resource domain nodes from the output.",
+        "--hide-domain",
+        action="append",
+        default=None,
+        metavar="NAME",
+        help=(
+            "Exclude all nodes of this domain from every output. "
+            "May be given more than once."
+        ),
     )
 
     # --- Output suppression ---
@@ -161,19 +187,326 @@ WRITE_TERMINAL_FILE = True
 #             Graphviz
 
 
-domain_colors = {
-    "Air":                    "#cfe8ff",
-    "Land":                   "#d9f2d9",
-    "Naval":                  "#fff2cc",
-    "Manufacturing":          "#c4a6ff",
-    "Intelligence":           "#e0f7fa",
-    "Energy":                 "#f8d7da",
-    "Research":               "#ffdefe",
-    "Programs":               "#ffd9b3",
-    "default":                "#eeeeee",
+# ─────────────────────────────────────────────────────────────────
+# Configuration
+# ─────────────────────────────────────────────────────────────────
+#
+# The CSV defines the technology tree, including WHICH domains exist.
+# Everything about how it is presented lives in tech_tree.toml:
+# domain order and colours, layout parameters, node/edge styling and
+# the dimming used by the view filters.
+#
+# DEFAULT_CONFIG is the fallback when no config file is found. A
+# config file is merged over it: tables merge key by key, while
+# lists (such as [[domains]]) are replaced as a whole.
+
+CONFIG_FILE_NAME = "tech_tree.toml"
+
+HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+DEFAULT_CONFIG = {
+    "layout": {
+        "policy": "compact",
+        "row_offset": 1,
+        "late_tiers_from": 7,
+    },
+
+    # Order of this list = vertical order of the domain bands.
+    "domains": [
+        {"name": "Air",           "color": "#cfe8ff"},
+        {"name": "Land",          "color": "#d9f2d9"},
+        {"name": "Naval",         "color": "#fff2cc"},
+        {"name": "Programs",      "color": "#ffd9b3"},
+        {"name": "Research",      "color": "#ffdefe"},
+        {"name": "Manufacturing", "color": "#c4a6ff"},
+        {"name": "Intelligence",  "color": "#e0f7fa"},
+        {"name": "Energy",        "color": "#f8d7da"},
+    ],
+
+    "colors": {
+        "default_domain": "black",
+        "cluster_darken": 0.82,
+        "or_groups": [
+            "#e41a1c", "#377eb8", "#4daf4a",
+            "#984ea3", "#ff7f00", "#ffff33",
+            "#a65628", "#f781bf",
+        ],
+    },
+
+    "dim": {
+        "grey": {
+            "fillcolor": "#dddddd",
+            "color": "#bbbbbb",
+            "fontcolor": "#aaaaaa",
+            "edge_color": "#dddddd",
+        },
+        "fade": {
+            "blend": 0.2,
+            "unknown_fill": "#f5f5f5",
+            "color": "#cccccc",
+            "fontcolor": "#cccccc",
+            "edge_color": "#dddddd",
+        },
+    },
+
+    "dot_view": {
+        "name": "TechTree",
+        "graph": {
+            "rankdir": "LR",
+            "splines": "polyline",
+            "compound": True,
+            "clusterrank": "local",
+            "newrank": True,
+            "pad": 0.5,
+            "nodesep": 0.6,
+            "ranksep": 7.0,
+        },
+        "node": {
+            "shape": "box",
+            "width": 3.5,
+            "height": 1.0,
+            "fixedsize": True,
+            "fontsize": 10,
+        },
+    },
+
+    "edge_views": {
+        "AND": {"style": "solid", "color": "black", "weight": 5},
+        "OR": {"style": "dashed", "weight": 5},
+    },
+
+    "node_views": {
+        "KEYSTONE": {
+            "shape": "doubleoctagon",
+            "style": "rounded,filled",
+            "color": "#fffdf2",
+            "penwidth": 2,
+        },
+        "RCENTRE": {
+            "shape": "box",
+            "style": "rounded,filled",
+            "peripheries": 2,
+            "color": "#fffdf2",
+            "penwidth": 2,
+        },
+        "RESOURCE": {
+            "shape": "box",
+            "style": "rounded,filled,dotted,bold",
+            "color": "#fffdf2",
+            "penwidth": 1,
+        },
+        "CLUSTER": {"visible": False},
+        "DEFAULT": {
+            "shape": "box",
+            "style": "rounded,filled",
+            "color": "#fffdf2",
+            "penwidth": 2,
+        },
+    },
+
+    "cluster_view": {
+        "style": "rounded,filled,dashed",
+        "color": "blue",
+        "penwidth": 1.5,
+        "margin": 30,
+    },
+
+    # SVG post-processing of the grid renderer.
+    "postprocess": {
+        # Clusters in tiers band_tiers_from..band_tiers_to are drawn as
+        # full domain bands: as tall as the largest cluster of their
+        # domain within these tiers. All other tiers get a box as tall
+        # as their own nodes.
+        "band_tiers_from": 1,
+        "band_tiers_to": 6,
+        "corner_radius": 12,
+    },
 }
 
-DEFAULT_DOMAIN_COLOR = "black"
+
+def warn(message):
+    print(f"WARNING: {message}", file=sys.stderr)
+
+
+def deep_merge(base, override):
+    """Return base with override merged in. Tables merge recursively;
+    any other value (including lists) replaces the base value."""
+
+    result = copy.deepcopy(base)
+
+    for key, value in override.items():
+        if isinstance(value, dict) and isinstance(result.get(key), dict):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = copy.deepcopy(value)
+
+    return result
+
+
+def find_config_file(explicit_path):
+    """Return the config file to use, or None for built-in defaults."""
+
+    if explicit_path:
+        if not os.path.isfile(explicit_path):
+            raise SystemExit(f"Config file not found: {explicit_path}")
+        return explicit_path
+
+    candidate = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        CONFIG_FILE_NAME,
+    )
+
+    return candidate if os.path.isfile(candidate) else None
+
+
+def validate_config(config, source):
+    """Fail early, with a pointed message, on config mistakes that
+    would otherwise surface later as obscure errors."""
+
+    post = config["postprocess"]
+
+    if not (
+        isinstance(post["band_tiers_from"], int)
+        and isinstance(post["band_tiers_to"], int)
+        and post["band_tiers_from"] <= post["band_tiers_to"]
+    ):
+        raise SystemExit(
+            f"{source}: [postprocess] band_tiers_from and "
+            f"band_tiers_to must be integers with from <= to."
+        )
+
+    seen = set()
+
+    for index, entry in enumerate(config["domains"], start=1):
+
+        if (
+            not isinstance(entry, dict)
+            or "name" not in entry
+            or "color" not in entry
+        ):
+            raise SystemExit(
+                f"{source}: [[domains]] entry {index} needs both "
+                f"'name' and 'color'."
+            )
+
+        name = entry["name"]
+
+        if name in seen:
+            raise SystemExit(
+                f"{source}: domain '{name}' is listed more than once."
+            )
+        seen.add(name)
+
+        if not HEX_COLOR.match(str(entry["color"])):
+            raise SystemExit(
+                f"{source}: colour '{entry['color']}' for domain "
+                f"'{name}' must be of the form #RRGGBB."
+            )
+
+
+def load_config(path):
+    """Load the config file (if any) over the built-in defaults."""
+
+    config = copy.deepcopy(DEFAULT_CONFIG)
+
+    if path is None:
+        validate_config(config, "built-in defaults")
+        return config
+
+    if tomllib is None:
+        raise SystemExit(
+            "Reading a config file needs Python 3.11 or newer "
+            "(tomllib). Run without a config file to use the "
+            "built-in defaults."
+        )
+
+    with open(path, "rb") as f:
+        try:
+            user_config = tomllib.load(f)
+        except tomllib.TOMLDecodeError as error:
+            raise SystemExit(f"Invalid config file {path}: {error}")
+
+    for section in user_config:
+        if section not in DEFAULT_CONFIG:
+            warn(
+                f"unknown config section '{section}' in {path} "
+                f"is ignored"
+            )
+
+    config = deep_merge(config, user_config)
+    validate_config(config, path)
+
+    return config
+
+
+def domain_settings(config):
+    """Split the [[domains]] list into (ordered names, colour map)."""
+
+    names = [entry["name"] for entry in config["domains"]]
+    colors = {
+        entry["name"]: entry["color"] for entry in config["domains"]
+    }
+
+    return names, colors
+
+
+def check_domain_config(graph, configured_names):
+    """Compare the domains found in the CSV with the configured ones.
+
+    The CSV decides which domains exist; the config only decides how
+    they look and in which order. Mismatches are reported, not fatal:
+    unconfigured domains are appended after the configured ones with
+    the default colour, and configured-but-absent domains are skipped.
+    """
+
+    data_domains = list(graph["domains"])
+
+    # A typo in the config shows up as a configured name that is
+    # absent from the data, next to a data domain that is not
+    # configured. Only unconfigured data domains are offered as
+    # suggestions, so a legitimately configured domain is never
+    # proposed as the "correct" spelling.
+    unconfigured = [
+        name for name in data_domains if name not in configured_names
+    ]
+
+    for name in configured_names:
+        if name not in graph["domains"]:
+            hint = difflib.get_close_matches(name, unconfigured, n=1)
+            suggestion = f" Did you mean '{hint[0]}'?" if hint else ""
+            warn(
+                f"domain '{name}' is in the config but not in the "
+                f"data and is ignored.{suggestion}"
+            )
+
+    for name in data_domains:
+        if name not in configured_names:
+            warn(
+                f"domain '{name}' is in the data but not in the "
+                f"config; it is placed after the configured domains "
+                f"and uses the default colour."
+            )
+
+
+config_file = find_config_file(args.config)
+config = load_config(config_file)
+
+print(f"Config: {config_file or 'built-in defaults'}")
+
+domain_order_config, domain_colors = domain_settings(config)
+
+DEFAULT_DOMAIN_COLOR  = config["colors"]["default_domain"]
+CLUSTER_DARKEN_FACTOR = config["colors"]["cluster_darken"]
+or_colors             = config["colors"]["or_groups"]
+dim_config            = config["dim"]
+
+layout = dict(config["layout"])
+layout["domain_order"] = domain_order_config
+
+dot_view     = config["dot_view"]
+edge_views   = config["edge_views"]
+node_views   = config["node_views"]
+cluster_view = config["cluster_view"]
 
 
 def darken_color(hex_color, factor=0.82):
@@ -188,116 +521,6 @@ def darken_color(hex_color, factor=0.82):
     g = int(int(hex_color[2:4], 16) * factor)
     b = int(int(hex_color[4:6], 16) * factor)
     return f"#{r:02x}{g:02x}{b:02x}"
-
-or_colors = [
-    "#e41a1c", "#377eb8", "#4daf4a",
-    "#984ea3", "#ff7f00", "#ffff33",
-    "#a65628", "#f781bf"
-]
-
-
-layout = {
-    "policy": "compact",
-    "row_offset": 1,
-
-    # Tiers from this value onward are treated as "late tiers".
-    # Domains whose late-tier clusters exceed their early-tier
-    # maximum are centred vertically rather than band-placed,
-    # reflecting the structural shift to national programme tiers.
-    "late_tiers_from": 7,
-
-    "domain_order": [
-        "Air",
-        "Land",
-        "Naval",
-        "Programs",
-        "Research",
-        "Manufacturing",
-        "Intelligence",
-        "Energy",
-    ],
-}
-
-
-dot_view = {
-    "name": "TechTree",
-
-    "graph": {
-        "rankdir": "LR",
-        "splines": "polyline",
-        "compound": True,
-        "clusterrank": "local",
-        "newrank": True,
-        "pad": 0.5,
-        "nodesep": 0.6,
-        "ranksep": 7.0,
-    },
-
-    "node": {
-        "shape": "box",
-        "width": 3.5,
-        "height": 1.0,
-        "fixedsize": True,
-        "fontsize": 10,
-    }
-}
-
-
-edge_views = {
-    "AND": {
-        "style": "solid",
-        "color": "black",
-        "weight": 5,
-    },
-
-    "OR": {
-        "style": "dashed",
-        "weight": 5,
-    }
-}
-
-node_views = {
-    "KEYSTONE": {
-        "shape": "doubleoctagon",
-        "style": "rounded,filled",
-        "color": "#fffdf2",
-        "penwidth": 2
-    },
-
-    "RCENTRE": {
-        "shape": "box",
-        "style": "rounded,filled",
-        "peripheries": 2,
-        "color": "#fffdf2",
-        "penwidth": 2
-    },
-
-    "RESOURCE": {
-        "shape": "box",
-        "style": "rounded,filled,dotted,bold",
-        "color": "#fffdf2",
-        "penwidth": 1
-    },
-
-    "CLUSTER": {
-        "visible": False
-    },
-
-    "DEFAULT": {
-        "shape": "box",
-        "style": "rounded,filled",
-        "color": "#fffdf2",
-        "penwidth": 2
-    }
-}
-
-
-cluster_view = {
-    "style": "rounded,filled,dashed",
-    "color": "blue",
-    "penwidth": 1.5,
-    "margin": 30
-}
 
 
 grid_experiment = {
@@ -388,14 +611,48 @@ def create_endpoint(graph_node, routing):
     }
 
 
+CSV_DELIMITER = ","
+
+REQUIRED_COLUMNS = [
+    "Tech_ID", "Name", "Domain_code", "Domain", "Tier",
+    "Module", "Category", "Path",
+    "DepGroup1", "DepGroup2", "DepGroup3", "DepGroup4",
+]
+
+
 def load_data(input_file):
 
     rows = []
 
-    with open(input_file, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter=',')
+    # utf-8-sig silently drops the byte-order mark that spreadsheet
+    # exports often add; otherwise it would end up in the name of
+    # the first column ("\ufeffTech_ID").
+    with open(input_file, newline='', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f, delimiter=CSV_DELIMITER)
+
+        fieldnames = reader.fieldnames or []
+        missing = [c for c in REQUIRED_COLUMNS if c not in fieldnames]
+
+        if missing:
+            hint = ""
+            if len(fieldnames) == 1 and ";" in fieldnames[0]:
+                hint = " The file looks semicolon-separated; this " \
+                       "script expects commas."
+            elif "ID" in fieldnames and "Tech_ID" in missing:
+                hint = " The first column is still called 'ID'; " \
+                       "rename it to 'Tech_ID'."
+            raise SystemExit(
+                f"{input_file}: missing column(s) "
+                f"{', '.join(missing)}.{hint}"
+            )
 
         for row in reader:
+            # Skip completely empty rows (e.g. trailing blank lines
+            # in a spreadsheet export).
+            if not any(
+                isinstance(v, str) and v.strip() for v in row.values()
+            ):
+                continue
             rows.append(row)
 
     return rows
@@ -643,7 +900,7 @@ def apply_view(graph):
             cluster_data["view"] = cluster_view.copy()
             domain_color = domain_colors.get(domain)
             cluster_data["view"]["fillcolor"] = (
-                darken_color(domain_color)
+                darken_color(domain_color, CLUSTER_DARKEN_FACTOR)
                 if domain_color
                 else DEFAULT_DOMAIN_COLOR
             )
@@ -1663,6 +1920,17 @@ def print_layout(resolved_layout):
         )
 
 
+# DEBUG Function
+# def print_graphviz_model(graphviz_model):
+#
+#     print("\nGRAPHVIZ MODEL CLUSTERS")
+#
+#     for cluster in graphviz_model["clusters"]:
+#
+#         print(
+#             f'{cluster["id"]}: '
+#             f'{cluster["nodes"]}'
+#         )
 def print_graphviz_model(graphviz_model):
 
     print("\nGRAPHVIZ MODEL NODES")
@@ -1772,6 +2040,9 @@ def render_simple_svg(
         dot_file
     )
 
+    if svg_file is None:
+        return
+
     run_graphviz(
         dot_file,
         svg_file
@@ -1793,15 +2064,10 @@ def build_neato_model(graph, resolved_layout):
     simple renderer, so horizontal spacing matches.
     """
 
-    col_spacing = (
-        dot_view["node"]["width"]
-        + dot_view["graph"]["ranksep"]
-    ) * 72
+    geometry = grid_geometry()
 
-    row_spacing = (
-        dot_view["node"]["height"]
-        + dot_view["graph"]["nodesep"]
-    ) * 72
+    col_spacing = geometry["col_spacing"]
+    row_spacing = geometry["row_spacing"]
 
     # --- Nodes ---
 
@@ -1968,19 +2234,442 @@ def run_neato(dot_file, svg_file):
     )
 
 
+# ─────────────────────────────────────────────────────────────────
+# SVG post-processing (grid renderer)
+# ─────────────────────────────────────────────────────────────────
+#
+# Neato only places nodes and routes edges. Everything that is purely
+# visual is added afterwards, directly in the SVG. At the moment that
+# is the cluster background (one box per domain/tier cluster).
+# Nothing in this section moves a node or an edge.
+
+SVG_NS = "http://www.w3.org/2000/svg"
+ET.register_namespace("", SVG_NS)
+ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
+
+
+def svg_tag(name):
+    return f"{{{SVG_NS}}}{name}"
+
+
+def grid_geometry():
+    """Grid spacing and node size in points (72 pt = 1 inch)."""
+
+    return {
+        "col_spacing": (
+            dot_view["node"]["width"] + dot_view["graph"]["ranksep"]
+        ) * 72,
+        "row_spacing": (
+            dot_view["node"]["height"] + dot_view["graph"]["nodesep"]
+        ) * 72,
+        "node_w": dot_view["node"]["width"] * 72,
+        "node_h": dot_view["node"]["height"] * 72,
+    }
+
+
+def cluster_row_span(graph, resolved_layout, node_ids):
+    """First and last virtual row occupied by a set of laid-out nodes.
+
+    An RCENTRE occupies two rows. Uses the positions fixed at layout
+    time, so the result does not change when a view filter hides
+    nodes afterwards. Returns None if none of the nodes was placed.
+    """
+
+    rows = []
+
+    for tech_id in node_ids:
+
+        position = resolved_layout["nodes"].get(tech_id)
+
+        if position is None:
+            continue
+
+        rows.append(position["row"])
+
+        if graph["nodes"][tech_id]["category"] == "RCENTRE":
+            rows.append(position["row"] + 1)
+
+    if not rows:
+        return None
+
+    return min(rows), max(rows)
+
+
+def domain_band_rows(graph, resolved_layout):
+    """Height in rows of the largest cluster per domain, measured
+    over the configured band tiers only."""
+
+    first_tier = config["postprocess"]["band_tiers_from"]
+    last_tier = config["postprocess"]["band_tiers_to"]
+
+    band_rows = {}
+
+    for domain, domain_data in graph["domains"].items():
+
+        biggest = 0
+
+        for cluster in domain_data["clusters"].values():
+
+            span = cluster_row_span(
+                graph, resolved_layout, cluster["nodes"]
+            )
+
+            if span is None:
+                continue
+
+            if not first_tier <= int(cluster["tier"]) <= last_tier:
+                continue
+
+            biggest = max(biggest, span[1] - span[0] + 1)
+
+        band_rows[domain] = biggest
+
+    return band_rows
+
+
+def cluster_box_colors(domain, cluster, dimmed, dim_mode):
+    """(fill, stroke) of a cluster box.
+
+    Normal boxes use exactly the colours of the simple renderer.
+    In a filtered view, clusters without any highlighted node are
+    dimmed the same way as their nodes, with the fill kept slightly
+    darker than the node fill, as everywhere else.
+    """
+
+    if not dimmed:
+        return cluster["view"]["fillcolor"], cluster_view["color"]
+
+    if dim_mode == "grey":
+        grey = dim_config["grey"]
+        node_fill, stroke = grey["fillcolor"], grey["color"]
+    else:
+        fade = dim_config["fade"]
+        base = domain_colors.get(domain)
+        node_fill = (
+            blend_to_white(base, factor=fade["blend"])
+            if base
+            else fade["unknown_fill"]
+        )
+        stroke = fade["color"]
+
+    return darken_color(node_fill, CLUSTER_DARKEN_FACTOR), stroke
+
+
+def build_cluster_boxes(graph, resolved_layout, view_state=None):
+    """Compute one background box per cluster.
+
+    Coordinates are in the model's grid space (x grows right, y grows
+    down, one row = row_spacing); the offset neato applied to the
+    drawing is measured from the SVG later.
+
+    - Clusters in the band tiers are as tall as the largest cluster
+      of their domain in those tiers.
+    - All other clusters are as tall as their own nodes.
+    - Clusters whose nodes were all removed by a view filter get no
+      box. Partly removed clusters keep their full footprint, so the
+      grid looks the same in every view.
+    """
+
+    geometry = grid_geometry()
+    margin = cluster_view["margin"]
+
+    band_from = config["postprocess"]["band_tiers_from"]
+    band_to = config["postprocess"]["band_tiers_to"]
+    band_rows = domain_band_rows(graph, resolved_layout)
+
+    state = view_state or {}
+    highlighted = state.get("highlighted")
+    dim_mode = state.get("dim")
+
+    boxes = []
+
+    for domain, domain_data in graph["domains"].items():
+
+        for cluster in domain_data["clusters"].values():
+
+            members = [
+                tid for tid in cluster["nodes"]
+                if tid in resolved_layout["nodes"]
+            ]
+
+            if not members:
+                continue
+
+            if not any(
+                graph["nodes"][tid]["view"].get("visible", True)
+                for tid in members
+            ):
+                continue
+
+            first_row, last_row = cluster_row_span(
+                graph, resolved_layout, members
+            )
+
+            tier = int(cluster["tier"])
+
+            if band_from <= tier <= band_to:
+                last_row = max(
+                    last_row, first_row + band_rows[domain] - 1
+                )
+
+            column = resolved_layout["nodes"][members[0]]["column"]
+
+            dimmed = (
+                highlighted is not None
+                and not highlighted.intersection(members)
+            )
+
+            fill, stroke = cluster_box_colors(
+                domain, cluster, dimmed, dim_mode
+            )
+
+            boxes.append({
+                "id": re.sub(r"\W+", "_", f"cluster_{domain}_{tier}"),
+                "title": f"{domain} - Tier {tier}",
+                "left": (
+                    column * geometry["col_spacing"]
+                    - geometry["node_w"] / 2 - margin
+                ),
+                "top": (
+                    first_row * geometry["row_spacing"]
+                    - geometry["node_h"] / 2 - margin
+                ),
+                "width": geometry["node_w"] + 2 * margin,
+                "height": (
+                    (last_row - first_row) * geometry["row_spacing"]
+                    + geometry["node_h"] + 2 * margin
+                ),
+                "fill": fill,
+                "stroke": stroke,
+            })
+
+    return boxes
+
+
+def svg_shape_bbox(group):
+    """Bounding box (x0, y0, x1, y1) of the shapes in an SVG group."""
+
+    xs, ys = [], []
+    number = r"-?\d+(?:\.\d+)?"
+
+    for child in group:
+
+        tag = child.tag.split("}")[-1]
+
+        if tag in ("path", "polygon", "polyline"):
+            text = child.get("d") if tag == "path" else child.get("points")
+            values = [float(v) for v in re.findall(number, text or "")]
+            xs += values[0::2]
+            ys += values[1::2]
+
+        elif tag == "ellipse":
+            cx, cy = float(child.get("cx")), float(child.get("cy"))
+            rx, ry = float(child.get("rx")), float(child.get("ry"))
+            xs += [cx - rx, cx + rx]
+            ys += [cy - ry, cy + ry]
+
+    if not xs:
+        return None
+
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def measure_svg_offset(graph_group, neato_model):
+    """Offset between model coordinates and SVG graph coordinates.
+
+    Neato -n re-normalises the drawing so its bounding box starts at
+    the origin, so model positions and SVG positions differ by a
+    constant. It is measured from the drawn node shapes instead of
+    being computed, so it also holds when a view filter has changed
+    the bounding box. Returns (dx, dy, spread) or None; spread is the
+    largest disagreement between nodes and should be ~0.
+    """
+
+    dxs, dys = [], []
+
+    for group in graph_group.findall(svg_tag("g")):
+
+        if group.get("class") != "node":
+            continue
+
+        title = group.find(svg_tag("title"))
+        node = (
+            neato_model["nodes"].get(title.text)
+            if title is not None else None
+        )
+        bbox = svg_shape_bbox(group) if node else None
+
+        if bbox is None:
+            continue
+
+        x, y = (float(v) for v in node["pos"].split(","))
+
+        # svg_x = x + dx ;  svg_y = -y + dy  (SVG y points down)
+        dxs.append((bbox[0] + bbox[2]) / 2 - x)
+        dys.append((bbox[1] + bbox[3]) / 2 + y)
+
+    if not dxs:
+        return None
+
+    spread = max(max(dxs) - min(dxs), max(dys) - min(dys))
+
+    return statistics.median(dxs), statistics.median(dys), spread
+
+
+def add_cluster_boxes_to_svg(svg_file, neato_model, boxes):
+    """Insert the cluster boxes behind the nodes and edges of the SVG
+    and widen the canvas so the boxes keep the same padding."""
+
+    if not boxes:
+        return
+
+    tree = ET.parse(svg_file)
+    root = tree.getroot()
+
+    graph_group = next(
+        (
+            g for g in root.findall(svg_tag("g"))
+            if g.get("class") == "graph"
+        ),
+        None,
+    )
+
+    offset = (
+        measure_svg_offset(graph_group, neato_model)
+        if graph_group is not None else None
+    )
+
+    if offset is None:
+        warn("could not locate the nodes in the SVG; "
+             "cluster boxes were not added")
+        return
+
+    dx, dy, spread = offset
+
+    if spread > 1.0:
+        warn(
+            f"node positions in the SVG differ from the model by up "
+            f"to {spread:.1f} pt; cluster boxes may be misaligned"
+        )
+
+    style = cluster_view.get("style", "")
+    radius = (
+        config["postprocess"]["corner_radius"]
+        if "rounded" in style else 0
+    )
+
+    layer = ET.Element(svg_tag("g"), {"id": "clusters"})
+
+    for box in boxes:
+
+        group = ET.SubElement(
+            layer, svg_tag("g"),
+            {"id": box["id"], "class": "cluster"},
+        )
+        ET.SubElement(group, svg_tag("title")).text = box["title"]
+
+        attributes = {
+            "x": f"{box['left'] + dx:.1f}",
+            "y": f"{box['top'] + dy:.1f}",
+            "width": f"{box['width']:.1f}",
+            "height": f"{box['height']:.1f}",
+            "rx": str(radius),
+            "ry": str(radius),
+            "fill": box["fill"],
+            "stroke": box["stroke"],
+            "stroke-width": str(cluster_view.get("penwidth", 1)),
+        }
+
+        if "dashed" in style:
+            attributes["stroke-dasharray"] = "5,2"
+
+        ET.SubElement(group, svg_tag("rect"), attributes)
+
+    # Insert directly after the white page background so the boxes
+    # lie behind every edge and node.
+    background = next(
+        (
+            c for c in graph_group
+            if c.tag == svg_tag("polygon") and c.get("fill") == "white"
+        ),
+        None,
+    )
+    insert_at = (
+        list(graph_group).index(background) + 1
+        if background is not None else 1
+    )
+    graph_group.insert(insert_at, layer)
+
+    # Widen the canvas where the boxes reach past the original
+    # padding around the nodes.
+    translate = re.search(
+        r"translate\(\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*\)",
+        graph_group.get("transform", ""),
+    )
+    view_box = root.get("viewBox")
+
+    if translate and view_box:
+
+        tx, ty = float(translate.group(1)), float(translate.group(2))
+        _, _, width, height = (float(v) for v in view_box.split())
+        pad = dot_view["graph"]["pad"] * 72
+
+        min_x = min(b["left"] for b in boxes) + dx
+        max_x = max(b["left"] + b["width"] for b in boxes) + dx
+        min_y = min(b["top"] for b in boxes) + dy
+        max_y = max(b["top"] + b["height"] for b in boxes) + dy
+
+        # The canvas spans [-tx, width - tx] x [-ty, height - ty]
+        # in graph coordinates.
+        grow_left = max(0.0, -tx - (min_x - pad))
+        grow_right = max(0.0, (max_x + pad) - (width - tx))
+        grow_top = max(0.0, -ty - (min_y - pad))
+        grow_bottom = max(0.0, (max_y + pad) - (height - ty))
+
+        new_width = width + grow_left + grow_right
+        new_height = height + grow_top + grow_bottom
+        new_tx, new_ty = tx + grow_left, ty + grow_top
+
+        root.set("viewBox", f"0.00 0.00 {new_width:.2f} {new_height:.2f}")
+        root.set("width", f"{new_width:.0f}pt")
+        root.set("height", f"{new_height:.0f}pt")
+        graph_group.set(
+            "transform",
+            re.sub(
+                r"translate\([^)]*\)",
+                f"translate({new_tx:.2f} {new_ty:.2f})",
+                graph_group.get("transform"),
+            ),
+        )
+
+        if background is not None:
+            x0, x1 = -new_tx, new_width - new_tx
+            y0, y1 = -new_ty, new_height - new_ty
+            background.set(
+                "points",
+                f"{x0:.2f},{y0:.2f} {x1:.2f},{y0:.2f} "
+                f"{x1:.2f},{y1:.2f} {x0:.2f},{y1:.2f} {x0:.2f},{y0:.2f}",
+            )
+
+    tree.write(svg_file, encoding="utf-8", xml_declaration=True)
+
+
 def render_grid_svg(
     graph,
     resolved_layout,
     dot_file,
     svg_file,
     grid_experiment,
+    view_state=None,
 ):
-    """Render the grid view via neato with explicit node positions.
+    """Render the grid view: neato places and routes, then the
+    cluster backgrounds are added to the SVG.
 
-    The grid_experiment parameter is retained for signature
-    compatibility but is not used in the neato path.
-    Visual enhancements (domain bands, cluster outlines, tier
-    labels) will be added here as SVG post-processing.
+    svg_file=None stops after writing the DOT file.
+    view_state carries {"highlighted": set | None, "dim": mode} so
+    the cluster backgrounds can be dimmed like their nodes.
+    The grid_experiment parameter is kept for signature
+    compatibility and is not used in the neato path.
     """
 
     neato_model = build_neato_model(
@@ -1993,13 +2682,17 @@ def render_grid_svg(
         dot_file,
     )
 
+    if svg_file is None:
+        return
+
     run_neato(
         dot_file,
         svg_file,
     )
 
-    # TODO: SVG post-processing — domain background bands,
-    # cluster outlines, tier column headers, legend.
+    boxes = build_cluster_boxes(graph, resolved_layout, view_state)
+
+    add_cluster_boxes_to_svg(svg_file, neato_model, boxes)
 
 
 def blend_to_white(hex_color, factor=0.2):
@@ -2139,19 +2832,21 @@ def apply_view_filter(graph, highlighted, dim_mode):
             node["view"]["visible"] = False
 
         elif dim_mode == "grey":
-            node["view"]["fillcolor"] = "#dddddd"
-            node["view"]["color"]     = "#bbbbbb"
-            node["view"]["fontcolor"] = "#aaaaaa"
+            grey = dim_config["grey"]
+            node["view"]["fillcolor"] = grey["fillcolor"]
+            node["view"]["color"]     = grey["color"]
+            node["view"]["fontcolor"] = grey["fontcolor"]
 
         elif dim_mode == "fade":
+            fade = dim_config["fade"]
             domain_color = domain_colors.get(node["domain"])
             node["view"]["fillcolor"] = (
-                blend_to_white(domain_color, factor=0.2)
+                blend_to_white(domain_color, factor=fade["blend"])
                 if domain_color
-                else "#f5f5f5"
+                else fade["unknown_fill"]
             )
-            node["view"]["color"]     = "#cccccc"
-            node["view"]["fontcolor"] = "#cccccc"
+            node["view"]["color"]     = fade["color"]
+            node["view"]["fontcolor"] = fade["fontcolor"]
 
     for edge in graph["edges"]:
         src = edge["source"]["graph_node"]
@@ -2170,7 +2865,7 @@ def apply_view_filter(graph, highlighted, dim_mode):
 
         else:
             # Retain original style (solid/dashed) but grey the colour.
-            edge["view"]["color"]  = "#dddddd"
+            edge["view"]["color"]  = dim_config[dim_mode]["edge_color"]
             edge["view"]["weight"] = 1
 
 
@@ -2182,12 +2877,19 @@ rows = load_data(args.input_file)
 
 graph = build_graph(rows)
 
+check_domain_config(graph, domain_order_config)
+
 graph = apply_view(graph)
 
 # Pre-layout domain toggles (must run before resolve_layout so
 # hidden nodes are excluded from position calculation).
-if args.hide_resource:
-    apply_hide_domain(graph, "Resource")
+for domain_name in args.hide_domain or []:
+    if domain_name not in graph["domains"]:
+        raise SystemExit(
+            f"--hide-domain: no domain '{domain_name}' in the data. "
+            f"Available: {', '.join(graph['domains'])}"
+        )
+    apply_hide_domain(graph, domain_name)
 
 resolved_layout = resolve_layout(graph, layout)
 
@@ -2199,28 +2901,70 @@ if not args.notxt:
         terminal_file,
     )
 
+def output_paths(dot_name, svg_name, args):
+    """Resolve where one renderer writes, honouring --nodot/--nosvg.
+
+    Returns (dot_path, svg_path, temp_files), or None when both
+    outputs are suppressed and there is nothing to produce.
+    svg_path None means: stop after writing the DOT file.
+    Graphviz needs the DOT file as input, so with --nodot it is
+    written to a temporary file that is removed afterwards.
+    """
+
+    if args.nodot and args.nosvg:
+        return None
+
+    temp_files = []
+
+    if args.nodot:
+        handle, dot_path = tempfile.mkstemp(suffix=".dot")
+        os.close(handle)
+        temp_files.append(dot_path)
+    else:
+        dot_path = dot_name
+
+    return dot_path, (None if args.nosvg else svg_name), temp_files
+
+
 # ── Simple renderer (always full view, unaffected by --view) ─────
 if not args.nosimple:
-    render_simple_svg(
-        graph,
-        resolved_layout,
-        simple_dot_file if not args.nodot else os.devnull,
-        simple_svg_file if not args.nosvg else os.devnull,
-    )
+    targets = output_paths(simple_dot_file, simple_svg_file, args)
+    if targets:
+        dot_path, svg_path, temp_files = targets
+        try:
+            render_simple_svg(
+                graph,
+                resolved_layout,
+                dot_path,
+                svg_path,
+            )
+        finally:
+            for temp_file in temp_files:
+                os.remove(temp_file)
 
 # ── Apply view filter — grid renderer only ───────────────────────
 # Runs after the simple renderer so the simple SVG is never
 # affected by --view / --dim / --filter flags.
+highlighted = None
+
 if args.view != "full":
     highlighted = get_highlighted_nodes(graph, args)
     apply_view_filter(graph, highlighted, args.dim)
 
 # ── Grid renderer (filtered if --view is set) ─────────────────────
 if not args.nogrd:
-    render_grid_svg(
-        graph,
-        resolved_layout,
-        grid_dot_file if not args.nodot else os.devnull,
-        grid_svg_file if not args.nosvg else os.devnull,
-        grid_experiment,
-    )
+    targets = output_paths(grid_dot_file, grid_svg_file, args)
+    if targets:
+        dot_path, svg_path, temp_files = targets
+        try:
+            render_grid_svg(
+                graph,
+                resolved_layout,
+                dot_path,
+                svg_path,
+                grid_experiment,
+                {"highlighted": highlighted, "dim": args.dim},
+            )
+        finally:
+            for temp_file in temp_files:
+                os.remove(temp_file)

@@ -1,0 +1,9 @@
+"Effect_ID","Tech_ID","Capability_ID","Operation","Subject","Value","Remarks"
+"EFF-001","A.1.01","Defend","Add","UNIT-FIGHTER",1,"Once per battle"
+"EFF-002","A.1.02","Ability","Unlock","UNIT-TACTICAL-BOMBER",,"Airlift infantry"
+"EFF-003","A.1.02","Ability","Unlock","UNIT-INFANTRY",,"Airlifted by Tactical Bomber"
+"EFF-004","A.1.03","Unit","Unlock","UNIT-AIRSHIP",,
+"EFF-005","A.2.01","Ability","Unlock","UNIT-STRATEGIC-BOMBER",,"Fire defensively when intercepted"
+"EFF-006","A.2.01","Ability","Unlock","UNIT-TACTICAL-BOMBER",,"Fire defensively when intercepted"
+"EFF-007",,,,,,
+"EFF-008",,,,,,
