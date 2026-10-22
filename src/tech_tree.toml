@@ -107,6 +107,13 @@ weight = 5
 style  = "dashed"
 weight = 5
 
+# An edge leaving a whole cluster means "any one of its nodes", the
+# same as an OR over all of them. It is drawn from the edge of the
+# cluster's box in this style. Edges entering a cluster (every node
+# requires it) keep their normal AND/OR style.
+[edge_views.ANY]
+style  = "dashed"
+
 # ── Node styles by Category ─────────────────────────────────────────
 [node_views.KEYSTONE]
 shape    = "doubleoctagon"

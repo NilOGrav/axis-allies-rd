@@ -131,11 +131,11 @@ def output_suffix(args):
 args = parse_args()
 suffix = output_suffix(args)
 
-terminal_file     = "tech_tree.txt"
-simple_dot_file   = f"tech_tree_simple{suffix}.dot"
-simple_svg_file   = f"tech_tree_simple{suffix}.svg"
-grid_dot_file     = f"tech_tree_grid{suffix}.dot"
-grid_svg_file     = f"tech_tree_grid{suffix}.svg"
+terminal_file     = "output/txt/tech_tree.txt"
+simple_dot_file   = f"output/dot/tech_tree_simple{suffix}.dot"
+simple_svg_file   = f"output/svg/tech_tree_simple{suffix}.svg"
+grid_dot_file     = f"output/dot/tech_tree_grid{suffix}.dot"
+grid_svg_file     = f"output/svg/tech_tree_grid{suffix}.svg"
 
 WRITE_TERMINAL_FILE = True
 
@@ -273,6 +273,8 @@ DEFAULT_CONFIG = {
     "edge_views": {
         "AND": {"style": "solid", "color": "black", "weight": 5},
         "OR": {"style": "dashed", "weight": 5},
+        # Edge leaving a whole cluster: any one of its nodes will do.
+        "ANY": {"style": "dashed"},
     },
 
     "node_views": {
@@ -306,7 +308,7 @@ DEFAULT_CONFIG = {
 
     "cluster_view": {
         "style": "rounded,filled,dashed",
-        "color": "blue",
+        "color": "black",
         "penwidth": 1.5,
         "margin": 30,
     },
@@ -603,11 +605,23 @@ def create_edge(source, target, edge_type, or_group_id=None):
     }
 
 
-def create_endpoint(graph_node, routing):
+def create_endpoint(graph_node, routing, members=None, cluster=None):
 
     return {
+        # What Graphviz needs: one real node (for a cluster, its
+        # representative) plus the ltail/lhead routing hint.
         "graph_node": graph_node,
-        "routing": routing
+        "routing": routing,
+
+        # What the dependency means: the real technologies this
+        # endpoint stands for. One for a node, every member for a
+        # cluster. A dependency ON a cluster means "any one of its
+        # members" (an OR over all of them); a dependency OF a cluster
+        # means "every member".
+        "members": members if members is not None else [graph_node],
+
+        # (domain, cluster id) for a cluster endpoint, else None.
+        "cluster": cluster,
     }
 
 
@@ -694,12 +708,20 @@ def resolve_endpoint(endpoint_id, graph):
 
         representative = cluster["representative"]
 
+        members = [
+            tech_id
+            for tech_id in cluster["nodes"]
+            if graph["nodes"][tech_id]["category"] != "CLUSTER"
+        ]
+
         return create_endpoint(
             representative,
             routing_endpoint(
                 "cluster",
                 cluster_id
-            )
+            ),
+            members=members,
+            cluster=(domain, cluster_id)
         )
 
     raise ValueError(
@@ -2049,15 +2071,19 @@ def render_simple_svg(
     )
 
 
-def build_neato_model(graph, resolved_layout):
+def build_neato_model(graph, resolved_layout, boxes):
     """Build a neato-compatible model from the canonical graph.
 
     Unlike the dot model:
     - No subgraph clusters (neato ignores them anyway)
     - Every visible node gets a pos="x,y!" from the virtual grid
     - X. cluster proxy nodes are excluded (not visible)
-    - ltail/lhead cluster routing is dropped — edges go directly
-      between real nodes
+    - ltail/lhead cluster routing is dropped
+    - A dependency on a whole cluster is routed to an invisible
+      anchor point on the edge of that cluster's background box
+      (left edge when entering the cluster, right edge when leaving
+      it, at the vertical middle), not to one of its nodes. Edges
+      between real nodes go directly between them.
 
     Coordinates are in points (72pt = 1 inch), derived from the
     same dot_view width/height/ranksep/nodesep values used by the
@@ -2118,24 +2144,45 @@ def build_neato_model(graph, resolved_layout):
             "view": node_view,
         }
 
-    # --- Edges ---
-    # Read directly from graph["edges"] so we get the original
-    # source/target pairs before any cluster-routing substitution.
-    # Edges whose source or target is invisible (e.g. X. proxies)
-    # are skipped — both endpoints must be rendered nodes.
+    # --- Cluster anchors and edges ---
+
+    boxes_by_cluster = {box["cluster"]: box for box in boxes}
+    anchors = {}
+
+    def endpoint_id(endpoint, entering):
+        """Neato node id an edge should attach to, or None if that
+        end is not drawn (hidden node, or cluster without a box)."""
+
+        cluster = endpoint.get("cluster")
+
+        if cluster is None:
+            node_id = endpoint["graph_node"]
+            return node_id if node_id in neato_nodes else None
+
+        box = boxes_by_cluster.get(cluster)
+
+        if box is None:
+            return None
+
+        side = "L" if entering else "R"
+        anchor_id = f"__anchor_{box['id']}_{side}"
+
+        if anchor_id not in anchors:
+            x = box["left"] if entering else box["left"] + box["width"]
+            y = -(box["top"] + box["height"] / 2)
+            anchors[anchor_id] = {"pos": f"{x:.1f},{y:.1f}"}
+
+        return anchor_id
 
     neato_edges = []
     seen = set()
 
     for edge in graph["edges"]:
 
-        source = edge["source"]["graph_node"]
-        target = edge["target"]["graph_node"]
+        source = endpoint_id(edge["source"], entering=False)
+        target = endpoint_id(edge["target"], entering=True)
 
-        if source not in neato_nodes:
-            continue
-
-        if target not in neato_nodes:
+        if source is None or target is None:
             continue
 
         key = (source, target)
@@ -2143,16 +2190,30 @@ def build_neato_model(graph, resolved_layout):
             continue
         seen.add(key)
 
+        view = edge["view"].copy()
+
+        # An edge leaving a whole cluster means "any one of its
+        # nodes": draw it like an OR edge. Edges entering a cluster
+        # ("every node requires this") keep their normal style.
+        # Hidden (invisible) edges stay hidden.
+        if (
+            edge["source"].get("cluster") is not None
+            and edge["type"] == "AND"
+            and view.get("style") != "invis"
+        ):
+            view["style"] = edge_views["ANY"]["style"]
+
         neato_edges.append(
             {
                 "source": source,
                 "target": target,
-                "view": edge["view"].copy(),
+                "view": view,
             }
         )
 
     return {
         "nodes": neato_nodes,
+        "anchors": anchors,
         "edges": neato_edges,
     }
 
@@ -2193,6 +2254,15 @@ def write_neato_dot(neato_model, dot_file):
                 f'[label="{node["label"]}", '
                 f'pos="{node["pos"]}!", '
                 f'{node_attrs}];\n'
+            )
+
+        for anchor_id, anchor in neato_model["anchors"].items():
+
+            f.write(
+                f'"{anchor_id}" '
+                f'[label="", shape=point, width=0.02, height=0.02, '
+                f'fixedsize=true, style=invis, '
+                f'pos="{anchor["pos"]}!"];\n'
             )
 
         f.write("\n")
@@ -2385,7 +2455,7 @@ def build_cluster_boxes(graph, resolved_layout, view_state=None):
 
     for domain, domain_data in graph["domains"].items():
 
-        for cluster in domain_data["clusters"].values():
+        for cluster_key, cluster in domain_data["clusters"].items():
 
             members = [
                 tid for tid in cluster["nodes"]
@@ -2426,6 +2496,7 @@ def build_cluster_boxes(graph, resolved_layout, view_state=None):
             boxes.append({
                 "id": re.sub(r"\W+", "_", f"cluster_{domain}_{tier}"),
                 "title": f"{domain} - Tier {tier}",
+                "cluster": (domain, cluster_key),
                 "left": (
                     column * geometry["col_spacing"]
                     - geometry["node_w"] / 2 - margin
@@ -2672,9 +2743,14 @@ def render_grid_svg(
     compatibility and is not used in the neato path.
     """
 
+    # The boxes come first: edges that enter or leave a whole
+    # cluster are anchored on the edges of its box.
+    boxes = build_cluster_boxes(graph, resolved_layout, view_state)
+
     neato_model = build_neato_model(
         graph,
         resolved_layout,
+        boxes,
     )
 
     write_neato_dot(
@@ -2689,8 +2765,6 @@ def render_grid_svg(
         dot_file,
         svg_file,
     )
-
-    boxes = build_cluster_boxes(graph, resolved_layout, view_state)
 
     add_cluster_boxes_to_svg(svg_file, neato_model, boxes)
 
@@ -2736,13 +2810,15 @@ def find_chain_ancestors(graph, target_id):
             f"Chain target '{target_id}' not found in graph"
         )
 
-    # Build reverse edge map: target -> {sources}
+    # Build reverse edge map: target -> {sources}.
+    # A cluster endpoint stands for all of its members: every member
+    # of a target cluster has the sources as prerequisites, and any
+    # member of a source cluster can be the prerequisite.
     reverse_edges = defaultdict(set)
 
     for edge in graph["edges"]:
-        src = edge["source"]["graph_node"]
-        dst = edge["target"]["graph_node"]
-        reverse_edges[dst].add(src)
+        for dst in edge["target"]["members"]:
+            reverse_edges[dst].update(edge["source"]["members"])
 
     visited = {target_id}
     queue = [target_id]
@@ -2848,11 +2924,13 @@ def apply_view_filter(graph, highlighted, dim_mode):
             node["view"]["color"]     = fade["color"]
             node["view"]["fontcolor"] = fade["fontcolor"]
 
-    for edge in graph["edges"]:
-        src = edge["source"]["graph_node"]
-        dst = edge["target"]["graph_node"]
+    def lit(endpoint):
+        """A cluster endpoint counts as highlighted if any member is."""
+        return any(m in highlighted for m in endpoint["members"])
 
-        if src in highlighted and dst in highlighted:
+    for edge in graph["edges"]:
+
+        if lit(edge["source"]) and lit(edge["target"]):
             continue
 
         if dim_mode == "none":
