@@ -1,8 +1,23 @@
-# Axis & Allies R&D tech tree - presentation and layout settings.
+# Axis & Allies R&D tech tree - presentation, layout and file locations.
 #
 # The CSV defines the technology tree, including WHICH domains exist.
-# This file defines how it is presented. Keys you leave out fall back
-# to the built-in defaults in tech_tree.py.
+# This file defines how it is presented and where files live.
+#
+# This file is the single source of truth: there are no built-in
+# defaults in the program, so every setting below is required. A
+# missing setting is reported by name when the program starts.
+
+# ── Paths ───────────────────────────────────────────────────────────
+# 'root' is relative to THIS file (it sits in src/, the repository
+# root is one level up). Every other path is relative to root.
+# The output directories are created if they do not exist.
+# --file on the command line replaces tech_list for one run.
+[paths]
+root      = ".."
+tech_list = "data/research/Axis & Allies Research & Development - tech tree - Tech List.csv"
+txt_dir   = "output/txt"
+svg_dir   = "output/svg"
+dot_dir   = "output/dot"
 
 # ── Layout ──────────────────────────────────────────────────────────
 [layout]
