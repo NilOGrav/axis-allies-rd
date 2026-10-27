@@ -1,0 +1,202 @@
+# FROZEN config for the code tests. Changing the real config in src/
+# must not break tests of the code; the real config is only tested for
+# being valid (test_settings.py). Update this copy on purpose, together
+# with python tests/regen_golden.py, when the code gains a setting.
+
+# Axis & Allies R&D tech tree - presentation, layout and file locations.
+#
+# The CSV defines the technology tree, including WHICH domains exist.
+# This file defines how it is presented and where files live.
+#
+# This file is the single source of truth: there are no built-in
+# defaults in the program, so every setting below is required. A
+# missing setting is reported by name when the program starts.
+
+# ── Paths ───────────────────────────────────────────────────────────
+# 'root' is relative to THIS file (it sits in src/, the repository
+# root is one level up). Every other path is relative to root.
+# The output directories are created if they do not exist.
+# --file on the command line replaces tech_list for one run.
+[paths]
+root      = "../.."
+tech_list = "data/research/Axis & Allies Research & Development - tech tree - Tech List.csv"
+txt_dir   = "output/txt"
+svg_dir   = "output/svg"
+dot_dir   = "output/dot"
+
+# ── Layout ──────────────────────────────────────────────────────────
+[layout]
+policy          = "compact"
+row_offset      = 1    # free rows between clusters
+late_tiers_from = 7    # tiers >= this value use centred placement
+
+# ── Domains ─────────────────────────────────────────────────────────
+# The ORDER of these entries is the vertical order of the domain bands.
+# 'name' must match the Domain column in the CSV exactly.
+# Domains in the CSV but missing here are appended at the bottom with
+# the default colour (a warning is printed). Domains listed here but
+# absent from the CSV are ignored (a warning is printed).
+# Colours must be #RRGGBB.
+
+[[domains]]
+name  = "Air"
+color = "#cfe8ff"
+
+[[domains]]
+name  = "Land"
+color = "#d9f2d9"
+
+[[domains]]
+name  = "Naval"
+color = "#fff2cc"
+
+[[domains]]
+name  = "Programs"
+color = "#ffd9b3"
+
+[[domains]]
+name  = "Research"
+color = "#ffdefe"
+
+[[domains]]
+name  = "Manufacturing"
+color = "#c4a6ff"
+
+[[domains]]
+name  = "Intelligence"
+color = "#e0f7fa"
+
+[[domains]]
+name  = "Energy"
+color = "#f8d7da"
+
+# ── Colours ─────────────────────────────────────────────────────────
+[colors]
+default_domain = "black"   # fill for a domain that is not configured
+cluster_darken = 0.82      # cluster background = domain colour * factor
+or_groups = [              # cycled through for OR dependency groups
+    "#e41a1c", "#377eb8", "#4daf4a",
+    "#984ea3", "#ff7f00", "#ffff33",
+    "#a65628", "#f781bf",
+]
+
+# ── Dimming for --view (non-highlighted nodes) ──────────────────────
+[dim.grey]
+fillcolor  = "#dddddd"
+color      = "#bbbbbb"
+fontcolor  = "#aaaaaa"
+edge_color = "#dddddd"
+
+[dim.fade]
+blend        = 0.2         # 0 = white, 1 = full domain colour
+unknown_fill = "#f5f5f5"   # used for domains without a colour
+color        = "#cccccc"
+fontcolor    = "#cccccc"
+edge_color   = "#dddddd"
+
+# ── Graphviz geometry ───────────────────────────────────────────────
+# Node width/height and nodesep/ranksep also drive the grid spacing
+# of the neato renderer.
+[dot_view]
+name = "TechTree"
+
+[dot_view.graph]
+rankdir     = "LR"
+splines     = "polyline"
+compound    = true
+clusterrank = "local"
+newrank     = true
+pad         = 0.5
+nodesep     = 0.6
+ranksep     = 7.0
+
+[dot_view.node]
+shape     = "box"
+width     = 3.5
+height    = 1.0
+fixedsize = true
+fontsize  = 10
+
+# ── Edge styles ─────────────────────────────────────────────────────
+[edge_views.AND]
+style  = "solid"
+color  = "black"
+weight = 5
+
+[edge_views.OR]
+style  = "dashed"
+weight = 5
+
+# An edge leaving a whole cluster means "any one of its nodes", the
+# same as an OR over all of them. It is drawn from the edge of the
+# cluster's box in this style. Edges entering a cluster (every node
+# requires it) keep their normal AND/OR style.
+[edge_views.ANY]
+style  = "dashed"
+
+# ── Node styles by Category ─────────────────────────────────────────
+[node_views.KEYSTONE]
+shape    = "doubleoctagon"
+style    = "rounded,filled"
+color    = "#fffdf2"
+penwidth = 2
+
+[node_views.RCENTRE]
+shape       = "box"
+style       = "rounded,filled"
+peripheries = 2
+color       = "#fffdf2"
+penwidth    = 2
+
+[node_views.RESOURCE]
+shape    = "box"
+style    = "rounded,filled,dotted,bold"
+color    = "#fffdf2"
+penwidth = 1
+
+[node_views.CLUSTER]
+visible = false
+
+[node_views.DEFAULT]
+shape    = "box"
+style    = "rounded,filled"
+color    = "#fffdf2"
+penwidth = 2
+
+# ── Cluster boxes (simple renderer) ─────────────────────────────────
+[cluster_view]
+style    = "rounded,filled,dashed"
+color    = "black"
+penwidth = 1.5
+margin   = 30
+
+# ── SVG post-processing (grid renderer) ─────────────────────────────
+# Cluster backgrounds are drawn in the colours of the simple renderer.
+# Clusters in tiers band_tiers_from..band_tiers_to are drawn as full
+# domain bands: as tall as the largest cluster of their domain within
+# these tiers. All other tiers get a box as tall as their own nodes.
+[postprocess]
+band_tiers_from = 1
+band_tiers_to   = 6
+corner_radius   = 12
+
+# ── Data checks (tech_tree.py --check) ──────────────────────────────
+# Level per check: "error", "warning" or "off". --check exits with
+# status 1 on any error (and on any warning with --strict).
+[check]
+duplicate_id               = "error"
+missing_field              = "error"
+unknown_reference          = "error"
+unresearchable             = "error"
+module_combination_blocked = "error"
+module_loses_prerequisites = "warning"
+redundant_dependency       = "warning"
+tier_higher                = "warning"
+tier_same                  = "warning"
+no_prerequisites           = "warning"
+unknown_category           = "warning"
+id_mismatch                = "warning"
+domain_config              = "warning"
+missing_name               = "warning"
+missing_description        = "warning"
+unused_cluster_row         = "off"

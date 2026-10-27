@@ -57,7 +57,8 @@ is shown. Renderers turn the one canonical graph into views.
          |
          +--- paths (txt_dir, dot_dir, svg_dir, tech_list) <--- config
 
-Modules: settings (config), data (CSV and graph), views (styling and
-filters), layout (virtual grid), render_text, render_dot (simple),
+Modules: settings (config), data (CSV and graph), check (data lint, run
+by --check on the raw CSV rows before any graph is built), views (styling
+and filters), layout (virtual grid), render_text, render_dot (simple),
 render_grid and svg_postprocess (grid), output (file locations), util.
 """

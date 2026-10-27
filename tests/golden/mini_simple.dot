@@ -1,0 +1,114 @@
+digraph TechTree {
+graph [rankdir="LR", splines="polyline", compound=true, clusterrank="local", newrank=true, pad=0.5, nodesep=0.6, ranksep=7.0];
+node [shape="box", width=3.5, height=1.0, fixedsize=true, fontsize=10];
+subgraph cluster_R_0 {
+label="Research - Tier 0";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#d1b6d0"];
+"R.0.01" [label="R.0.01\nTest R.0.01", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#ffdefe"];
+}
+subgraph cluster_A_1 {
+label="Air - Tier 1";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
+"A.1.01" [label="A.1.01\nTest A.1.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.1.02" [label="A.1.02\nTest A.1.02", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.1.03" [label="A.1.03\nTest A.1.03", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+}
+subgraph cluster_A_2 {
+label="Air - Tier 2";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
+"A.2.01" [label="A.2.01\nTest A.2.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.2.02" [label="A.2.02\nTest A.2.02", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+}
+subgraph cluster_A_3 {
+label="Air - Tier 3";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
+"A.3.01" [label="A.3.01\nTest A.3.01", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.3.02" [label="A.3.02\nTest A.3.02", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+}
+subgraph cluster_A_4 {
+label="Air - Tier 4";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
+"A.4.01" [label="A.4.01\nTest A.4.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.4.02" [label="A.4.02\nTest A.4.02", shape="doubleoctagon", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+}
+subgraph cluster_A_5 {
+label="Air - Tier 5";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#a9bed1"];
+"A.5.01" [label="A.5.01\nTest A.5.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+"A.5.02" [label="A.5.02\nTest A.5.02", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#cfe8ff"];
+}
+subgraph cluster_L_1 {
+label="Land - Tier 1";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#b1c6b1"];
+"L.1.01" [label="L.1.01\nTest L.1.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+"L.1.02" [label="L.1.02\nTest L.1.02", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+}
+subgraph cluster_L_2 {
+label="Land - Tier 2";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#b1c6b1"];
+"L.2.01" [label="L.2.01\nTest L.2.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+}
+subgraph cluster_L_3 {
+label="Land - Tier 3";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#b1c6b1"];
+"L.3.01" [label="L.3.01\nTest L.3.01", shape="box", style="rounded,filled", peripheries=2, color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+}
+subgraph cluster_L_4 {
+label="Land - Tier 4";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#b1c6b1"];
+"L.4.01" [label="L.4.01\nTest L.4.01", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#d9f2d9"];
+}
+subgraph cluster_P_3 {
+label="Programs - Tier 3";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#d1b192"];
+"P.3.AA" [label="P.3.AA\nTest P.3.AA", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+}
+subgraph cluster_P_7 {
+label="Programs - Tier 7";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#d1b192"];
+"P.7.AA" [label="P.7.AA\nTest P.7.AA", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+"P.7.AB" [label="P.7.AB\nTest P.7.AB", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+"P.7.AC" [label="P.7.AC\nTest P.7.AC", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+"P.7.AD" [label="P.7.AD\nTest P.7.AD", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+}
+subgraph cluster_P_8 {
+label="Programs - Tier 8";
+graph [style="rounded,filled,dashed", color="black", penwidth=1.5, margin=30, fillcolor="#d1b192"];
+"P.8.AA" [label="P.8.AA\nTest P.8.AA", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+"P.8.AB" [label="P.8.AB\nTest P.8.AB", shape="box", style="rounded,filled", color="#555555", penwidth=2, fillcolor="#ffd9b3"];
+}
+{ rank=same; "R.0.01"; }
+{ rank=same; "A.1.01" "A.1.02" "A.1.03" "L.1.01" "L.1.02"; }
+{ rank=same; "A.2.01" "A.2.02" "L.2.01"; }
+{ rank=same; "A.3.01" "A.3.02" "L.3.01" "P.3.AA"; }
+{ rank=same; "A.4.01" "A.4.02" "L.4.01"; }
+{ rank=same; "A.5.01" "A.5.02"; }
+{ rank=same; "P.7.AA" "P.7.AB" "P.7.AC" "P.7.AD"; }
+{ rank=same; "P.8.AA" "P.8.AB"; }
+"A.1.01" -> "A.2.01" [style="solid", color="black", weight=5];
+"A.1.02" -> "A.2.02" [style="dashed", weight=5, color="#e41a1c"];
+"A.1.03" -> "A.2.02" [style="dashed", weight=5, color="#e41a1c"];
+"A.2.01" -> "A.3.01" [style="solid", color="black", weight=5, ltail=cluster_A_2];
+"A.2.01" -> "A.3.02" [style="solid", color="black", weight=5];
+"A.2.01" -> "A.4.01" [style="solid", color="black", weight=5];
+"A.2.02" -> "A.4.01" [style="solid", color="black", weight=5];
+"A.2.02" -> "A.4.02" [style="solid", color="black", weight=5];
+"A.4.01" -> "A.5.01" [style="solid", color="black", weight=5];
+"A.4.01" -> "A.5.02" [style="solid", color="black", weight=5];
+"L.1.01" -> "L.2.01" [style="solid", color="black", weight=5];
+"L.2.01" -> "L.3.01" [style="solid", color="black", weight=5, ltail=cluster_L_2];
+"L.2.01" -> "L.4.01" [style="solid", color="black", weight=5];
+"A.2.01" -> "P.3.AA" [style="solid", color="black", weight=5];
+"A.5.01" -> "P.7.AA" [style="solid", color="black", weight=5];
+"L.4.01" -> "P.7.AB" [style="solid", color="black", weight=5];
+"A.5.01" -> "P.7.AC" [style="dashed", weight=5, color="#377eb8"];
+"L.4.01" -> "P.7.AC" [style="dashed", weight=5, color="#377eb8"];
+"P.3.AA" -> "P.7.AD" [style="solid", color="black", weight=5];
+"P.7.AA" -> "P.8.AA" [style="solid", color="black", weight=5];
+"P.7.AB" -> "P.8.AB" [style="solid", color="black", weight=5];
+"R.0.01" -> "A.1.01" [style="solid", color="black", weight=5, lhead=cluster_A_1];
+"A.1.01" -> "A.2.01" [style="solid", color="black", weight=5, ltail=cluster_A_1, lhead=cluster_A_2];
+"A.3.01" -> "A.4.01" [style="solid", color="black", weight=5, lhead=cluster_A_4];
+"R.0.01" -> "L.1.01" [style="solid", color="black", weight=5, lhead=cluster_L_1];
+"L.1.01" -> "L.2.01" [style="solid", color="black", weight=5, ltail=cluster_L_1, lhead=cluster_L_2];
+}

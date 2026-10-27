@@ -3,14 +3,14 @@
 This project adds a modular **Research & Development (R&D) system** to **Axis & Allies: 1940**. It is a civilization-style system where you research technologies in different areas/domains, which open up new technologies on turn. The technologies offer perks in different areas. This is the development repository where all the materials for the game are gathered, including add-ons and the possibility to in- or exclude them (the modules can also be used **standalone** without the R&D system): 
 
 - **CORE**: the technology tree including deleopment paths in different domains: 
-  * Air            : everything to do with development of aircrafts and air combat;
-  * Land           : land units and territory control;
-  * Naval          : naval warfare and the domination of the seven seas;
-  * Manufacturing  : logitics and industry boosters to develop the superior production line;
-  * Energy         : using physics to create technological advancements over your opponents;
-  * Intelligence   : all things spying, sabotage and other covert ops;
-  * Programs       : specific research path to specialize in different topics, some of these are for named powers only;
-  * Research       : institutions and technologies which will generate extra Research Tokens
+  * *Air*            : everything to do with development of aircrafts and air combat;
+  * *Land*           : land units and territory control;
+  * *Naval*          : naval warfare and the domination of the seven seas;
+  * *Manufacturing*  : logitics and industry boosters to develop the superior production line;
+  * *Energy*         : using physics to create technological advancements over your opponents;
+  * *Intelligence*   : all things spying, sabotage and other covert ops;
+  * *Programs*       : specific research path to specialize in different topics, some of these are for named powers only;
+  * *Research*       : institutions and technologies which will generate extra Research Tokens
 - **NUCLEAR**: nuclear bomb and a means to drop it.
 - **OIL**: Finding and refining oil to allow your logistics to function.
 - **OCCULTISM**: Alternate history module to include the myths about Germany's occult research.
@@ -119,7 +119,7 @@ options:
 
 ```
 
-`$ python3 src/tech_tree.py data/research/Axis\ \&\ Allies\ Research\ \&\ Development\ -\ tech\ tree\ -\ Tech\ List.csv `
+`$ python3 src/tech_tree.py --config src/tech_tre.toml `
 
 This will generate a dot-file (in .) from the csv-file, which is than converted to a svg-file (also in .) that contains the Tech tree.
 

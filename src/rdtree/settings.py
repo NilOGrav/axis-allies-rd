@@ -29,8 +29,21 @@ HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
 # Top-level sections that exist. Anything else is reported as a typo.
 SECTIONS = {
     "layout", "domains", "colors", "dim", "dot_view", "edge_views",
-    "node_views", "cluster_view", "postprocess", "paths",
+    "node_views", "cluster_view", "postprocess", "paths", "check",
 }
+
+# The data checks of check.py. Each has a level in [check]:
+# "error", "warning" or "off".
+CHECK_IDS = [
+    "duplicate_id", "missing_field", "unknown_reference",
+    "unresearchable", "module_combination_blocked",
+    "module_loses_prerequisites",
+    "redundant_dependency", "tier_higher", "tier_same",
+    "no_prerequisites", "unknown_category", "id_mismatch",
+    "domain_config", "missing_name", "missing_description",
+    "unused_cluster_row",
+]
+CHECK_LEVELS = ("error", "warning", "off")
 
 # Settings the program cannot work without. Other keys inside the
 # style tables (dot_view.graph, node_views.*, ...) are passed through
@@ -52,7 +65,7 @@ REQUIRED_KEYS = [
     "postprocess.corner_radius",
     "paths.root", "paths.tech_list", "paths.txt_dir", "paths.svg_dir",
     "paths.dot_dir",
-]
+] + [f"check.{check}" for check in CHECK_IDS]
 
 # Loaded values (set by load()).
 config_file = None
@@ -69,6 +82,7 @@ edge_views = None
 node_views = None
 cluster_view = None
 paths = None
+check_levels = None
 
 
 def _has(table, dotted_key):
@@ -103,6 +117,14 @@ def _validate(cfg, source):
             f"{source}: [postprocess] band_tiers_from and "
             f"band_tiers_to must be integers with from <= to."
         )
+
+    for check in CHECK_IDS:
+        level = cfg["check"][check]
+        if level not in CHECK_LEVELS:
+            raise SystemExit(
+                f"{source}: [check] {check} is '{level}'; it must be "
+                f"one of: {', '.join(CHECK_LEVELS)}."
+            )
 
     seen = set()
 
@@ -157,7 +179,7 @@ def load(config_path):
     global config_file, config, layout, domain_order, domain_colors
     global DEFAULT_DOMAIN_COLOR, CLUSTER_DARKEN_FACTOR, or_colors
     global dim_config, dot_view, edge_views, node_views, cluster_view
-    global paths
+    global paths, check_levels
 
     if tomllib is None:
         raise SystemExit(
@@ -207,5 +229,6 @@ def load(config_path):
     cluster_view = cfg["cluster_view"]
 
     paths = _resolve_paths(cfg, config_path)
+    check_levels = cfg["check"]
 
     return config_path

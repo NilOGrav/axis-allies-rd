@@ -11,6 +11,7 @@ import os
 import sys
 
 from rdtree import settings
+from rdtree.check import exit_status, format_report, run_checks
 from rdtree.data import build_graph, check_domain_config, load_data
 from rdtree.layout import resolve_layout
 from rdtree.output import output_files, resolve_targets
@@ -53,6 +54,21 @@ def parse_args(argv=None):
             "styling and input/output paths. "
             "Default: tech_tree.toml next to this script."
         ),
+    )
+
+    # --- Data check ---
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help=(
+            "Only check the Tech List for mistakes and print a report; "
+            "no files are written. Exit status 1 if there are errors."
+        ),
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="With --check: exit status 1 for warnings as well.",
     )
 
     # --- View ---
@@ -147,9 +163,15 @@ def main(argv=None):
 
     print(f"Input:  {csv_path}")
 
-    files = output_files(args)
-
     rows = load_data(csv_path)
+
+    if args.check:
+        findings = run_checks(rows)
+        print()
+        print(format_report(findings, csv_path, len(rows)))
+        return exit_status(findings, strict=args.strict)
+
+    files = output_files(args)
 
     graph = build_graph(rows)
 

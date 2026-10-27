@@ -41,6 +41,8 @@ python src/tech_tree.py --hide-domain Programs --nosimple
 |---|---|
 | `--file CSV` | Tech List to read for this run. Default: `paths.tech_list` in the config. Relative to the current directory. |
 | `--config FILE` | Config file. Default: `tech_tree.toml` next to `tech_tree.py`. |
+| `--check` | Only check the Tech List for mistakes and print a report; nothing is written. Exit status 1 if there are errors. See "Checking the data". |
+| `--strict` | With `--check`: warnings also give exit status 1. |
 | `--view {full,module,domain,path,chain}` | Which nodes to highlight in the grid view. Default `full`. |
 | `--filter VALUE` | The module name, domain name, path name, or node id (for `chain`) to highlight. |
 | `--dim {grey,fade,none}` | What happens to everything else: flat grey, faded domain colour, or removed. Default `grey`. |
@@ -81,6 +83,7 @@ Every setting is required; a missing one is reported by name at start-up.
 | `[node_views.*]` | Node style per `Category`; `DEFAULT` is used for any category without its own entry. |
 | `[cluster_view]` | Style, colour, margin of the cluster boxes. |
 | `[postprocess]` | Which tiers are drawn as full domain bands (`band_tiers_from` / `band_tiers_to`) and the box corner radius. |
+| `[check]` | The level of every data check: `"error"`, `"warning"` or `"off"`. |
 
 The CSV decides which domains exist. A domain in the CSV but not in the
 config is placed at the bottom with the default colour; a configured
@@ -117,6 +120,57 @@ centre; takes two grid rows), `RESOURCE`, `CLUSTER` (never drawn). Any
 other value uses `DEFAULT`.
 
 **Path** is a comma-separated list; a technology can be on several paths.
+
+**Optional modules.** `Module` is `CORE` or an optional module (NUCLEAR,
+OIL, ...). Playing without a module removes its technologies. A technology
+that stays and depended on them is not blocked: a dependency group made
+only of removed technologies becomes obsolete (it is dropped), and a group
+with some alternatives left needs one of those. `--check` tries every
+combination of switched-off modules.
+
+## Checking the data
+
+```
+python src/tech_tree.py --check            # exit status 1 on errors
+python src/tech_tree.py --check --strict   # ... and on warnings
+python src/tech_tree.py --check --file other_list.csv
+```
+
+The checks work on the CSV rows themselves, before any graph is built, so
+they also report the mistakes that would make building the graph fail.
+Dependencies are read with the same meaning as in the views: a technology
+that depends on a cluster needs any one of its members, a gate listed on a
+cluster row applies to every member.
+
+**How to judge the levels.** Rate a finding by its consequence for the
+rules, not by how unusual it looks:
+
+- **error**: the tree as written is broken or breaks a design rule. A
+  technology can never become eligible, the data cannot be read
+  unambiguously, or core R&D needs an optional module.
+- **warning**: probably unintended, but the rules still work.
+- **off**: observations that are normal in this tree.
+
+The level of each check is set in `[check]` in `tech_tree.toml`; the
+defaults below are a starting point.
+
+| Check | Default | Finds |
+|---|---|---|
+| `duplicate_id` | error | The same `Tech_ID` twice. The later row silently replaces the earlier one. |
+| `missing_field` | error | Empty `Tech_ID`, `Domain`, `Domain_code` or `Tier`, or a `Tier` that is not a whole number. |
+| `unknown_reference` | error | A dependency naming something that does not exist, or a cluster row without technologies. |
+| `unresearchable` | error | A technology that can never become eligible: a cycle, or a prerequisite that cannot be met. Computed with AND, OR and cluster meaning. |
+| `module_combination_blocked` | error | A technology that cannot be researched when some optional modules are switched off (every combination is tried). See "Optional modules" below. |
+| `module_loses_prerequisites` | warning | A technology whose every dependency group becomes obsolete when modules are switched off, so it is left without any prerequisite. |
+| `redundant_dependency` | warning | A dependency group already implied by another group of the same technology (for example `(A\|B\|C)` next to `A`), or the same entry twice. A cluster-wide gate is never reported. |
+| `tier_higher` | warning | A prerequisite that is only available from a later tier. |
+| `tier_same` | warning | A prerequisite that is only available from the same tier. |
+| `no_prerequisites` | warning | A tier 2 or higher technology without any prerequisite (its own or from a cluster gate). |
+| `unknown_category` | warning | A `Category` with no entry in `[node_views]`; it would be drawn with `DEFAULT` (e.g. `RCENTER` for `RCENTRE`). |
+| `id_mismatch` | warning | A `Tech_ID` that disagrees with `Domain_code` or `Tier`, or one `Domain_code` used by several domains. |
+| `domain_config` | warning | Domains in the CSV and in `[[domains]]` that do not match. |
+| `missing_name` / `missing_description` | warning | Empty `Name` / `Description`. |
+| `unused_cluster_row` | off | A cluster row that nothing depends on and that has no dependencies itself. These are placeholders for future tiers. |
 
 ## Reading the grid view
 
@@ -215,10 +269,42 @@ placed = layout.resolve_layout(graph, settings.layout)["nodes"]
 Settings are loaded into module attributes, so one process uses one
 config at a time.
 
+## Tests
+
+```
+python -m unittest discover -s tests          # from the repository root
+python -m unittest tests.test_check -v        # one module
+```
+
+Only the standard library is needed (pytest runs them too). The tests use
+a small fixture tree (`tests/fixtures/mini.csv`) and a **frozen copy** of
+the config (`tests/fixtures/test.toml`), so tuning the real config does not
+break tests of the code. The real config is only tested for being valid.
+
+| Module | Covers |
+|---|---|
+| `test_settings` | Strict config: every missing or invalid setting is reported by name; path resolution. |
+| `test_data` | CSV loading and its hints; cluster endpoints and their members; the chain view. |
+| `test_layout` | Every technology placed once, bands, research centres, centred programme tiers. |
+| `test_check` | Every data check, including the cases that must *not* be reported. |
+| `test_render` | Golden DOT files (exact); cluster boxes, arrow anchors, dimming and canvas in the finished SVG. Needs Graphviz, skipped without. |
+| `test_cli` | `main()` end to end: output folders and suffixes, `--file`, `--nodot`/`--nosvg`, `--hide-domain`, `--check`. |
+
+Two tests also look at the real Tech List when it is present: the layout
+invariants, and "no duplicate ids, missing fields, unknown references or
+unresearchable technologies". Design questions such as module independence
+are for you to judge, so they are not tests.
+
+The DOT files are written by this program, not by Graphviz, so the golden
+files in `tests/golden/` do not depend on your Graphviz version. After a
+deliberate change to what the renderers write, run
+`python tests/regen_golden.py` and review the diff.
+
 ## Where to add things
 
 | To add | Where |
 |---|---|
 | A new output (JSON export, cards, web data) | A new `render_*.py` module that takes `graph` and the resolved layout, plus a call in `tech_tree.py`. |
 | A new view type | `get_highlighted_nodes` in `views.py` and the `--view` choices in `tech_tree.py`. |
-| A new setting | `tech_tree.toml`, and `REQUIRED_KEYS` in `settings.py` if the program cannot run without it. |
+| A new setting | `tech_tree.toml`, and `REQUIRED_KEYS` in `settings.py` if the program cannot run without it. Also add it to `tests/fixtures/test.toml`. |
+| A new data check | A check id in `CHECK_IDS` (`settings.py`), its level in `[check]` in both toml files, the logic in `check.py`, and a test in `test_check.py`. |

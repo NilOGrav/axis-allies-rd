@@ -174,3 +174,24 @@ margin   = 30
 band_tiers_from = 1
 band_tiers_to   = 6
 corner_radius   = 12
+
+# ── Data checks (tech_tree.py --check) ──────────────────────────────
+# Level per check: "error", "warning" or "off". --check exits with
+# status 1 on any error (and on any warning with --strict).
+[check]
+duplicate_id               = "error"
+missing_field              = "error"
+unknown_reference          = "error"
+unresearchable             = "error"
+module_combination_blocked = "error"
+module_loses_prerequisites = "warning"
+redundant_dependency       = "warning"
+tier_higher                = "warning"
+tier_same                  = "warning"
+no_prerequisites           = "warning"
+unknown_category           = "warning"
+id_mismatch                = "warning"
+domain_config              = "warning"
+missing_name               = "warning"
+missing_description        = "warning"
+unused_cluster_row         = "off"
