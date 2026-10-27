@@ -119,7 +119,9 @@ options:
 
 ```
 
-`$ python3 src/tech_tree.py --config src/tech_tre.toml `
+`$ python3 src/tech_tree.py --config src/tech_tree.toml `
 
-This will generate a dot-file (in .) from the csv-file, which is than converted to a svg-file (also in .) that contains the Tech tree.
+This will generate a dot-file (in output/dot/.) from the csv-file, which is than converted to a svg-file (in output/svg/.) that contains the Tech tree.
+
+Please check https://github.com/NilOGrav/axis-allies-rd/blob/main/src/README.md
 
