@@ -28,14 +28,16 @@ Do **not** automatically read every file in `docs/ai/`. The topic files are inte
 | `00-project-context.md` | Global project context, architecture and terminology |
 | `01-research-system.md` | Core R&D / research mechanics |
 | `02-technology-tree.md` | Technologies, prerequisites, domains, paths and technology-tree structure |
-| `03-resources.md` | Strategic resources and resource mechanics |
-| `04-facilities.md` | Facilities, Research Centres and infrastructure |
-| `05-graphviz.md` | Graphviz/SVG generation and visual tree architecture |
-| `06-triplea.md` | TripleA data model and implementation |
-| `07-modules.md` | Modular architecture and optional modules |
-| `08-oil.md` | Oil module |
-| `09-nuclear.md` | Nuclear module |
-| `10-zombie.md` | Zombie module |
+| `03-domain-design.md` | Domain structure in detail |
+| `04-resources.md` | Strategic resources and resource mechanics |
+| `05-facilities.md` | Facilities, Research Centres and infrastructure |
+| `10-modules.md` | Modular architecture and optional modules |
+| `11-module-oil.md` | Oil module |
+| `12-module-nuclear.md` | Nuclear module |
+| `13-module-zombie.md` | Zombie module |
+| `20-visualization-code.md` | Code architecture to deliver different visualisation based on a csv technology list |
+| `21-graphviz.md` | Graphviz/SVG generation and visual tree architecture |
+| `30-triplea.md` | TripleA data model and implementation |
 | `99-open-questions.md` | Cross-topic unresolved questions |
 | `HANDOVER.md` | Temporary current-session handover |
 
