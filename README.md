@@ -54,6 +54,18 @@ The project should eventually create:
 - [ ] Interactive website
 
 
+## Licensing
+
+This repository uses separate licenses for different kinds of material:
+
+- **Original software** — MIT License (`LICENSE`)
+- **Original research/design data and documentation** — CC BY 4.0 (`LICENSE-DATA`)
+- **Third-party material** — remains subject to its own rights or license and is not automatically covered by the project licenses
+
+See [`docs/licensing.md`](docs/licensing.md) for the detailed scope and [`NOTICE`](NOTICE) for attribution and third-party material information.
+
+Axis & Allies and associated intellectual property are not claimed as original project material. This is an independent fan-created project and is not represented as official, endorsed, sponsored, or affiliated with the rights holders.
+
 ## Project structure
 
 - `src/` — current Python source code
