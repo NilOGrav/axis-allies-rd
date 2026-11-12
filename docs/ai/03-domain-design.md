@@ -19,10 +19,10 @@ The domain structure is currently considered stable enough for implementation, b
 | L | Land | Ground warfare, tanks, armour, artillery and related land capabilities |
 | N | Naval | Surface ships, submarines, naval propulsion, naval weapons and naval warfare |
 | I | Intelligence | Intelligence, reconnaissance, espionage, counter-intelligence and information capabilities |
-| E | Energy And Physics | Nuclear physics, atomic energy, advanced energy and fundamental physical-science technologies |
-| L&I | Logistics And Industry | Industrial production, manufacturing, logistics, transportation and supporting infrastructure |
+| E | Energy | Nuclear physics, atomic energy, advanced energy and fundamental physical-science technologies |
+| M | Manufacturing | Industrial production, manufacturing, logistics, transportation and supporting infrastructure |
 | P | Programs | Large-scale or exceptional technological/development programmes |
-| R | Resource | Strategic physical/material resources |
+| R | Research | Technology to boost the research capabilities |
 
 The domain is a property of the technology model and is not merely a Graphviz presentation category.
 
