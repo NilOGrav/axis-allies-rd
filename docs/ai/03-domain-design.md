@@ -106,9 +106,9 @@ Primarily covers:
 
 A nuclear submarine remains primarily Naval because its primary capability is a submarine platform, even though nuclear propulsion creates an Energy And Physics relationship.
 
-## Energy And Physics
+## Energy
 
-Energy And Physics covers fundamental or enabling physical science, particularly:
+Energy covers fundamental or enabling physical science, particularly:
 
 - nuclear physics;
 - atomic energy;
@@ -125,7 +125,7 @@ The distinction is:
 - nuclear propulsion used as a naval capability → potentially Naval;
 - uranium/heavy water → Resource.
 
-## Logistics And Industry
+## Manufacturing
 
 This domain represents industrial and logistical capability itself, including:
 
@@ -160,24 +160,9 @@ If a node represents a normal technological capability that clearly belongs to a
 
 The current Occultism Germany P.3–P.6 programme is therefore retained under Programs for now rather than creating a new `Specials` domain solely for it.
 
-## Resources
+## Research
 
-Resources are not conceptually equivalent to technological domains.
-
-Resources are strategic/material inputs that can be used by technologies across multiple domains.
-
-Examples include:
-
-- uranium;
-- heavy water;
-- other strategic materials.
-
-Resource requirements are distinct from:
-
-- technology prerequisites;
-- facility requirements.
-
-The current `Resource` classification exists in the tree and data model, but its status as a true peer technological domain remains a design question for the later domain audit.
+This domain rotates around getting the means to do research by generating Research Tokens.
 
 ## Research Centres and Facilities
 
