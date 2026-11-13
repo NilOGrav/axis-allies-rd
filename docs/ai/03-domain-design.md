@@ -280,10 +280,10 @@ For each domain, the review should establish:
 | Land | TBD | TBD | TBD | TBD |
 | Naval | TBD | TBD | TBD | TBD |
 | Intelligence | TBD | TBD | TBD | TBD |
-| Energy And Physics | TBD | TBD | TBD | TBD |
-| Logistics And Industry | TBD | TBD | TBD | TBD |
+| Energy | TBD | TBD | TBD | TBD |
+| Manufacturing | TBD | TBD | TBD | TBD |
 | Programs | TBD | TBD | TBD | TBD |
-| Resource | TBD | TBD | TBD | TBD |
+| Research | TBD | TBD | TBD | TBD |
 
 Every problematic node should then be classified as one of:
 
