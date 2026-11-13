@@ -162,13 +162,13 @@ The current Occultism Germany P.3–P.6 programme is therefore retained under Pr
 
 ## Research
 
-This domain rotates around getting the means to do research by generating Research Tokens.
+This domain rotates around getting the means to do research by generating Research Tokens. One thing to note is that facilities for generating Research Tokens or supporting Research in any form belong to this domain. However Research Centres are generally bound to the domain they "work for". See below.
 
-## Research Centres and Facilities
+### Research Centres and Facilities
 
 Research Centres require a distinction between **general research infrastructure** and **domain-specific research infrastructure**.
 
-### Domain-specific Research Centres
+#### Domain-specific Research Centres
 
 A Research Centre can belong to a specific technological domain.
 
@@ -182,7 +182,7 @@ These facilities can interact with technological eligibility and therefore have 
 
 A Research Centre's domain does **not** mean that every technology it supports belongs to that domain; the technology's own primary capability remains the classification criterion.
 
-### General Research Facilities
+#### General Research Facilities
 
 Some research infrastructure is inherently general rather than domain-specific.
 
@@ -195,15 +195,15 @@ These currently represent only two general R&D nodes and do not justify creating
 
 Their potential role in a general Research Point (RP) economy remains an open design area.
 
-## `RCENTER` Data-Model Category
+#### `RCENTRE` Data-Model Category
 
-`RCENTER` is a data-model category for Research Centre nodes.
+`RCENTRE` is a data-model category for Research Centre nodes.
 
 It is not itself a technological domain.
 
 A node may therefore be:
 
-- category = `RCENTER`;
+- category = `RCENTRE`;
 - domain = `Naval`;
 
 for a Naval Research Centre.
