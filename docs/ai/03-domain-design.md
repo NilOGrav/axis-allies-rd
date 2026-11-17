@@ -203,6 +203,7 @@ The current Occultism Germany P.3–P.6 programme remains associated with Progra
 
 ## Research
 
+<<<<<<< HEAD
 **Research** is now an explicit domain in the current technology-tree configuration.
 
 This replaces the earlier assumption that general research infrastructure should necessarily remain outside the domain structure.
@@ -252,8 +253,11 @@ Category = RESOURCE
 ```
 
 is conceptually possible where the data model requires both classifications, without making Resource a domain.
+=======
+This domain rotates around getting the means to do research by generating Research Tokens. One thing to note is that facilities for generating Research Tokens or supporting Research in any form belong to this domain. However Research Centres are generally bound to the domain they "work for". See below.
+>>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
-## Research Centres and Facilities
+### Research Centres and Facilities
 
 Research Centres require a distinction between **facility category** and **domain**.
 
@@ -276,7 +280,7 @@ Likewise, a Research Centre may be associated with Research or another domain wh
 
 The facility's domain does not redefine the domain of every technology it supports.
 
-### Domain-specific Research Centres
+#### Domain-specific Research Centres
 
 A Research Centre can be associated with a specific technological domain.
 
@@ -290,9 +294,39 @@ These facilities can interact with technological eligibility and therefore have 
 
 ### General Research Infrastructure
 
+<<<<<<< HEAD
 Research-related facilities that are not themselves technological-domain nodes must remain distinguishable from the Research domain.
 
 The exact mechanical relationship between general research infrastructure, Research Centres and the Research Token economy remains a separate design question.
+=======
+#### General Research Facilities
+
+Some research infrastructure is inherently general rather than domain-specific.
+
+Current examples:
+
+- Basic Research Facility;
+- University.
+
+These currently represent only two general R&D nodes and do not justify creating a separate technological domain merely to contain them.
+
+Their potential role in a general Research Point (RP) economy remains an open design area.
+
+#### `RCENTRE` Data-Model Category
+
+`RCENTRE` is a data-model category for Research Centre nodes.
+
+It is not itself a technological domain.
+
+A node may therefore be:
+
+- category = `RCENTRE`;
+- domain = `Naval`;
+
+for a Naval Research Centre.
+
+This distinction must be preserved.
+>>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
 ## Current Classification Model
 
@@ -362,11 +396,19 @@ A formal **Domain Definition & Boundary** review should eventually establish, fo
 | Air | TBD | TBD | TBD | TBD |
 | Land | TBD | TBD | TBD | TBD |
 | Naval | TBD | TBD | TBD | TBD |
+<<<<<<< HEAD
 | Programs | TBD | TBD | TBD | TBD |
 | Research | TBD | TBD | TBD | TBD |
 | Manufacturing | TBD | TBD | TBD | TBD |
 | Intelligence | TBD | TBD | TBD | TBD |
 | Energy | TBD | TBD | TBD | TBD |
+=======
+| Intelligence | TBD | TBD | TBD | TBD |
+| Energy | TBD | TBD | TBD | TBD |
+| Manufacturing | TBD | TBD | TBD | TBD |
+| Programs | TBD | TBD | TBD | TBD |
+| Research | TBD | TBD | TBD | TBD |
+>>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
 Every problematic node should then be classified as one of:
 
