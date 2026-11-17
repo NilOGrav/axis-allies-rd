@@ -93,6 +93,12 @@ The project uses:
 
 ## Development
 
+The project uses AI to:
+- Help develop the python visualization code.
+- advise on the datamodel
+- test the tech tree for errors
+- setup of the github repository
+
 The repository is maintained using Git and GitHub. The `main` branch contains the current working version. Historical development versions are preserved under `archive/`.
 
 Since of v10.2 Github is handling the version history.
