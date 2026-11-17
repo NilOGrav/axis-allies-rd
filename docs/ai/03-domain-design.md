@@ -203,7 +203,6 @@ The current Occultism Germany P.3–P.6 programme remains associated with Progra
 
 ## Research
 
-<<<<<<< HEAD
 **Research** is now an explicit domain in the current technology-tree configuration.
 
 This replaces the earlier assumption that general research infrastructure should necessarily remain outside the domain structure.
@@ -253,9 +252,6 @@ Category = RESOURCE
 ```
 
 is conceptually possible where the data model requires both classifications, without making Resource a domain.
-=======
-This domain rotates around getting the means to do research by generating Research Tokens. One thing to note is that facilities for generating Research Tokens or supporting Research in any form belong to this domain. However Research Centres are generally bound to the domain they "work for". See below.
->>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
 ### Research Centres and Facilities
 
@@ -326,7 +322,6 @@ A node may therefore be:
 for a Naval Research Centre.
 
 This distinction must be preserved.
->>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
 ## Current Classification Model
 
@@ -396,19 +391,11 @@ A formal **Domain Definition & Boundary** review should eventually establish, fo
 | Air | TBD | TBD | TBD | TBD |
 | Land | TBD | TBD | TBD | TBD |
 | Naval | TBD | TBD | TBD | TBD |
-<<<<<<< HEAD
-| Programs | TBD | TBD | TBD | TBD |
-| Research | TBD | TBD | TBD | TBD |
-| Manufacturing | TBD | TBD | TBD | TBD |
-| Intelligence | TBD | TBD | TBD | TBD |
-| Energy | TBD | TBD | TBD | TBD |
-=======
 | Intelligence | TBD | TBD | TBD | TBD |
 | Energy | TBD | TBD | TBD | TBD |
 | Manufacturing | TBD | TBD | TBD | TBD |
 | Programs | TBD | TBD | TBD | TBD |
 | Research | TBD | TBD | TBD | TBD |
->>>>>>> 4f054f124334616d2b1db527f9c546c13a3215eb
 
 Every problematic node should then be classified as one of:
 
