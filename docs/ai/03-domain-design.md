@@ -290,11 +290,8 @@ These facilities can interact with technological eligibility and therefore have 
 
 ### General Research Infrastructure
 
-<<<<<<< HEAD
-Research-related facilities that are not themselves technological-domain nodes must remain distinguishable from the Research domain.
+Research-related facilities that are not themselves technological-domain nodes must remain distinguishable from the Research domain. The exact mechanical relationship between general research infrastructure, Research Centres and the Research Token economy remains a separate design question.
 
-The exact mechanical relationship between general research infrastructure, Research Centres and the Research Token economy remains a separate design question.
-=======
 #### General Research Facilities
 
 Some research infrastructure is inherently general rather than domain-specific.
