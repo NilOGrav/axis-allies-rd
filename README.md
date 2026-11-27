@@ -134,7 +134,6 @@ options:
   --nosvg               Skip SVG generation (both renderers).
   --nosimple            Skip the simple Graphviz dot renderer entirely.
   --nogrd               Skip the grid neato renderer entirely.
-
 ```
 
 `$ python3 src/tech_tree.py --config src/tech_tree.toml `
